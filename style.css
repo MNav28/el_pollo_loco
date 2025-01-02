@@ -1,0 +1,24 @@
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-position: center;
+    background-image: url('./assets/img/5_background/desert.jpg');
+    font-family: 'zabras', Arial, Helvetica, sans-serif;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+canvas {
+    background-color: black;
+}
+
+h1 {
+    font-size: 64px;
+    letter-spacing: 3px;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+}
+
