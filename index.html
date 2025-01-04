@@ -9,15 +9,18 @@
     <title>El Pollo Loco</title>
 
 </head>
-<body>
+<body onload="init()">
 
     <h1>El Pollo Loco - Inmortal</h1>
 
-    <canvas width="720" height="480">
+    <canvas id="canvas" width="720" height="480">
 
     </canvas>
 
-
+    <script src="./models/moveable-object.class.js"></script>
+    <script src="./models/character.class.js"></script>
+    <script src="./models/chicken.class.js"></script>
+    <script src="./models/world.class.js"></script>
     <script src="./scripts/game.js"></script>
     
 </body>
