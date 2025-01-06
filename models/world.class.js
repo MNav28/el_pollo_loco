@@ -6,10 +6,13 @@ class World {
         new Chicken(),
         new Chicken(),
     ]
-
+    clouds = [      // eine cloud erstellen damit die angezeigt wird
+        new Cloud()
+    ];  
     canvas; 
     ctx;            
 
+    
     constructor(canvas) {
         this.ctx = canvas.getContext('2d'); 
         this.canvas = canvas;  
@@ -22,8 +25,11 @@ class World {
         
         this.enemies.forEach(enemy => {
             this.ctx.drawImage(enemy.img, enemy.x, enemy.y, enemy.width, enemy.height);
-        })
-
+        });
+        
+        this.clouds.forEach(cloud => {
+            this.ctx.drawImage(cloud.img, cloud.x, cloud.y, cloud.width, cloud.height);
+        });
         
         let self = this;
         requestAnimationFrame(function() {  
