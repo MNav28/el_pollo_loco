@@ -17,7 +17,7 @@ class Character extends MoveableObject {
         this.loadImage('./assets/img/2_character_pepe/1_idle/idle/I-1.png');
         this.loadImages(this.IMAGES_WALKING);
 
-        this.animate();        
+        this.animate();       
     }
 
     animate(){ 
