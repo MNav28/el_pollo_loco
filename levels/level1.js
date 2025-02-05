@@ -3,6 +3,7 @@ const level1 = new Level(
         new Chicken(),              
         new Chicken(),
         new Chicken(),
+        new Endboss(),   // als neues enemie fügen wir den Endboss hinzu
     ],
     [      
         new Cloud()
