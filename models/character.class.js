@@ -1,7 +1,8 @@
 class Character extends MoveableObject {
     height = 280;
     width = 120;
-    y = 155;
+    //y = 155;
+    y = 80;
     speed = 10;
     IMAGES_WALKING = [
         './assets/img/2_character_pepe/2_walk/W-21.png',
@@ -17,7 +18,7 @@ class Character extends MoveableObject {
         super();
         this.loadImage('./assets/img/2_character_pepe/1_idle/idle/I-1.png');
         this.loadImages(this.IMAGES_WALKING);
-
+        this.applyGravity();  // sobald character erstellt wird soll er auch Gravitation haben
         this.animate();
     }
 
