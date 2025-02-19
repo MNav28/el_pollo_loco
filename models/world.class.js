@@ -15,7 +15,7 @@ class World {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
-        this.draw();
+        this.drawWorld();
         this.setWorld();
     }
 
@@ -23,7 +23,7 @@ class World {
         this.character.world = this;
     }
 
-    draw() {
+    drawWorld() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
         this.ctx.translate(this.camera_x, 0)
@@ -37,7 +37,7 @@ class World {
 
         let self = this;
         requestAnimationFrame(function () {
-            self.draw();
+            self.drawWorld();
         });
     }
 
@@ -49,24 +49,26 @@ class World {
 
     addToMap(mo) {
         if (mo.otherDirection) {
-            this.ctx.save();
-            this.ctx.translate(mo.width, 0);
-            this.ctx.scale(-1, 1);
-            mo.x = mo.x * -1;
-
+           this.flipImage(mo);
         }
 
-        this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);
-
-        this.ctx.beginPath();
-        this.ctx.lineWidth = '5';
-        this.ctx.strokeStyle = 'blue';
-        this.ctx.rect(mo.x, mo.y, mo.width, mo.height);  // die Koordinaten an unseren jeweiligen Objekt einfügen d.h die x und die y koordinaten des objektes einfügen
-        this.ctx.stroke();
-
+        mo.drawObject(this.ctx);  
+        mo.drawFrame(this.ctx);  
+       
         if (mo.otherDirection) {
-            mo.x = mo.x * -1;
-            this.ctx.restore();
+            this.flipImageBack(mo);
         }
+    }
+
+    flipImage(mo) {
+        this.ctx.save();
+        this.ctx.translate(mo.width, 0);
+        this.ctx.scale(-1, 1);
+        mo.x = mo.x * -1;
+    }
+
+    flipImageBack(mo) {
+        mo.x = mo.x * -1;
+        this.ctx.restore();
     }
 }
