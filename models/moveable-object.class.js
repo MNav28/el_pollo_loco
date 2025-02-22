@@ -30,16 +30,25 @@ class MoveableObject {
         this.img.src = path;
     }
 
-    drawObject(ctx) { 
+    drawObject(ctx) {
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
     }
 
-    drawFrame(ctx){
-        ctx.beginPath();
-        ctx.lineWidth = '5';
-        ctx.strokeStyle = 'blue';
-        ctx.rect(this.x, this.y, this.width, this.height);  // die Koordinaten an unseren jeweiligen Objekt einfügen d.h die x und die y koordinaten des objektes einfügen
-        ctx.stroke();
+    drawFrame(ctx) {
+        if (this instanceof Character || this instanceof Chicken) { 
+            ctx.beginPath();
+            ctx.lineWidth = '5';
+            ctx.strokeStyle = 'blue';
+            ctx.rect(this.x, this.y, this.width, this.height);  
+            ctx.stroke();
+        }
+    }
+
+    isColliding(mo) {
+        return this.x + this.width > mo.x &&
+        this.y + this.height > mo.y &&
+        this.x < mo.x &&
+        this.y < mo.y + mo.height;
     }
 
     loadImages(arr) {
@@ -67,6 +76,6 @@ class MoveableObject {
     }
 
     jump() {
-        this.speedY = 30; 
+        this.speedY = 30;
     }
 }

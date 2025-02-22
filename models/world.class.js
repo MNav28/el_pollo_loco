@@ -11,16 +11,27 @@ class World {
     keyboard;
     camera_x = 0;
 
-    constructor(canvas, keyboard) {
+    constructor(canvas, keyboard) {    
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
         this.drawWorld();
         this.setWorld();
+        this.checkCollisions();
     }
 
     setWorld() {
         this.character.world = this;
+    }
+
+    checkCollisions() { 
+        setInterval(() => {    
+            this.level.enemies.forEach((enemy) => { 
+                if (this.character.isColliding(enemy)) {  
+                    console.log('Collision with character', enemy); 
+                }
+            });
+        }, 200);
     }
 
     drawWorld() {
@@ -49,12 +60,12 @@ class World {
 
     addToMap(mo) {
         if (mo.otherDirection) {
-           this.flipImage(mo);
+            this.flipImage(mo);
         }
 
-        mo.drawObject(this.ctx);  
-        mo.drawFrame(this.ctx);  
-       
+        mo.drawObject(this.ctx);
+        mo.drawFrame(this.ctx);
+
         if (mo.otherDirection) {
             this.flipImageBack(mo);
         }
