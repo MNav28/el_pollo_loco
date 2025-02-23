@@ -52,6 +52,17 @@ class MoveableObject {
         this.y < mo.y + mo.height;
     }
 
+    hit() {   
+        this.energy -= 5;  
+        if(this.energy < 0) {    
+            this.energy = 0; 
+        }
+    }
+
+    isDead() {  // wir prüfen ob der character tod ist oder ein anderes Objekt
+        return this.energy == 0;  // wenn die energy 0 ist dann kommt aus dieser fkt der Wert 0 raus; isDead() returned true wenn tod ansonsten false
+    }
+
     loadImages(arr) {
         arr.forEach(path => {
             let img = new Image();

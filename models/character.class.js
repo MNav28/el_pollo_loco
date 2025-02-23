@@ -24,6 +24,17 @@ class Character extends MoveableObject {
         './assets/img/2_character_pepe/3_jump/J-38.png',
         './assets/img/2_character_pepe/3_jump/J-39.png'
     ]
+
+    IMAGES_DEAD = [     // images vom toten character wenn er halt erledigt ist
+        './assets/img/2_character_pepe/5_dead/D-51.png',
+        './assets/img/2_character_pepe/5_dead/D-52.png',
+        './assets/img/2_character_pepe/5_dead/D-53.png',
+        './assets/img/2_character_pepe/5_dead/D-54.png',
+        './assets/img/2_character_pepe/5_dead/D-55.png',
+        './assets/img/2_character_pepe/5_dead/D-56.png',
+        './assets/img/2_character_pepe/5_dead/D-57.png',
+    ];  
+
     world;
 
     constructor() {
@@ -31,6 +42,7 @@ class Character extends MoveableObject {
         this.loadImage('./assets/img/2_character_pepe/1_idle/idle/I-1.png');
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING);
+        this.loadImages(this.IMAGES_DEAD);  // die dead images vorladen
         this.applyGravity();
         this.animate();
     }
@@ -56,12 +68,15 @@ class Character extends MoveableObject {
 
 
         setInterval(() => {
-            if (this.isAboveGround()) {
-                this.playAnimation(this.IMAGES_JUMPING);
+            if(this.isDead()) {  
+                this.playAnimation(this.IMAGES_DEAD);
+            } else if (this.isAboveGround()) {
+                // jump animation
+                this.playAnimation(this.IMAGES_JUMPING);  
             } else {
                 if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                     // Walk animation
-                    this.playAnimation(this.IMAGES_WALKING);
+                    this.playAnimation(this.IMAGES_WALKING);  
                 }
             }
         }, 50);
