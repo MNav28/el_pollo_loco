@@ -11,6 +11,7 @@ class MoveableObject {
     speedY = 0;
     acceleration = 2.5;
     energy = 100;
+    lastHit = 0;
 
     applyGravity() {
         setInterval(() => {
@@ -36,32 +37,42 @@ class MoveableObject {
     }
 
     drawFrame(ctx) {
-        if (this instanceof Character || this instanceof Chicken) { 
+        if (this instanceof Character || this instanceof Chicken) {
             ctx.beginPath();
             ctx.lineWidth = '5';
             ctx.strokeStyle = 'blue';
-            ctx.rect(this.x, this.y, this.width, this.height);  
+            ctx.rect(this.x, this.y, this.width, this.height);
             ctx.stroke();
         }
     }
 
     isColliding(mo) {
         return this.x + this.width > mo.x &&
-        this.y + this.height > mo.y &&
-        this.x < mo.x &&
-        this.y < mo.y + mo.height;
+            this.y + this.height > mo.y &&
+            this.x < mo.x &&
+            this.y < mo.y + mo.height;
     }
 
-    hit() {   
-        this.energy -= 5;  
-        if(this.energy < 0) {    
-            this.energy = 0; 
+    hit() {
+        this.energy -= 5;
+        if (this.energy < 0) {
+            this.energy = 0;
+        } else {  
+            this.lastHit = new Date().getTime(); 
         }
     }
 
-    isDead() {  // wir prüfen ob der character tod ist oder ein anderes Objekt
-        return this.energy == 0;  // wenn die energy 0 ist dann kommt aus dieser fkt der Wert 0 raus; isDead() returned true wenn tod ansonsten false
+    isDead() {  
+        return this.energy == 0;  
     }
+
+    
+    isHurt() {      
+        let timepassed = new Date().getTime() - this.lastHit; 
+        timepassed = timepassed / 1000; 
+        return timepassed < 1;  
+    }
+
 
     loadImages(arr) {
         arr.forEach(path => {
@@ -73,7 +84,7 @@ class MoveableObject {
     }
 
     playAnimation(images) {
-        let i = this.currentImage % this.IMAGES_WALKING.length;
+        let i = this.currentImage % images.length; 
         let path = images[i];
         this.img = this.imageCache[path];
         this.currentImage++;

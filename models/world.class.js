@@ -17,7 +17,7 @@ class World {
         this.keyboard = keyboard;
         this.drawWorld();
         this.setWorld();
-        this.checkCollisions();
+        this.checkCollisions(); // wird sofort ausgeführt checked ob es eine Kollision gibt zwischen den Objekten
     }
 
     setWorld() {
@@ -30,7 +30,7 @@ class World {
                 if (this.character.isColliding(enemy)) {  
                     //this.character.energy -= 5;  
                     this.character.hit();
-                    console.log('Collision with character, energy:', this.character.energy);
+                    //console.log('Collision with character, energy:', this.character.energy);
                 }
             });
         }, 200);
