@@ -10,7 +10,9 @@ class World {
     ctx;
     keyboard;
     camera_x = 0;
-    statusBarHealth = new StatusBar();
+    statusBarHealth = new StatusBarHealth();
+    statusBarBottle = new StatusBarBottle();
+    statusBarCoin = new StatusBarCoin();
     //bottle = new ThrowableObject();
     throwableObjects = [];
 
@@ -20,7 +22,7 @@ class World {
         this.keyboard = keyboard;
         this.drawWorld();
         this.setWorld();
-        this.run(); // statt checkCollision nennen wir es run() da es ein intervall ist was regelmässig ausgeführt wird
+        this.run();
     }
 
     setWorld() {
@@ -30,12 +32,13 @@ class World {
     run() { 
         setInterval(() => {    
             this.checkCollisions();
-            this.checkThrowObjects();  // um zu prüfen ob die Taste D gedrückt wurde
+            this.checkThrowObjects();
         }, 200);
     }
 
     checkThrowObjects() { 
-        if(this.keyboard.D) { // wenn die Taste gedrückt wurde dann ....
+        if(this.keyboard.D) {
+            console.log("D wurde gedrückt! Erstelle Flasche...");
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
             this.throwableObjects.push(bottle);
         } 
@@ -62,7 +65,9 @@ class World {
       
         this.addObjectsToMap(this.level.clouds);
         this.ctx.translate(-this.camera_x, 0);  
-        this.addToMap(this.statusBarHealth);    
+        this.addToMap(this.statusBarHealth);  
+        this.addToMap(this.statusBarBottle);  
+        this.addToMap(this.statusBarCoin);  
         this.ctx.translate(this.camera_x, 0)
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.throwableObjects);
