@@ -44,6 +44,7 @@ class World {
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
             this.throwableObjects.push(bottle);
             this.collectedBottles--;
+            this.updateStatusbarBottle();
         } 
     }
 
@@ -73,7 +74,13 @@ class World {
         if (index !== -1) {
             this.level.bottles.splice(index, 1);
             this.collectedBottles++;
+            this.updateStatusbarBottle();
         }
+    }
+
+    updateStatusbarBottle() {
+        let percentage = (this.collectedBottles / 8) * 100;
+        this.statusBarBottle.setPercentage(percentage);  
     }
 
     drawWorld() {
