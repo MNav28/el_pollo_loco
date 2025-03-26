@@ -15,6 +15,7 @@ class World {
     statusBarCoin = new StatusBarCoin();
     //bottle = new ThrowableObject();
     throwableObjects = [];
+    collectedBottles = 0;
 
     constructor(canvas, keyboard) {    
         this.ctx = canvas.getContext('2d');
@@ -33,14 +34,16 @@ class World {
         setInterval(() => {    
             this.checkCollisions();
             this.checkThrowObjects();
+            this.checkCollisionBottles();
         }, 200);
     }
 
     checkThrowObjects() { 
-        if(this.keyboard.D) {
+        if(this.keyboard.D && !this.collectedBottles == 0 ) {
             console.log("D wurde gedrückt! Erstelle Flasche...");
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
             this.throwableObjects.push(bottle);
+            this.collectedBottles--;
         } 
     }
 
@@ -53,6 +56,24 @@ class World {
                 //console.log('Collision with character, energy:', this.character.energy);
             }
         });
+    }
+
+    checkCollisionBottles() {
+        this.level.bottles.forEach((bottle) => {
+            if (this.character.isColliding(bottle) && this.collectedBottles < 8) {
+                console.log('collision with bottle !');
+                this.collectBottle(bottle);
+                console.log('amount of bottles =', this.collectedBottles);
+            }
+        });
+    }
+
+    collectBottle(bottle) {
+        let index = this.level.bottles.indexOf(bottle);
+        if (index !== -1) {
+            this.level.bottles.splice(index, 1);
+            this.collectedBottles++;
+        }
     }
 
     drawWorld() {
