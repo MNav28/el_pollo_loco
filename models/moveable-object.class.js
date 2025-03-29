@@ -17,42 +17,50 @@ class MoveableObject extends DrawableObject {
     }
 
     isAboveGround() {
-        if(this instanceof ThrowableObject) {  // throwable object should always fall
+        if (this instanceof ThrowableObject) {  // throwable object should always fall
             return true
         } else {
             return this.y < 150;
-        }        
+        }
     }
-   
+    /*
     isColliding(mo) {
         return this.x + this.width > mo.x &&
             this.y + this.height > mo.y &&
             this.x < mo.x &&
             this.y < mo.y + mo.height;
+    }  */
+
+    isColliding(obj) {
+        return (this.x + this.offsetX + this.width - this.offsetWidth) >= obj.x &&
+            this.x + this.offsetX <= (obj.x + obj.width) &&
+            (this.y + this.offsetY + this.height - this.offsetHeight) >= obj.y &&
+            (this.y + this.offsetY) <= (obj.y + obj.height);
     }
+
 
     hit() {
         this.energy -= 5;
         if (this.energy < 0) {
             this.energy = 0;
-        } else {  
-            this.lastHit = new Date().getTime(); 
+        } else {
+            this.lastHit = new Date().getTime();
         }
     }
 
-    isDead() {  
-        return this.energy == 0;  
+    isDead() {
+        return this.energy == 0;
     }
 
     
-    isHurt() {      
-        let timepassed = new Date().getTime() - this.lastHit; 
-        timepassed = timepassed / 1000; 
-        return timepassed < 1;  
+    isHurt() {
+        let timepassed = new Date().getTime() - this.lastHit;
+        timepassed = timepassed / 1000;
+        return timepassed < 1;
     }
 
     playAnimation(images) {
-        let i = this.currentImage % images.length; 
+        let i = this.currentImage % images.length;
         let path = images[i];
         this.img = this.imageCache[path];
         this.currentImage++;
