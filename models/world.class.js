@@ -16,6 +16,7 @@ class World {
     //bottle = new ThrowableObject();
     throwableObjects = [];
     collectedBottles = 0;
+    collectedCoins = 0
 
     constructor(canvas, keyboard) {    
         this.ctx = canvas.getContext('2d');
@@ -35,6 +36,7 @@ class World {
             this.checkCollisions();
             this.checkThrowObjects();
             this.checkCollisionBottles();
+            this.checkCollisionCoins();
         }, 200);
     }
 
@@ -64,7 +66,7 @@ class World {
             if (this.character.isColliding(bottle) && this.collectedBottles < 8) {
                 console.log('collision with bottle !');
                 this.collectBottle(bottle);
-                console.log('amount of bottles =', this.collectedBottles);
+                //console.log('amount of bottles =', this.collectedBottles);
             }
         });
     }
@@ -81,6 +83,30 @@ class World {
     updateStatusbarBottle() {
         let percentage = (this.collectedBottles / 8) * 100;
         this.statusBarBottle.setPercentage(percentage);  
+    }
+
+    checkCollisionCoins() {
+        this.level.coins.forEach((coin) => {
+            if(this.character.isColliding(coin) && this.collectedCoins < 8) {
+                console.log('collision with coin!');
+                this.collectCoin(coin);
+                console.log('amount of coins =', this.collectedCoins);
+            }
+        });
+    }
+
+    collectCoin(coin) {
+        let index = this.level.coins.indexOf(coin);
+        if (index !== -1) {
+            this.level.coins.splice(index, 1);
+            this.collectedCoins++ ;
+            this.updateStatusbarCoin();
+        }
+    }
+
+    updateStatusbarCoin() {
+        let percentage = (this.collectedCoins / 8) * 100;
+        this.statusBarCoin.setPercentage(percentage);
     }
 
     drawWorld() {
