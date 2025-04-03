@@ -41,6 +41,32 @@ class Character extends MoveableObject {
         './assets/img/2_character_pepe/4_hurt/H-43.png',
     ];
 
+    IMAGES_IDLE = [
+        './assets/img/2_character_pepe/1_idle/idle/I-1.png',
+        './assets/img/2_character_pepe/1_idle/idle/I-2.png',
+        './assets/img/2_character_pepe/1_idle/idle/I-3.png',
+        './assets/img/2_character_pepe/1_idle/idle/I-4.png',
+        './assets/img/2_character_pepe/1_idle/idle/I-5.png',
+        './assets/img/2_character_pepe/1_idle/idle/I-6.png',
+        './assets/img/2_character_pepe/1_idle/idle/I-7.png',
+        './assets/img/2_character_pepe/1_idle/idle/I-8.png',
+        './assets/img/2_character_pepe/1_idle/idle/I-9.png',
+        './assets/img/2_character_pepe/1_idle/idle/I-10.png',
+    ]
+
+    IMAGES_LONG_IDLE = [
+        './assets/img/2_character_pepe/1_idle/long_idle/I-11.png',
+        './assets/img/2_character_pepe/1_idle/long_idle/I-12.png',
+        './assets/img/2_character_pepe/1_idle/long_idle/I-13.png',
+        './assets/img/2_character_pepe/1_idle/long_idle/I-14.png',
+        './assets/img/2_character_pepe/1_idle/long_idle/I-15.png',
+        './assets/img/2_character_pepe/1_idle/long_idle/I-16.png',
+        './assets/img/2_character_pepe/1_idle/long_idle/I-17.png',
+        './assets/img/2_character_pepe/1_idle/long_idle/I-18.png',
+        './assets/img/2_character_pepe/1_idle/long_idle/I-19.png',
+        './assets/img/2_character_pepe/1_idle/long_idle/I-20.png',
+    ];
+
     world;
 
     constructor() {
@@ -50,6 +76,7 @@ class Character extends MoveableObject {
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HURT);
+        this.loadImages(this.IMAGES_IDLE);
         this.applyGravity();
         this.animate();
         this.offsetX = 35;
@@ -76,7 +103,7 @@ class Character extends MoveableObject {
 
             this.world.camera_x = -this.x + 100;
         }, 1000 / 60);
-
+        
 
         setInterval(() => {
             if (this.isDead()) {
@@ -93,7 +120,24 @@ class Character extends MoveableObject {
                 }
             }
         }, 50);
+
+
+        setInterval(() => {
+            if (this.isIdle()) {
+                this.playAnimation(this.IMAGES_IDLE);
+            }
+        }, 200);    
     }
+
+    isIdle() {
+        return !this.world.keyboard.RIGHT &&
+               !this.world.keyboard.LEFT &&
+               !this.world.keyboard.SPACE &&
+               !this.isAboveGround() &&  // Damit die Idle-Animation nicht in der Luft abgespielt wird
+               !this.isHurt() &&
+               !this.isDead();  
+    }
+    
 
     // jump() {
     // }
