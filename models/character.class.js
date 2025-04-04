@@ -77,12 +77,14 @@ class Character extends MoveableObject {
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_IDLE);
+        this.loadImages(this.IMAGES_LONG_IDLE);
         this.applyGravity();
         this.animate();
         this.offsetX = 35;
         this.offsetY = 130;
         this.offsetWidth = 65;
         this.offsetHeight = 140;
+        this.idleTime = 0;
     }
 
     animate() {
@@ -104,7 +106,6 @@ class Character extends MoveableObject {
             this.world.camera_x = -this.x + 100;
         }, 1000 / 60);
         
-
         setInterval(() => {
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
@@ -121,21 +122,38 @@ class Character extends MoveableObject {
             }
         }, 50);
 
+        setInterval(() => {
+            if (this.isIdle() && !this.isLongIdle()) {
+                this.playAnimation(this.IMAGES_IDLE);
+            }
+        }, 200); 
+        
+        setInterval(() => {
+            if (this.isLongIdle()) {
+                this.playAnimation(this.IMAGES_LONG_IDLE);
+            }
+        }, 200);
 
         setInterval(() => {
             if (this.isIdle()) {
-                this.playAnimation(this.IMAGES_IDLE);
+                this.idleTime += 100;
+            } else {
+                this.idleTime = 0;
             }
-        }, 200);    
+        }, 100);
     }
 
     isIdle() {
         return !this.world.keyboard.RIGHT &&
                !this.world.keyboard.LEFT &&
                !this.world.keyboard.SPACE &&
-               !this.isAboveGround() &&  // Damit die Idle-Animation nicht in der Luft abgespielt wird
+               !this.isAboveGround() &&
                !this.isHurt() &&
                !this.isDead();  
+    }
+
+    isLongIdle() {
+        return this.idleTime >= 5000;
     }
     
 
