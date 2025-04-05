@@ -32,10 +32,10 @@ class MoveableObject extends DrawableObject {
     }  */
 
     isColliding(obj) {
-        return (this.x + this.offsetX + this.width - this.offsetWidth) >= obj.x &&
-            this.x + this.offsetX <= (obj.x + obj.width) &&
-            (this.y + this.offsetY + this.height - this.offsetHeight) >= obj.y &&
-            (this.y + this.offsetY) <= (obj.y + obj.height);
+        return (this.x + this.offsetX + this.width - this.offsetWidth) >= (obj.x + obj.offsetX) &&
+               (this.x + this.offsetX) <= (obj.x + obj.offsetX + obj.width - obj.offsetWidth) &&
+               (this.y + this.offsetY + this.height - this.offsetHeight) >= (obj.y + obj.offsetY) &&
+               (this.y + this.offsetY) <= (obj.y + obj.offsetY + obj.height - obj.offsetHeight);
     }
 
 
