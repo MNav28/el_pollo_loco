@@ -16,7 +16,8 @@ class World {
     //bottle = new ThrowableObject();
     throwableObjects = [];
     collectedBottles = 0;
-    collectedCoins = 0
+    collectedCoins = 0;
+    canThrow = true;
 
     constructor(canvas, keyboard) {    
         this.ctx = canvas.getContext('2d');
@@ -32,16 +33,17 @@ class World {
     }
 
     run() { 
-        setInterval(() => {    
-            this.checkCollisions();
+        setInterval(() => {   
+            this.checkEnemyCollisions();
             this.checkThrowObjects();
             this.checkCollisionBottles();
             this.checkCollisionCoins();
-        }, 200);
+            //console.log(this.character.y);
+        }, 33 );
     }
 
     checkThrowObjects() { 
-        if(this.keyboard.D && !this.collectedBottles == 0 ) {
+        if(this.keyboard.D && this.canThrow && this.collectedBottles > 0 ) {
             console.log("D wurde gedrückt! Erstelle Flasche...");
             this.character.idleTime = 0;
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
@@ -49,18 +51,9 @@ class World {
             this.throwableObjects.push(bottle);
             this.collectedBottles--;
             this.updateStatusbarBottle();
+            this.canThrow = false;
+            setTimeout(() => this.canThrow = true, 800);
         } 
-    }
-
-    checkCollisions() {
-        this.level.enemies.forEach((enemy) => { 
-            if (this.character.isColliding(enemy)) {  
-                //this.character.energy -= 5;  
-                this.character.hit();
-                this.statusBarHealth.setPercentage(this.character.energy);  
-                //console.log('Collision with character, energy:', this.character.energy);
-            }
-        });
     }
 
     checkCollisionBottles() {
@@ -110,6 +103,44 @@ class World {
         let percentage = (this.collectedCoins / 8) * 100;
         this.statusBarCoin.setPercentage(percentage);
     }
+
+    checkEnemyCollisions() {
+        this.level.enemies.forEach((enemy, index) => {     
+            if (this.character.isColliding(enemy) && !enemy.isDead()) {  
+                if (this.isJumpingOnEnemy(enemy)) {
+                    this.killChicken(enemy);
+                    this.character.speedY = 25; // Bounce-Effekt
+                    this.character.y = 150;     // character position zurück auf Bodenhöhe setzen!
+                    return;
+                } else if (!this.character.isHurt()) {
+                    this.character.hit();
+                    console.log('von der Seite getroffen');
+                    this.statusBarHealth.setPercentage(this.character.energy); 
+                    return;
+                }
+                
+            }
+        });
+    }
+
+    isJumpingOnEnemy(enemy) {
+        console.log('Enemy von oben getroffen');
+        return this.character.isAboveGround() &&
+               this.character.speedY < 0 &&
+               this.character.isColliding(enemy);
+    }
+    
+    killChicken(chicken) {
+        console.log('killchicken test');
+        chicken.setDeadState(); // Bild ändern, isDead setzen
+    
+        setTimeout(() => {
+            let index = this.level.enemies.indexOf(chicken);
+            if (index !== -1) {
+                this.level.enemies.splice(index, 1); // Chicken aus dem Level entfernen
+            }
+        }, 5000);
+    } 
 
     drawWorld() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
