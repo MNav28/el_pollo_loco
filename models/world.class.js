@@ -38,6 +38,7 @@ class World {
             this.checkThrowObjects();
             this.checkCollisionBottles();
             this.checkCollisionCoins();
+            this.checkCollisionBottlesWithEnemies();
             //console.log(this.character.y);
         }, 33 );
     }
@@ -141,6 +142,18 @@ class World {
             }
         }, 5000);
     } 
+    
+    checkCollisionBottlesWithEnemies() {
+        this.throwableObjects.forEach((bottle) => {
+            this.level.enemies.forEach((enemy) => {
+                if (bottle.isColliding(enemy)) {
+                    //this.killEnemy(enemy);
+                    //this.removeBottle(bottle);
+                    console.log('enemy got hit by bottle'); 
+                }
+            });
+        });
+    }
 
     drawWorld() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);

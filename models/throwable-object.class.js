@@ -19,6 +19,10 @@ class ThrowableObject extends MoveableObject {
         this.loadImages(this.salsa_bottle_rotation_images);
         //this.throw();
         this.throwInterval = null;
+        this.offsetX = 15;
+        this.offsetY = 10;
+        this.offsetWidth = 31;
+        this.offsetHeight = 20;
     }
 
     /*
