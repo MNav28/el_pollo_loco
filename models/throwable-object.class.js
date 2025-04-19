@@ -10,6 +10,15 @@ class ThrowableObject extends MoveableObject {
         './assets/img/6_salsa_bottle/bottle_rotation/4_bottle_rotation.png',
     ]
 
+    salsa_bottle_splash = [
+        './assets/img/6_salsa_bottle/bottle_rotation/bottle_splash/1_bottle_splash.png',
+        './assets/img/6_salsa_bottle/bottle_rotation/bottle_splash/2_bottle_splash.png',
+        './assets/img/6_salsa_bottle/bottle_rotation/bottle_splash/3_bottle_splash.png',
+        './assets/img/6_salsa_bottle/bottle_rotation/bottle_splash/4_bottle_splash.png',
+        './assets/img/6_salsa_bottle/bottle_rotation/bottle_splash/5_bottle_splash.png',
+        './assets/img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png',
+    ]
+
 
     constructor(x, y) {
         super();
@@ -17,6 +26,7 @@ class ThrowableObject extends MoveableObject {
         this.y = y;
         this.loadImage('./assets/img/6_salsa_bottle/salsa_bottle.png');
         this.loadImages(this.salsa_bottle_rotation_images);
+        this.loadImages(this.salsa_bottle_splash);
         //this.throw();
         this.throwInterval = null;
         this.offsetX = 15;
@@ -34,7 +44,6 @@ class ThrowableObject extends MoveableObject {
         }, 25);
     }  */
 
-        
     throwAnimate() {
         this.speedY = 25;
         this.applyGravity();
@@ -44,4 +53,16 @@ class ThrowableObject extends MoveableObject {
             this.playAnimation(this.salsa_bottle_rotation_images);
         }, 25);
     }
+
+    bottleSplashAnimate() {
+        this.playAnimation(this.salsa_bottle_splash);
+    }
+
+    deactivateBottleMovement() {
+        clearInterval(this.throwInterval);
+        this.throwInterval = null;
+        this.speedX = 0
+        this.speedY = 0
+    }
+
 }

@@ -125,31 +125,33 @@ class World {
     }
 
     isJumpingOnEnemy(enemy) {
-        console.log('Enemy von oben getroffen');
+        //console.log('Enemy von oben getroffen');
         return this.character.isAboveGround() &&
                this.character.speedY < 0 &&
                this.character.isColliding(enemy);
     }
     
     killChicken(chicken) {
-        console.log('killchicken test');
-        chicken.setDeadState(); // Bild ändern, isDead setzen
-    
+        chicken.setDeadState(); 
         setTimeout(() => {
             let index = this.level.enemies.indexOf(chicken);
             if (index !== -1) {
-                this.level.enemies.splice(index, 1); // Chicken aus dem Level entfernen
+                this.level.enemies.splice(index, 1);
             }
         }, 5000);
     } 
     
     checkCollisionBottlesWithEnemies() {
-        this.throwableObjects.forEach((bottle) => {
+        this.throwableObjects.forEach((bottle, index) => {
             this.level.enemies.forEach((enemy) => {
                 if (bottle.isColliding(enemy)) {
-                    //this.killEnemy(enemy);
-                    //this.removeBottle(bottle);
-                    console.log('enemy got hit by bottle'); 
+                    this.killChicken(enemy);
+                    bottle.deactivateBottleMovement();
+                    bottle.bottleSplashAnimate();
+                    //console.log('enemy got hit by bottle'); 
+                    setTimeout(() => {
+                        this.throwableObjects.splice(index, 1);
+                    }, 300);
                 }
             });
         });
