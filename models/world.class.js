@@ -142,6 +142,7 @@ class World {
         }, 5000);
     } 
     
+    /*
     checkCollisionBottlesWithEnemies() {
         this.throwableObjects.forEach((bottle, index) => {
             this.level.enemies.forEach((enemy) => {
@@ -156,7 +157,32 @@ class World {
                 }
             });
         });
+    } */
+
+    checkCollisionBottlesWithEnemies() {
+        this.throwableObjects.forEach((bottle, bottleIndex) => {
+            this.level.enemies.forEach((enemy) => {
+                if (bottle.isColliding(enemy)) {
+                    if (enemy instanceof Endboss) {
+                        console.log('endboss got hitted');
+                        bottle.deactivateBottleMovement();
+                        bottle.bottleSplashAnimate();
+                        setTimeout(() => {
+                            this.throwableObjects.splice(bottleIndex, 1);
+                        }, 300);
+                    } else {
+                        this.killChicken(enemy);
+                        bottle.deactivateBottleMovement();
+                        bottle.bottleSplashAnimate();
+                        setTimeout(() => {
+                            this.throwableObjects.splice(bottleIndex, 1);
+                        }, 300);
+                    }
+                }
+            });
+        });
     }
+    
 
     drawWorld() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
