@@ -141,23 +141,6 @@ class World {
             }
         }, 5000);
     } 
-    
-    /*
-    checkCollisionBottlesWithEnemies() {
-        this.throwableObjects.forEach((bottle, index) => {
-            this.level.enemies.forEach((enemy) => {
-                if (bottle.isColliding(enemy)) {
-                    this.killChicken(enemy);
-                    bottle.deactivateBottleMovement();
-                    bottle.bottleSplashAnimate();
-                    //console.log('enemy got hit by bottle'); 
-                    setTimeout(() => {
-                        this.throwableObjects.splice(index, 1);
-                    }, 300);
-                }
-            });
-        });
-    } */
 
     checkCollisionBottlesWithEnemies() {
         this.throwableObjects.forEach((bottle, bottleIndex) => {
