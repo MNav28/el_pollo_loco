@@ -147,7 +147,11 @@ class World {
             this.level.enemies.forEach((enemy) => {
                 if (bottle.isColliding(enemy)) {
                     if (enemy instanceof Endboss) {
-                        console.log('endboss got hitted');
+                        if (!enemy.isHurt()) {
+                            console.log('endboss got hitted');
+                            enemy.hit();
+                            this.statusBarEndboss.setPercentage(enemy.energy);
+                        }
                         bottle.deactivateBottleMovement();
                         bottle.bottleSplashAnimate();
                         setTimeout(() => {
@@ -165,6 +169,7 @@ class World {
             });
         });
     }
+    
     
 
     drawWorld() {

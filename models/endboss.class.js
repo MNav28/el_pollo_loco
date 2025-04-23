@@ -29,4 +29,14 @@ class Endboss extends MoveableObject{
             this.playAnimation(this.IMAGES_WALKING);
         },200);
     }
+
+    hit() {
+        this.energy -= 10;
+        if (this.energy < 0) {
+            this.energy = 0;
+        } else {
+            this.lastHit = new Date().getTime();
+        }
+    }
+    
 }
