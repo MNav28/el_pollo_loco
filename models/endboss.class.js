@@ -1,8 +1,8 @@
-class Endboss extends MoveableObject{
+class Endboss extends MoveableObject {
     y = -20;
     height = 480;
     width = 320;
-    IMAGES_WALKING = [
+    IMAGES_ALERT = [
         './assets/img/4_enemie_boss_chicken/2_alert/G5.png',
         './assets/img/4_enemie_boss_chicken/2_alert/G6.png',
         './assets/img/4_enemie_boss_chicken/2_alert/G7.png',
@@ -13,21 +13,50 @@ class Endboss extends MoveableObject{
         './assets/img/4_enemie_boss_chicken/2_alert/G12.png'
     ];
 
+    IMAGES_HURT = [
+        './assets/img/4_enemie_boss_chicken/4_hurt/G21.png',
+        './assets/img/4_enemie_boss_chicken/4_hurt/G22.png',
+        './assets/img/4_enemie_boss_chicken/4_hurt/G23.png',
+    ]
+
     constructor() {
-        super().loadImage(this.IMAGES_WALKING[0]);   
-        this.loadImages(this.IMAGES_WALKING);     
-        this.x = 2900;
-        this.animate();
+        super().loadImage(this.IMAGES_ALERT[0]);   
+        this.loadImages(this.IMAGES_ALERT);
+        this.loadImages(this.IMAGES_HURT);
+        this.x = 2900;  
         this.offsetX = 40;
         this.offsetY = 130;
         this.offsetWidth = 70;
         this.offsetHeight = 140;
+        this.isCurrentlyHurt = false;
+        this.frameInterval = 200;
+        this.totalCycles = 2;
+        this.animate();
     }
 
     animate() {
         setInterval(() => {
-            this.playAnimation(this.IMAGES_WALKING);
-        },200);
+            if (!this.isCurrentlyHurt) {
+                this.playAnimation(this.IMAGES_ALERT);
+            }
+        }, this.frameInterval);
+    }
+
+    hurtAnimation() {
+        if (this.isCurrentlyHurt) {
+            return; 
+        }
+        this.isCurrentlyHurt = true;  
+        let i = 0;
+        let totalFrames = this.IMAGES_HURT.length * this.totalCycles;
+        const hurtInterval = setInterval(() => {
+            this.img = this.imageCache[this.IMAGES_HURT[i % this.IMAGES_HURT.length]]; 
+            i++;
+            if (i >= totalFrames) {
+                clearInterval(hurtInterval); 
+                this.isCurrentlyHurt = false; 
+            }
+        }, this.frameInterval);
     }
 
     hit() {
@@ -38,5 +67,5 @@ class Endboss extends MoveableObject{
             this.lastHit = new Date().getTime();
         }
     }
-    
+
 }

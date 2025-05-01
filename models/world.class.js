@@ -149,6 +149,7 @@ class World {
                     if (enemy instanceof Endboss) {
                         if (!enemy.isHurt()) {
                             console.log('endboss got hitted');
+                            enemy.hurtAnimation();
                             enemy.hit();
                             this.statusBarEndboss.setPercentage(enemy.energy);
                         }
