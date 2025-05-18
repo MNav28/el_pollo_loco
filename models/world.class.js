@@ -31,6 +31,12 @@ class World {
 
     setWorld() {
         this.character.world = this;
+        this.level.enemies.forEach(enemy => {   
+            if (enemy instanceof Endboss) {
+                enemy.world = this;             
+                enemy.animate();
+            }
+        });
     }
 
     run() { 
