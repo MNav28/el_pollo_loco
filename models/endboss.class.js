@@ -19,10 +19,7 @@ class Endboss extends MoveableObject {
         './assets/img/4_enemie_boss_chicken/2_alert/G9.png',
         './assets/img/4_enemie_boss_chicken/2_alert/G10.png',
         './assets/img/4_enemie_boss_chicken/2_alert/G11.png',
-        './assets/img/4_enemie_boss_chicken/2_alert/G12.png'
-    ];
-
-    IMAGES_ATTACK = [
+        './assets/img/4_enemie_boss_chicken/2_alert/G12.png',
         './assets/img/4_enemie_boss_chicken/3_attack/G13.png',
         './assets/img/4_enemie_boss_chicken/3_attack/G14.png',
         './assets/img/4_enemie_boss_chicken/3_attack/G15.png',
@@ -31,7 +28,7 @@ class Endboss extends MoveableObject {
         './assets/img/4_enemie_boss_chicken/3_attack/G18.png',
         './assets/img/4_enemie_boss_chicken/3_attack/G19.png',
         './assets/img/4_enemie_boss_chicken/3_attack/G20.png'
-    ]
+    ];
 
     IMAGES_HURT = [
         './assets/img/4_enemie_boss_chicken/4_hurt/G21.png',
@@ -50,6 +47,7 @@ class Endboss extends MoveableObject {
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_ALERT);
         this.loadImages(this.IMAGES_HURT);
+        this.loadImages(this.IMAGES_DEAD);
         this.speed = 1.2;
         this.x = 2900;
         this.offsetX = 40;
@@ -60,6 +58,11 @@ class Endboss extends MoveableObject {
         this.frameInterval = 200;
         this.totalCycles = 2;
         //this.animate();
+        // Für Bewegung
+        this.moveDistance = 0;
+        this.direction = 1; // 1 = right, -1 = left
+        this.maxDistance = 400;      
+        this.walkingAnimationInterval = null; // Walking-Animations-Intervall
     }
 
 
@@ -68,28 +71,76 @@ class Endboss extends MoveableObject {
             const character = this.world.character;
             const distance = Math.abs(this.x - character.x);
 
-            if (distance <= 200) {
-                if (this.x > character.x) {
-                    this.moveLeft();
-                    console.log('bigboss moves left');
-                    this.otherDirection = false;
-                } else {
-                    this.moveRight();
-                    this.otherDirection = true;
-                }
+            if (distance > 300 && !this.isCurrentlyHurt) {
+                this.startWalking();
+            } else {
+                this.stopWalkingAnimation();
             }
         }, 1000 / 60);
 
         this.animationInterval = setInterval(() => {
             const character = this.world.character;
-            const distance = Math.abs(this.x - character.x);
 
-            if (distance < 400 && distance > 200) {
-                this.playAnimation(this.IMAGES_ALERT);
-            } else if (distance <= 200) {
-                this.playAnimation(this.IMAGES_WALKING);
+            if (!this.isCurrentlyHurt) {
+                this.playHurtIfNeeded();
+                this.playAlertIfNear(character);
             }
         }, this.frameInterval);
+    }
+
+
+    startWalking() {
+        // movement
+        if (this.direction === 1) {
+            this.moveRight();
+            this.otherDirection = true;
+        } else {
+            this.moveLeft();
+            this.otherDirection = false;
+        }
+
+        this.moveDistance += this.speed;
+        if (this.moveDistance >= this.maxDistance) {
+            this.direction *= -1; // change direction
+            this.moveDistance = 0;
+        }
+
+        // start walk Animation if not aktiv
+        if (!this.walkingAnimationInterval) {
+            this.walkingAnimationInterval = setInterval(() => {
+                this.playAnimation(this.IMAGES_WALKING);
+            }, this.frameInterval);
+        }
+    }
+
+
+    playHurtIfNeeded() {
+        if (this.isHurt()) {
+            this.playAnimation(this.IMAGES_HURT);
+        }
+    }
+
+
+    playAlertIfNear(character) {
+        const distance = Math.abs(this.x - character.x);
+
+        if (distance <= 300 && !this.isCurrentlyHurt) {
+            if (this.direction === 1 && character.x < this.x) {
+                this.otherDirection = true;  
+            } else if (this.direction === -1 && character.x > this.x) {
+                this.otherDirection = false;
+            }
+
+            this.playAnimation(this.IMAGES_ALERT);
+        }
+    }
+
+
+    stopWalkingAnimation() {
+        if (this.walkingAnimationInterval) {
+            clearInterval(this.walkingAnimationInterval);
+            this.walkingAnimationInterval = null;
+        }
     }
 
 
@@ -109,6 +160,7 @@ class Endboss extends MoveableObject {
             }
         }, this.frameInterval);
     }
+
 
     hit() {
         this.energy -= 10;
