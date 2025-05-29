@@ -61,8 +61,10 @@ class Endboss extends MoveableObject {
         // Für Bewegung
         this.moveDistance = 0;
         this.direction = 1; // 1 = right, -1 = left
-        this.maxDistance = 400;      
+        this.maxDistance = 400;
         this.walkingAnimationInterval = null;
+        this.isAlerting = false;
+        this.alertAnimationInterval = null;
     }
 
 
@@ -70,21 +72,21 @@ class Endboss extends MoveableObject {
         this.moveInterval = setInterval(() => {
             const character = this.world.character;
             const distance = Math.abs(this.x - character.x);
-
-            if (distance > 300 && !this.isCurrentlyHurt) {
+            if (distance <= 300 && !this.isCurrentlyHurt) {
+                if (!this.isAlerting) {
+                    this.stopWalkingAnimation();
+                    this.faceCharacter(character);
+                    this.isAlerting = true;
+                    this.startAlertAnimation();
+                }
+            } else if (!this.isCurrentlyHurt) {
+                if (this.isAlerting) {
+                    this.isAlerting = false;
+                    this.stopAlertAnimation();
+                }
                 this.startWalking();
-            } else {
-                this.stopWalkingAnimation();
             }
         }, 1000 / 60);
-
-        this.animationInterval = setInterval(() => {
-            const character = this.world.character;
-
-            if (!this.isCurrentlyHurt) {
-                this.playAlertIfNear(character);
-            }
-        }, this.frameInterval);
     }
 
 
@@ -117,14 +119,45 @@ class Endboss extends MoveableObject {
         const distance = Math.abs(this.x - character.x);
 
         if (distance <= 300 && !this.isCurrentlyHurt) {
-            if (this.direction === 1 && character.x < this.x) {
-                this.otherDirection = true;  
-            } else if (this.direction === -1 && character.x > this.x) {
-                this.otherDirection = false;
+            this.isAlerting = true;
+            this.stopWalkingAnimation();
+
+            // endboss faces the character
+            if (character.x < this.x) {
+                this.otherDirection = true;  // look to the left
+                this.direction = -1;
+            } else {
+                this.otherDirection = false; // look to the right
+                this.direction = 1;
             }
 
             this.playAnimation(this.IMAGES_ALERT);
         }
+    }
+
+
+    faceCharacter(character) {
+        if (character.x < this.x) {
+            this.otherDirection = false; 
+            this.direction = -1;
+        } else {
+            this.otherDirection = true;
+            this.direction = 1;
+        }
+    }
+
+
+    startAlertAnimation() {
+        if (this.alertAnimationInterval) return; // is already active
+        this.alertAnimationInterval = setInterval(() => {
+            this.playAnimation(this.IMAGES_ALERT);
+        }, 150);
+    }
+
+
+    stopAlertAnimation() {
+        clearInterval(this.alertAnimationInterval);
+        this.alertAnimationInterval = null;
     }
 
 
