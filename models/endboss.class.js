@@ -115,27 +115,6 @@ class Endboss extends MoveableObject {
     }
 
 
-    playAlertIfNear(character) {
-        const distance = Math.abs(this.x - character.x);
-
-        if (distance <= 300 && !this.isCurrentlyHurt) {
-            this.isAlerting = true;
-            this.stopWalkingAnimation();
-
-            // endboss faces the character
-            if (character.x < this.x) {
-                this.otherDirection = true;  // look to the left
-                this.direction = -1;
-            } else {
-                this.otherDirection = false; // look to the right
-                this.direction = 1;
-            }
-
-            this.playAnimation(this.IMAGES_ALERT);
-        }
-    }
-
-
     faceCharacter(character) {
         if (character.x < this.x) {
             this.otherDirection = false; 
