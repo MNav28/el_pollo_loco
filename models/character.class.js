@@ -88,52 +88,61 @@ class Character extends MoveableObject {
     }
 
     animate() {
+        this.animateMovement();
+        this.animateCharacterStates();
+        this.animateIdle();
+        this.animateLongIdle();
+        this.trackIdleTime();
+    }
+
+    animateMovement() {
         setInterval(() => {
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.moveRight();
                 this.otherDirection = false;
             }
-
             if (this.world.keyboard.LEFT && this.x > 0) {
                 this.moveLeft();
                 this.otherDirection = true;
             }
-
             if (this.world.keyboard.SPACE && !this.isAboveGround()) {
                 this.jump();
             }
-
             this.world.camera_x = -this.x + 100;
         }, 1000 / 60);
-        
+    }
+
+    animateCharacterStates() {
         setInterval(() => {
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
             } else if (this.isAboveGround()) {
-                // jump animation
                 this.playAnimation(this.IMAGES_JUMPING);
-            } else {
-                if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-                    // Walk animation
-                    this.playAnimation(this.IMAGES_WALKING);
-                }
+            } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+                this.playAnimation(this.IMAGES_WALKING);
             }
         }, 50);
+    }
 
+    animateIdle() {
         setInterval(() => {
             if (this.isIdle() && !this.isLongIdle()) {
                 this.playAnimation(this.IMAGES_IDLE);
             }
-        }, 200); 
-        
+        }, 200);
+    }
+
+    animateLongIdle() {
         setInterval(() => {
             if (this.isLongIdle()) {
                 this.playAnimation(this.IMAGES_LONG_IDLE);
             }
         }, 200);
+    }
 
+    trackIdleTime() {
         setInterval(() => {
             if (this.isIdle()) {
                 this.idleTime += 100;
@@ -145,17 +154,17 @@ class Character extends MoveableObject {
 
     isIdle() {
         return !this.world.keyboard.RIGHT &&
-               !this.world.keyboard.LEFT &&
-               !this.world.keyboard.SPACE &&
-               !this.isAboveGround() &&
-               !this.isHurt() &&
-               !this.isDead();  
+            !this.world.keyboard.LEFT &&
+            !this.world.keyboard.SPACE &&
+            !this.isAboveGround() &&
+            !this.isHurt() &&
+            !this.isDead();
     }
 
     isLongIdle() {
         return this.idleTime >= 5000;
     }
-    
+
 
     // jump() {
     // }
