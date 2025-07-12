@@ -3,7 +3,7 @@ class Endboss extends MoveableObject {
     height = 480;
     width = 320;
     moveInterval;
-    animationInterval;
+    //animationInterval;
     IMAGES_WALKING = [
         './assets/img/4_enemie_boss_chicken/1_walk/G1.png',
         './assets/img/4_enemie_boss_chicken/1_walk/G2.png',
@@ -62,6 +62,9 @@ class Endboss extends MoveableObject {
         this.moveDistance = 0;
         this.direction = 1; // 1 = right, -1 = left
         this.maxDistance = 400;
+        this.isAlreadyDead = false;
+        this.hurtInterval = null;
+        this.deathAnimationInterval = null;
         this.walkingAnimationInterval = null;
         this.isAlerting = false;
         this.alertAnimationInterval = null;
@@ -117,7 +120,7 @@ class Endboss extends MoveableObject {
 
     faceCharacter(character) {
         if (character.x < this.x) {
-            this.otherDirection = false; 
+            this.otherDirection = false;
             this.direction = -1;
         } else {
             this.otherDirection = true;
@@ -149,17 +152,18 @@ class Endboss extends MoveableObject {
 
 
     hurtAnimation() {
-        if (this.isCurrentlyHurt) {
+        if (this.isDead() || this.isCurrentlyHurt) {
             return;
-        }
+        }     
         this.isCurrentlyHurt = true;
         let i = 0;
         let totalFrames = this.IMAGES_HURT.length * this.totalCycles;
-        const hurtInterval = setInterval(() => {
+        this.hurtInterval = setInterval(() => {
             this.img = this.imageCache[this.IMAGES_HURT[i % this.IMAGES_HURT.length]];
             i++;
             if (i >= totalFrames) {
-                clearInterval(hurtInterval);
+                clearInterval(this.hurtInterval);
+                this.hurtInterval = null;
                 this.isCurrentlyHurt = false;
             }
         }, this.frameInterval);
@@ -167,12 +171,48 @@ class Endboss extends MoveableObject {
 
 
     hit() {
+        if (this.isDead()) {
+            if (this.isAlreadyDead) return;
+            console.log('you won the game');
+            this.stopAlertAnimation();
+            this.stopWalkingAnimation();
+            this.stopHurtAnimation();
+            clearInterval(this.moveInterval);
+            this.playDeathAnimation();
+            this.isAlreadyDead = true;
+
+            return;
+        }
+
         this.energy -= 10;
         if (this.energy < 0) {
             this.energy = 0;
-        } else {
-            this.lastHit = new Date().getTime();
-            this.hurtAnimation();
+        }
+        this.lastHit = new Date().getTime();
+        this.hurtAnimation();
+    }
+
+
+    playDeathAnimation() {
+        if (this.deathAnimationInterval) return;
+        let i = 0;
+        console.log('death animation showed');
+        this.deathAnimationInterval = setInterval(() => {
+            this.img = this.imageCache[this.IMAGES_DEAD[i]];
+            i++;
+            if (i >= this.IMAGES_DEAD.length) {
+                clearInterval(this.deathAnimationInterval);
+                this.deathAnimationInterval = null;
+            }
+        }, this.frameInterval);
+    }
+
+
+    stopHurtAnimation() {
+        if (this.hurtInterval) {
+            clearInterval(this.hurtInterval);
+            this.hurtInterval = null;
+            this.isCurrentlyHurt = false;
         }
     }
 
