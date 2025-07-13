@@ -1,8 +1,8 @@
 class Character extends MoveableObject {
     height = 280;
     width = 120;
-    //y = 155;
-    y = 80;
+    y = 155;
+    //y = 80;
     speed = 10;
     IMAGES_WALKING = [
         './assets/img/2_character_pepe/2_walk/W-21.png',
@@ -72,6 +72,8 @@ class Character extends MoveableObject {
     constructor() {
         super();
         this.walking_sound = new Audio('./assets/audio/walking1.mp3');
+        this.jump_sound = new Audio('./assets/audio/jump.mp3');
+        this.isJumpSoundPlayed = false;
         this.loadImage('./assets/img/2_character_pepe/1_idle/idle/I-1.png');
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING);
@@ -111,6 +113,7 @@ class Character extends MoveableObject {
             }
             this.world.camera_x = -this.x + 100;
             this.handleWalkingSound();
+            this.handleJumpSound();
         }, 1000 / 60);
     }
 
@@ -188,7 +191,18 @@ class Character extends MoveableObject {
         }
     }
 
-
+    handleJumpSound() {
+        if (this.isAboveGround() && !this.isJumpSoundPlayed) {
+            this.isJumpSoundPlayed = true;
+            this.jump_sound.currentTime = 0;
+            this.jump_sound.play().catch((e) => {
+                    console.warn('Jump sound konnte nicht abgespielt werden:', e);
+                });;
+        }
+        if (!this.isAboveGround() && this.isJumpSoundPlayed) {
+            this.isJumpSoundPlayed = false;
+        }
+    }
 
     // jump() {
     // }
