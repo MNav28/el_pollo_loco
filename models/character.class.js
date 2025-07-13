@@ -71,6 +71,7 @@ class Character extends MoveableObject {
 
     constructor() {
         super();
+        this.walking_sound = new Audio('./assets/audio/walking1.mp3');
         this.loadImage('./assets/img/2_character_pepe/1_idle/idle/I-1.png');
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING);
@@ -109,6 +110,7 @@ class Character extends MoveableObject {
                 this.jump();
             }
             this.world.camera_x = -this.x + 100;
+            this.handleWalkingSound();
         }, 1000 / 60);
     }
 
@@ -164,6 +166,28 @@ class Character extends MoveableObject {
     isLongIdle() {
         return this.idleTime >= 5000;
     }
+
+    isWalking() {
+        return (
+            (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) ||
+            (this.world.keyboard.LEFT && this.x > 0)
+        );
+    }
+
+    handleWalkingSound() {
+        if (this.isWalking() && !this.isAboveGround()) {
+            if (!this.walking_sound.playing) {
+                this.walking_sound.play().catch((e) => {
+                    console.warn('Laufsound konnte nicht abgespielt werden:', e);
+                });
+
+            }
+        } else {
+            this.walking_sound.pause();
+            this.walking_sound.currentTime = 0;
+        }
+    }
+
 
 
     // jump() {
