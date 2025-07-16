@@ -73,7 +73,10 @@ class Character extends MoveableObject {
         super();
         this.walking_sound = new Audio('./assets/audio/walking1.mp3');
         this.jump_sound = new Audio('./assets/audio/jump.mp3');
+        this.collecting_sound = new Audio('./assets/audio/collecting.mp3');
         this.isJumpSoundPlayed = false;
+        this.lastCollectedCoins = 0;   
+        this.lastCollectedBottles = 0;
         this.loadImage('./assets/img/2_character_pepe/1_idle/idle/I-1.png');
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING);
@@ -114,6 +117,7 @@ class Character extends MoveableObject {
             this.world.camera_x = -this.x + 100;
             this.handleWalkingSound();
             this.handleJumpSound();
+            this.handleCollectingSound();
         }, 1000 / 60);
     }
 
@@ -196,13 +200,28 @@ class Character extends MoveableObject {
             this.isJumpSoundPlayed = true;
             this.jump_sound.currentTime = 0;
             this.jump_sound.play().catch((e) => {
-                    console.warn('Jump sound konnte nicht abgespielt werden:', e);
-                });;
+                console.warn('Jump sound konnte nicht abgespielt werden:', e);
+            });;
         }
         if (!this.isAboveGround() && this.isJumpSoundPlayed) {
             this.isJumpSoundPlayed = false;
         }
     }
+
+    handleCollectingSound() {
+        let coinsAmountChanged = this.world.collectedCoins > this.lastCollectedCoins;
+        let bottlesAmountChanged = this.world.collectedBottles > this.lastCollectedBottles;
+
+        if ((coinsAmountChanged || bottlesAmountChanged)) {
+            this.collecting_sound.currentTime = 0;
+            this.collecting_sound.play().catch((e) => {
+                console.warn('Collecting sound konnte nicht abgespielt werden:', e);
+            });
+        }
+        this.lastCollectedCoins = this.world.collectedCoins;
+        this.lastCollectedBottles = this.world.collectedBottles;
+    }
+
 
     // jump() {
     // }
