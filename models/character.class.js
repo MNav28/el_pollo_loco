@@ -74,8 +74,10 @@ class Character extends MoveableObject {
         this.walking_sound = new Audio('./assets/audio/walking1.mp3');
         this.jump_sound = new Audio('./assets/audio/jump.mp3');
         this.collecting_sound = new Audio('./assets/audio/collecting.mp3');
+        this.snoring_sound = new Audio('./assets/audio/snoring.mp3');
         this.isJumpSoundPlayed = false;
-        this.lastCollectedCoins = 0;   
+        this.isSnoringSoundPlaying = false;
+        this.lastCollectedCoins = 0;
         this.lastCollectedBottles = 0;
         this.loadImage('./assets/img/2_character_pepe/1_idle/idle/I-1.png');
         this.loadImages(this.IMAGES_WALKING);
@@ -91,6 +93,7 @@ class Character extends MoveableObject {
         this.offsetWidth = 65;
         this.offsetHeight = 140;
         this.idleTime = 0;
+        this.playSnoringSound();
     }
 
     animate() {
@@ -201,7 +204,7 @@ class Character extends MoveableObject {
             this.jump_sound.currentTime = 0;
             this.jump_sound.play().catch((e) => {
                 console.warn('Jump sound konnte nicht abgespielt werden:', e);
-            });;
+            });
         }
         if (!this.isAboveGround() && this.isJumpSoundPlayed) {
             this.isJumpSoundPlayed = false;
@@ -222,6 +225,25 @@ class Character extends MoveableObject {
         this.lastCollectedBottles = this.world.collectedBottles;
     }
 
+    playSnoringSound() {
+        setInterval(() => {
+            if (this.isLongIdle()) {
+                if (!this.isSnoringSoundPlaying) {
+                    this.snoring_sound.currentTime = 0;
+                    this.snoring_sound.play().catch((e) => {
+                        console.warn('Snoring sound konnte nicht abgespielt werden:', e);
+                    });
+                    this.isSnoringSoundPlaying = true;
+                }
+            } else {
+                if (this.isSnoringSoundPlaying) {
+                    this.snoring_sound.pause();
+                    this.snoring_sound.currentTime = 0;
+                    this.isSnoringSoundPlaying = false;
+                }
+            }
+        }, 200);
+    }
 
     // jump() {
     // }
