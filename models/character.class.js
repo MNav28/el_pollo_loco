@@ -75,6 +75,7 @@ class Character extends MoveableObject {
         this.jump_sound = new Audio('./assets/audio/jump.mp3');
         this.collecting_sound = new Audio('./assets/audio/collecting.mp3');
         this.snoring_sound = new Audio('./assets/audio/snoring.mp3');
+        this.hurt_sound = new Audio('./assets/audio/hurt.mp3');
         this.isJumpSoundPlayed = false;
         this.isSnoringSoundPlaying = false;
         this.lastCollectedCoins = 0;
@@ -243,6 +244,14 @@ class Character extends MoveableObject {
                 }
             }
         }, 200);
+    }
+
+    playHurtSound() {
+        this.hurt_sound.pause();
+        this.hurt_sound.currentTime = 0;
+        this.hurt_sound.play().catch((e) => {
+            console.warn('Hurt sound konnte nicht abgespielt werden:', e);
+        });
     }
 
     // jump() {

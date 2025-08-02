@@ -122,6 +122,7 @@ class World {
                     return;
                 } else if (!this.character.isHurt()) {
                     this.character.hit();
+                    this.character.playHurtSound();
                     console.log('von der Seite getroffen');
                     this.statusBarHealth.setPercentage(this.character.energy); 
                     return;
