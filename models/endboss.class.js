@@ -48,6 +48,7 @@ class Endboss extends MoveableObject {
         this.loadImages(this.IMAGES_ALERT);
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_DEAD);
+        this.endboss_cry = new Audio('./assets/audio/endboss_cry.mp3');
         this.speed = 1.2;
         this.x = 2900;
         this.offsetX = 40;
@@ -154,7 +155,7 @@ class Endboss extends MoveableObject {
     hurtAnimation() {
         if (this.isDead() || this.isCurrentlyHurt) {
             return;
-        }     
+        }
         this.isCurrentlyHurt = true;
         let i = 0;
         let totalFrames = this.IMAGES_HURT.length * this.totalCycles;
@@ -214,6 +215,13 @@ class Endboss extends MoveableObject {
             this.hurtInterval = null;
             this.isCurrentlyHurt = false;
         }
+    }
+
+    playCrySound() {
+        this.endboss_cry.currentTime = 0;
+        this.endboss_cry.play().catch(e => {
+            console.warn('Endboss cry sound konnte nicht abgespielt werden:', e);
+        });
     }
 
 }
