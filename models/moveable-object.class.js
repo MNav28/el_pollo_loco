@@ -6,6 +6,12 @@ class MoveableObject extends DrawableObject {
     energy = 100;
     lastHit = 0;
 
+    constructor() {
+        super();
+        this.isDeadAlready = false;
+        this.chicken_killed_sound = new Audio('./assets/audio/kill_enemy.mp3');
+    }
+
     applyGravity() {
         setInterval(() => {
             if (this.isAboveGround() || this.speedY > 0) {
@@ -33,9 +39,9 @@ class MoveableObject extends DrawableObject {
 
     isColliding(obj) {
         return (this.x + this.offsetX + this.width - this.offsetWidth) >= (obj.x + obj.offsetX) &&
-               (this.x + this.offsetX) <= (obj.x + obj.offsetX + obj.width - obj.offsetWidth) &&
-               (this.y + this.offsetY + this.height - this.offsetHeight) >= (obj.y + obj.offsetY) &&
-               (this.y + this.offsetY) <= (obj.y + obj.offsetY + obj.height - obj.offsetHeight);
+            (this.x + this.offsetX) <= (obj.x + obj.offsetX + obj.width - obj.offsetWidth) &&
+            (this.y + this.offsetY + this.height - this.offsetHeight) >= (obj.y + obj.offsetY) &&
+            (this.y + this.offsetY) <= (obj.y + obj.offsetY + obj.height - obj.offsetHeight);
     }
 
 
@@ -52,7 +58,7 @@ class MoveableObject extends DrawableObject {
         return this.energy == 0;
     }
 
-    
+
     isHurt() {
         let timepassed = new Date().getTime() - this.lastHit;
         timepassed = timepassed / 1000;
@@ -76,5 +82,12 @@ class MoveableObject extends DrawableObject {
 
     jump() {
         this.speedY = 30;
+    }
+
+    playChickenKilledSound() {
+        this.chicken_killed_sound.currentTime = 0;
+        this.chicken_killed_sound.play().catch(e => {
+            console.warn('Chicken killed sound konnte nicht abgespielt werden:', e);
+        });
     }
 }

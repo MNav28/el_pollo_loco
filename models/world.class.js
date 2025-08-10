@@ -20,7 +20,7 @@ class World {
     collectedCoins = 0;
     canThrow = true;
 
-    constructor(canvas, keyboard) {    
+    constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
@@ -31,27 +31,27 @@ class World {
 
     setWorld() {
         this.character.world = this;
-        this.level.enemies.forEach(enemy => {   
+        this.level.enemies.forEach(enemy => {
             if (enemy instanceof Endboss) {
-                enemy.world = this;             
+                enemy.world = this;
                 enemy.animate();
             }
         });
     }
 
-    run() { 
-        setInterval(() => {   
+    run() {
+        setInterval(() => {
             this.checkEnemyCollisions();
             this.checkThrowObjects();
             this.checkCollisionBottles();
             this.checkCollisionCoins();
             this.checkCollisionBottlesWithEnemies();
             //console.log(this.character.y);
-        }, 33 );
+        }, 33);
     }
 
-    checkThrowObjects() { 
-        if(this.keyboard.D && this.canThrow && this.collectedBottles > 0 ) {
+    checkThrowObjects() {
+        if (this.keyboard.D && this.canThrow && this.collectedBottles > 0) {
             console.log("D wurde gedrückt! Erstelle Flasche...");
             this.character.idleTime = 0;
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
@@ -61,7 +61,7 @@ class World {
             this.updateStatusbarBottle();
             this.canThrow = false;
             setTimeout(() => this.canThrow = true, 800);
-        } 
+        }
     }
 
     checkCollisionBottles() {
@@ -85,12 +85,12 @@ class World {
 
     updateStatusbarBottle() {
         let percentage = (this.collectedBottles / 8) * 100;
-        this.statusBarBottle.setPercentage(percentage);  
+        this.statusBarBottle.setPercentage(percentage);
     }
 
     checkCollisionCoins() {
         this.level.coins.forEach((coin) => {
-            if(this.character.isColliding(coin) && this.collectedCoins < 8) {
+            if (this.character.isColliding(coin) && this.collectedCoins < 8) {
                 console.log('collision with coin!');
                 this.collectCoin(coin);
                 console.log('amount of coins =', this.collectedCoins);
@@ -102,7 +102,7 @@ class World {
         let index = this.level.coins.indexOf(coin);
         if (index !== -1) {
             this.level.coins.splice(index, 1);
-            this.collectedCoins++ ;
+            this.collectedCoins++;
             this.updateStatusbarCoin();
         }
     }
@@ -113,8 +113,8 @@ class World {
     }
 
     checkEnemyCollisions() {
-        this.level.enemies.forEach((enemy, index) => {     
-            if (this.character.isColliding(enemy) && !enemy.isDead()) {  
+        this.level.enemies.forEach((enemy, index) => {
+            if (this.character.isColliding(enemy) && !enemy.isDead()) {
                 if (this.isJumpingOnEnemy(enemy)) {
                     this.killChicken(enemy);
                     this.character.speedY = 25; // Bounce-Effekt
@@ -124,10 +124,10 @@ class World {
                     this.character.hit();
                     this.character.playHurtSound();
                     console.log('von der Seite getroffen');
-                    this.statusBarHealth.setPercentage(this.character.energy); 
+                    this.statusBarHealth.setPercentage(this.character.energy);
                     return;
                 }
-                
+
             }
         });
     }
@@ -135,19 +135,24 @@ class World {
     isJumpingOnEnemy(enemy) {
         //console.log('Enemy von oben getroffen');
         return this.character.isAboveGround() &&
-               this.character.speedY < 0 &&
-               this.character.isColliding(enemy);
+            this.character.speedY < 0 &&
+            this.character.isColliding(enemy);
     }
-    
+
     killChicken(chicken) {
-        chicken.setDeadState(); 
+        if (chicken.isDeadAlready) return;
+        chicken.isDeadAlready = true;
+        if (chicken instanceof Chicken || chicken instanceof ChickenSmall) {
+            chicken.playChickenKilledSound();
+        }
+        chicken.setDeadState();
         setTimeout(() => {
             let index = this.level.enemies.indexOf(chicken);
             if (index !== -1) {
                 this.level.enemies.splice(index, 1);
             }
         }, 5000);
-    } 
+    }
 
     checkCollisionBottlesWithEnemies() {
         this.throwableObjects.forEach((bottle, bottleIndex) => {
@@ -177,8 +182,8 @@ class World {
             });
         });
     }
-    
-    
+
+
 
     drawWorld() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -187,18 +192,18 @@ class World {
 
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addToMap(this.character);
-      
+
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.coins);
-        this.ctx.translate(-this.camera_x, 0);  
-        this.addToMap(this.statusBarHealth);  
-        this.addToMap(this.statusBarBottle);  
-        this.addToMap(this.statusBarCoin);  
+        this.ctx.translate(-this.camera_x, 0);
+        this.addToMap(this.statusBarHealth);
+        this.addToMap(this.statusBarBottle);
+        this.addToMap(this.statusBarCoin);
         this.addToMap(this.statusBarEndboss);
         this.ctx.translate(this.camera_x, 0)
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.bottles);
-        
+
         this.addObjectsToMap(this.throwableObjects);
         this.ctx.translate(-this.camera_x, 0);
 
