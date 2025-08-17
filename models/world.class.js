@@ -24,9 +24,13 @@ class World {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
+        this.background_music = new Audio('./assets/audio/background_sound.mp3');
+        this.background_music.loop = true;       
+        this.background_music.volume = 0.3;
         this.drawWorld();
         this.setWorld();
         this.run();
+        this.playBackgroundMusic();
     }
 
     setWorld() {
@@ -243,5 +247,12 @@ class World {
     flipImageBack(mo) {
         mo.x = mo.x * -1;
         this.ctx.restore();
+    }
+
+    playBackgroundMusic() {
+        this.background_music.currentTime = 0;
+        this.background_music.play().catch(e => {
+            console.warn("Background music konnte nicht abgespielt werden:", e);
+        });
     }
 }
