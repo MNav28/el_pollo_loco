@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,16 +10,30 @@
     <title>El Pollo Loco</title>
 
 </head>
+
 <body onload="init()">
 
     <h1>El Pollo Loco - Inmortal</h1>
 
-    <canvas id="canvas" width="720" height="480">
+    <div id="game-container" class="game-container">
+        
+        <div id="start-screen" class="start-screen">
+            <button id="start-button" class="game-button start-button" onclick="startGame()">New Game</button>
+            <div id="menu-buttons" class="menu-buttons">
+                <button class="game-button restart-button">Restart</button>
+                <button class="game-button controls-button">Controls</button>
+                <button class="game-button imprint-button">Imprint</button>
+            </div>
+        </div>
 
-    </canvas>
+        <canvas id="canvas" width="720" height="480"></canvas>
+
+        <button id="sound-button" class="game-button sound-button d-none">🔊</button>
+    </div>
+
 
     <script src="./models/drawable-object.class.js"></script>
-    <script src="./models/moveable-object.class.js"></script>  
+    <script src="./models/moveable-object.class.js"></script>
     <script src="./models/status-bar-health.class.js"></script>
     <script src="./models/status-bar-bottle.class.js"></script>
     <script src="./models/status-bar-coin.class.js"></script>
@@ -27,19 +42,20 @@
     <script src="./models/chicken.class.js"></script>
     <script src="./models/chicken-small.class.js"></script>
     <script src="./models/cloud.class.js"></script>
-    
+
     <script src="./models/world.class.js"></script>
     <script src="./models/background-object.class.js"></script>
     <script src="./models/keyboard-class.js"></script>
     <script src="./models/level.class.js"></script>
     <script src="./models/throwable-object.class.js"></script>
-    <script src="./models/endboss.class.js"></script>   
+    <script src="./models/endboss.class.js"></script>
     <script src="./models/bottle.class.js"></script>
-    <script src="./models/coin.class.js"></script>  
-    
+    <script src="./models/coin.class.js"></script>
+
     <script src="./levels/level1.js"></script>
     <script src="./scripts/game.js"></script>
-   
-    
+
+
 </body>
+
 </html>

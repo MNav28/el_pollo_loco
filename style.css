@@ -14,6 +14,7 @@ body {
 
 canvas {
     background-color: black;
+    display: block;
 }
 
 h1 {
@@ -22,3 +23,91 @@ h1 {
     text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
 }
 
+.game-container {
+    position: relative;
+    width: 720px;
+    height: 480px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.start-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url('./assets/img/9_intro_outro_screens/start/startscreen_1.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 10;
+}
+
+.start-button {
+    margin-top: 20px;
+    padding: 10px 25px;
+    font-size: 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: #ff9900;
+    color: white;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+
+.start-button:hover {
+    background-color: #cc7a00;
+}
+
+.menu-buttons {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    display: flex;
+    gap: 10px;
+    z-index: 5;
+}
+
+.game-button {
+    padding: 8px 16px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.game-button:hover {
+    background-color: #555;
+}
+
+.sound-button {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    padding: 10px 12px;
+    font-size: 18px;
+    border: none;
+    border-radius: 8px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    cursor: pointer;
+    z-index: 20;
+    transition: background-color 0.2s ease;
+}
+
+.sound-button:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.d-none {
+    display: none;
+}
