@@ -5,10 +5,9 @@ let keyboard = new Keyboard();
 function init() {
 
     canvas = document.getElementById('canvas')
-    world = new World(canvas, keyboard);
+    
 
-
-    console.log('My Character is', world.character);
+    console.log('Canvas is ready, but world not started yet');
 }
 
 
@@ -20,7 +19,8 @@ function startGame() {
 
     soundButton.classList.remove('d-none');
 
-    init();
+    world = new World(canvas, keyboard);
+    console.log('My Character is', world.character);
 }
 
 
