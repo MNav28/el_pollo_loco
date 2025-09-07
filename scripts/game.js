@@ -18,6 +18,7 @@ function startGame() {
     startScreen.classList.add('d-none');
 
     soundButton.classList.remove('d-none');
+    initLevel();
 
     world = new World(canvas, keyboard);
     console.log('My Character is', world.character);
