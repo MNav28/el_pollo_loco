@@ -182,6 +182,10 @@ class Endboss extends MoveableObject {
             this.playDeathAnimation();
             this.isAlreadyDead = true;
 
+            setTimeout(() => {
+                this.showWinningScreen();
+            }, 1200);
+
             return;
         }
 
@@ -222,6 +226,14 @@ class Endboss extends MoveableObject {
         this.endboss_cry.play().catch(e => {
             console.warn('Endboss cry sound konnte nicht abgespielt werden:', e);
         });
+    }
+
+    showWinningScreen() {
+        const winningScreen = document.getElementById('winning-screen');
+        const soundButton = document.getElementById('sound-button');
+
+        winningScreen.classList.remove('d-none');
+        soundButton.classList.add('d-none');
     }
 
 }

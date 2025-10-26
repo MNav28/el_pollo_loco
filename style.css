@@ -108,6 +108,23 @@ h1 {
     background-color: rgba(0, 0, 0, 0.7);
 }
 
+.winning-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('./assets/img/9_intro_outro_screens/win/won_2.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 15;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
 .d-none {
     display: none;
 }
