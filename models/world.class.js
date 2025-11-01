@@ -25,7 +25,7 @@ class World {
         this.canvas = canvas;
         this.keyboard = keyboard;
         this.background_music = new Audio('./assets/audio/background_sound.mp3');
-        this.background_music.loop = true;       
+        this.background_music.loop = true;
         this.background_music.volume = 0.3;
         this.drawWorld();
         this.setWorld();
@@ -55,6 +55,7 @@ class World {
     }
 
     checkThrowObjects() {
+        if (this.character.isStopped) return;
         if (this.keyboard.D && this.canThrow && this.collectedBottles > 0) {
             console.log("D wurde gedrückt! Erstelle Flasche...");
             this.character.idleTime = 0;
@@ -128,6 +129,7 @@ class World {
                     this.character.hit();
                     this.character.playHurtSound();
                     console.log('von der Seite getroffen');
+                    if (this.character.isStopped) return;
                     this.statusBarHealth.setPercentage(this.character.energy);
                     return;
                 }
@@ -255,4 +257,10 @@ class World {
             console.warn("Background music konnte nicht abgespielt werden:", e);
         });
     }
+
+    stopBackgroundMusic() {
+        this.background_music.pause();
+        this.background_music.currentTime = 0;
+    }
+
 }

@@ -182,6 +182,9 @@ class Endboss extends MoveableObject {
             this.playDeathAnimation();
             this.isAlreadyDead = true;
 
+            this.world.stopBackgroundMusic(); // stop background music
+            this.world.character.stopAllActions(); // deactivate character
+
             setTimeout(() => {
                 this.showWinningScreen();
             }, 1200);

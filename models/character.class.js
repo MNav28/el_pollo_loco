@@ -80,6 +80,7 @@ class Character extends MoveableObject {
         this.isSnoringSoundPlaying = false;
         this.lastCollectedCoins = 0;
         this.lastCollectedBottles = 0;
+        this.isStopped = false;
         this.loadImage('./assets/img/2_character_pepe/1_idle/idle/I-1.png');
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING);
@@ -107,6 +108,7 @@ class Character extends MoveableObject {
 
     animateMovement() {
         setInterval(() => {
+            if (this.isStopped) return;
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.moveRight();
                 this.otherDirection = false;
@@ -127,6 +129,7 @@ class Character extends MoveableObject {
 
     animateCharacterStates() {
         setInterval(() => {
+            if (this.isStopped) return; 
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
             } else if (this.isHurt()) {
@@ -141,6 +144,7 @@ class Character extends MoveableObject {
 
     animateIdle() {
         setInterval(() => {
+            if (this.isStopped) return;
             if (this.isIdle() && !this.isLongIdle()) {
                 this.playAnimation(this.IMAGES_IDLE);
             }
@@ -149,6 +153,7 @@ class Character extends MoveableObject {
 
     animateLongIdle() {
         setInterval(() => {
+            if (this.isStopped) return;
             if (this.isLongIdle()) {
                 this.playAnimation(this.IMAGES_LONG_IDLE);
             }
@@ -228,6 +233,7 @@ class Character extends MoveableObject {
 
     playSnoringSound() {
         setInterval(() => {
+            if (this.isStopped) return;
             if (this.isLongIdle()) {
                 if (!this.isSnoringSoundPlaying) {
                     this.snoring_sound.currentTime = 0;
@@ -247,12 +253,32 @@ class Character extends MoveableObject {
     }
 
     playHurtSound() {
+        if (this.isStopped) return;
         this.hurt_sound.pause();
         this.hurt_sound.currentTime = 0;
         this.hurt_sound.play().catch((e) => {
             console.warn('Hurt sound konnte nicht abgespielt werden:', e);
         });
     }
+
+    stopAllActions() {
+        // stop all sounds
+        this.walking_sound.pause();
+        this.jump_sound.pause();
+        this.collecting_sound.pause();
+        this.snoring_sound.pause();
+        this.hurt_sound.pause();
+
+        this.walking_sound.currentTime = 0;
+        this.jump_sound.currentTime = 0;
+        this.collecting_sound.currentTime = 0;
+        this.snoring_sound.currentTime = 0;
+        this.hurt_sound.currentTime = 0;
+
+        // set flag to stop running Animation
+        this.isStopped = true;
+    }
+
 
     // jump() {
     // }
