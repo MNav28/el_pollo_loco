@@ -125,6 +125,23 @@ h1 {
     flex-direction: column;
 }
 
+.gameover-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('./assets/img/9_intro_outro_screens/game_over/game over!.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 15;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
 .d-none {
     display: none;
 }

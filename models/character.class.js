@@ -131,6 +131,7 @@ class Character extends MoveableObject {
         setInterval(() => {
             if (this.isStopped) return; 
             if (this.isDead()) {
+                console.log('Gameover, you lost the game!');
                 this.playAnimation(this.IMAGES_DEAD);
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
