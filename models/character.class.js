@@ -81,6 +81,7 @@ class Character extends MoveableObject {
         this.lastCollectedCoins = 0;
         this.lastCollectedBottles = 0;
         this.isStopped = false;
+        this.isDeadAlreadyHandled = false;
         this.loadImage('./assets/img/2_character_pepe/1_idle/idle/I-1.png');
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING);
@@ -129,10 +130,20 @@ class Character extends MoveableObject {
 
     animateCharacterStates() {
         setInterval(() => {
-            if (this.isStopped) return; 
+            if (this.isStopped) return;
             if (this.isDead()) {
                 console.log('Gameover, you lost the game!');
                 this.playAnimation(this.IMAGES_DEAD);
+                if (!this.isDeadAlreadyHandled) {
+                    this.isDeadAlreadyHandled = true;
+
+                    this.stopAllActions();
+                    this.world.stopBackgroundMusic();
+
+                    setTimeout(() => {
+                        this.showGameoverScreen();
+                    }, 1200);
+                }
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
             } else if (this.isAboveGround()) {
@@ -279,6 +290,16 @@ class Character extends MoveableObject {
         // set flag to stop running Animation
         this.isStopped = true;
     }
+
+    showGameoverScreen() {
+        const gameoverScreen = document.getElementById('gameover-screen');
+        const soundButton = document.getElementById('sound-button');
+        this.stopAllActions();
+        this.world.stopBackgroundMusic();
+        soundButton.classList.add('d-none');
+        gameoverScreen.classList.remove('d-none');
+    }
+
 
 
     // jump() {
