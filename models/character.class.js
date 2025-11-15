@@ -76,6 +76,7 @@ class Character extends MoveableObject {
         this.collecting_sound = new Audio('./assets/audio/collecting.mp3');
         this.snoring_sound = new Audio('./assets/audio/snoring.mp3');
         this.hurt_sound = new Audio('./assets/audio/hurt.mp3');
+        this.gameover_sound = new Audio('./assets/audio/game_over_sound.mp3');
         this.isJumpSoundPlayed = false;
         this.isSnoringSoundPlaying = false;
         this.lastCollectedCoins = 0;
@@ -296,8 +297,18 @@ class Character extends MoveableObject {
         const soundButton = document.getElementById('sound-button');
         this.stopAllActions();
         this.world.stopBackgroundMusic();
+        this.playGameoverSound();
         soundButton.classList.add('d-none');
         gameoverScreen.classList.remove('d-none');
+    }
+
+    playGameoverSound() {
+        this.gameover_sound.pause();
+        this.gameover_sound.currentTime = 0;
+
+        this.gameover_sound.play().catch((e) => {
+            console.warn('Gameover sound konnte nicht abgespielt werden:', e);
+        });
     }
 
 
