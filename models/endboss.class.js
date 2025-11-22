@@ -49,6 +49,7 @@ class Endboss extends MoveableObject {
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_DEAD);
         this.endboss_cry = new Audio('./assets/audio/endboss_cry.mp3');
+        this.winning_sound = new Audio('./assets/audio/winning_sound.mp3');
         this.speed = 1.2;
         this.x = 2900;
         this.offsetX = 40;
@@ -234,9 +235,18 @@ class Endboss extends MoveableObject {
     showWinningScreen() {
         const winningScreen = document.getElementById('winning-screen');
         const soundButton = document.getElementById('sound-button');
-
+        this.playWinningSound();
         winningScreen.classList.remove('d-none');
         soundButton.classList.add('d-none');
+    }
+
+    playWinningSound() {
+        this.winning_sound.pause();
+        this.winning_sound.currentTime = 0;
+
+        this.winning_sound.play().catch((e) => {
+            console.warn('Winning sound konnte nicht abgespielt werden:', e);
+        });
     }
 
 }
