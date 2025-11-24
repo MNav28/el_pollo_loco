@@ -31,7 +31,12 @@ function initLevel() {
             new Endboss(),   // als neues enemie fügen wir den Endboss hinzu
         ],
         [
-            new Cloud()
+            new Cloud(0, 50, 0),
+            new Cloud(480, 45, 1),
+            new Cloud(1080, 55, 0),
+            new Cloud(1630, 60, 1),
+            new Cloud(2180, 48, 0),
+            new Cloud(2780, 63, 1),
         ],
         [
             new BackgroundObject('./assets/img/5_background/layers/air.png', -719),
