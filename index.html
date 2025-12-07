@@ -26,7 +26,7 @@
             <div id="menu-buttons" class="menu-buttons">
                 <button class="game-button restart-button">Restart</button>
                 <button class="game-button controls-button">Controls</button>
-                <button class="game-button imprint-button">Imprint</button>
+                <button id="impressum-button" class="game-button imprint-button" onclick="openOverlay(getImpressumTemplate())">Impressum</button>
             </div>
         </div>
 
@@ -66,6 +66,7 @@
 
     <script src="./levels/level1.js"></script>
     <script src="./scripts/game.js"></script>
+    <script src="./scripts/templates.js"></script>
 
 
 </body>

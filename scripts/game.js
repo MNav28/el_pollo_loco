@@ -5,7 +5,7 @@ let keyboard = new Keyboard();
 function init() {
 
     canvas = document.getElementById('canvas')
-    
+
 
     console.log('Canvas is ready, but world not started yet');
 }
@@ -82,3 +82,16 @@ window.addEventListener("keyup", (e) => {
         keyboard.D = false;
     }
 })
+
+function openOverlay(htmlContent) {
+    const overlay = document.getElementById('overlay');
+    const content = document.getElementById('overlay-content');
+
+    content.innerHTML = htmlContent;
+    overlay.classList.remove('d-none');
+}
+
+function closeOverlay() {
+    const overlay = document.getElementById('overlay');
+    overlay.classList.add('d-none');
+}
