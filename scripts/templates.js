@@ -14,6 +14,9 @@ function getImpressumTemplate() {
         </p>
 
         <p>Quelle: e-recht24.de Impressum-Generator</p>
+        <p>Die Soundeffekte stammen von <a href="https://pixabay.com/sound-effects/" rel="nofollow" target="_blank">Pixabay</a> </p>
+        <p>Das Hintergrundbild stammt von <a href="https://www.freepik.com" rel="nofollow" target="_blank">Freepik</a> </p>
+        <p>Die Icons kommen von <a href="https://fontawesome.com/start" rel="nofollow" target="_blank">Fontawesome</a> </p>
     `;
 }
 
