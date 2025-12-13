@@ -21,3 +21,9 @@ function getImpressumTemplate() {
 }
 
 
+function getControlTemplate() {
+    return `
+        <div class="overlay-close" onclick="closeOverlay()">×</div>
+        <p>platzhalter für Steuerunganleitung</p>
+    `
+}
