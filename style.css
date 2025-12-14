@@ -181,6 +181,56 @@ h1 {
     font-weight: bold;
 }
 
+.control-mobile-panel {
+    border: 2px solid green;
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    width: 100%;
+    padding: 0 15px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 30;
+    pointer-events: auto;
+}
+
+.control-mobile-panel-left,
+.control-mobile-panel-right {
+    display: flex;
+    gap: 12px;
+}
+
+.control-mobile-panel button {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    touch-action: none;
+}
+
+.control-mobile-panel {
+    display: none;
+}
+
 .d-none {
     display: none;
+}
+
+
+
+@media (max-width: 900px) {
+    .control-mobile-panel {
+        display: flex;
+    }
 }
