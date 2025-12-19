@@ -189,7 +189,8 @@ h1 {
     width: 100%;
     padding: 0 15px;
     box-sizing: border-box;
-    display: flex;
+    /* display: flex; */
+    display: none;
     justify-content: space-between;
     align-items: center;
     z-index: 30;
@@ -211,6 +212,7 @@ h1 {
     color: white;
     font-size: 14px;
     font-weight: bold;
+    /* display: flex; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -219,9 +221,9 @@ h1 {
     touch-action: none;
 }
 
-.control-mobile-panel {
+/* .control-mobile-panel {
     display: none;
-}
+} */
 
 .d-none {
     display: none;
