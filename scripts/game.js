@@ -21,6 +21,7 @@ function startGame() {
     initLevel();
 
     world = new World(canvas, keyboard);
+    world.keyboard.initMobileButtons();
     console.log('My Character is', world.character);
 }
 
