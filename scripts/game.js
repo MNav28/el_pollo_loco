@@ -6,7 +6,7 @@ function init() {
 
     canvas = document.getElementById('canvas')
 
-
+    checkDeviceOrientation();
     console.log('Canvas is ready, but world not started yet');
 }
 
@@ -84,6 +84,7 @@ window.addEventListener("keyup", (e) => {
     }
 })
 
+
 function openOverlay(htmlContent) {
     const overlay = document.getElementById('overlay');
     const content = document.getElementById('overlay-content');
@@ -92,7 +93,26 @@ function openOverlay(htmlContent) {
     overlay.classList.remove('d-none');
 }
 
+
 function closeOverlay() {
     const overlay = document.getElementById('overlay');
     overlay.classList.add('d-none');
 }
+
+
+function checkDeviceOrientation() {
+    const overlay = document.getElementById('orientation-overlay');
+
+    const isMobile = window.innerWidth <= 900;
+    const isPortrait = window.matchMedia("(orientation: portrait)").matches;
+
+    if (isMobile && isPortrait) {
+        overlay.classList.remove('d-none');
+    } else {
+        overlay.classList.add('d-none');
+    }
+}
+
+
+window.addEventListener('resize', checkDeviceOrientation);
+window.addEventListener('orientationchange', checkDeviceOrientation);
