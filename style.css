@@ -223,10 +223,7 @@ h1 {
 
 .orientation-overlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
+    inset: 0;
     background: rgba(0, 0, 0, 0.95);
     z-index: 2000;
 
@@ -254,6 +251,10 @@ h1 {
 /* .control-mobile-panel {
     display: none;
 } */
+
+body.no-scroll {
+    overflow: hidden;
+}
 
 .d-none {
     display: none;

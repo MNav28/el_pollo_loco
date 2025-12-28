@@ -101,16 +101,28 @@ function closeOverlay() {
 
 
 function checkDeviceOrientation() {
-    const overlay = document.getElementById('orientation-overlay');
-
     const isMobile = window.innerWidth <= 900;
     const isPortrait = window.matchMedia("(orientation: portrait)").matches;
 
     if (isMobile && isPortrait) {
-        overlay.classList.remove('d-none');
+        showOrientationOverlay();
     } else {
-        overlay.classList.add('d-none');
+        hideOrientationOverlay();
     }
+}
+
+
+function showOrientationOverlay() {
+    const overlay = document.getElementById('orientation-overlay');
+    overlay.classList.remove('d-none');
+    document.body.classList.add('no-scroll');
+}
+
+
+function hideOrientationOverlay() {
+    const overlay = document.getElementById('orientation-overlay');
+    overlay.classList.add('d-none');
+    document.body.classList.remove('no-scroll');
 }
 
 
