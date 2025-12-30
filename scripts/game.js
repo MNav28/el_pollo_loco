@@ -126,5 +126,15 @@ function hideOrientationOverlay() {
 }
 
 
+function restartGame() {
+    console.log('game restarted');
+    const gameOverScreen = document.getElementById('gameover-screen');
+    const winningScreen = document.getElementById('winning-screen');
+    gameOverScreen.classList.add('d-none');
+    winningScreen.classList.add('d-none');
+    startGame();
+}
+
+
 window.addEventListener('resize', checkDeviceOrientation);
 window.addEventListener('orientationchange', checkDeviceOrientation);
