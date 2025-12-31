@@ -40,11 +40,17 @@
         </div>
 
         <div id="winning-screen" class="winning-screen d-none">
-            <button id="restart-button" class="game-button restart-button" onclick="restartGame()">Restart</button>
+            <div class="end-screen-footer">
+                <button class="game-button" onclick="restartGame()">Restart</button>
+                <button class="game-button">Home</button>
+            </div>
         </div>
 
         <div id="gameover-screen" class="gameover-screen d-none">
-            <button id="restart-button-gameover" class="game-button restart-button" onclick="restartGame()">Restart</button>
+            <div class="end-screen-footer">
+                <button class="game-button" onclick="restartGame()">Restart</button>
+                <button class="game-button">Home</button>
+            </div>
         </div>
 
         <canvas id="canvas" width="720" height="480"></canvas>

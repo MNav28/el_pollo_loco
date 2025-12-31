@@ -109,37 +109,31 @@ h1 {
 }
 
 .winning-screen {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
     background-image: url('./assets/img/9_intro_outro_screens/win/won_2.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    z-index: 15;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
 }
 
 .gameover-screen {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
     background-image: url('./assets/img/9_intro_outro_screens/game_over/game over!.png');
+}
+
+.winning-screen,
+.gameover-screen {
+    position: absolute;
+    inset: 0;
+    z-index: 15;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    z-index: 15;
+}
+
+.end-screen-footer {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 24px;
 }
 
 .overlay-info {
