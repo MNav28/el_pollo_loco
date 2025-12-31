@@ -142,7 +142,7 @@ h1 {
     flex-direction: column;
 }
 
-.overlay {
+.overlay-info {
     position: fixed;
     top: 0;
     left: 0;
@@ -155,7 +155,7 @@ h1 {
     z-index: 999;
 }
 
-.overlay-content {
+.overlay-info-content {
     background: #FFB119;
     width: 720px;
     max-height: calc(100vh - 120px);
@@ -172,7 +172,7 @@ h1 {
     text-align: center;
 }
 
-.overlay-close {
+.overlay-info-close {
     position: absolute;
     top: 10px;
     right: 15px;

@@ -85,17 +85,17 @@ window.addEventListener("keyup", (e) => {
 })
 
 
-function openOverlay(htmlContent) {
-    const overlay = document.getElementById('overlay');
-    const content = document.getElementById('overlay-content');
+function openInfoOverlay(htmlContent) {
+    const overlay = document.getElementById('overlay-info');
+    const content = document.getElementById('overlay-info-content');
 
     content.innerHTML = htmlContent;
     overlay.classList.remove('d-none');
 }
 
 
-function closeOverlay() {
-    const overlay = document.getElementById('overlay');
+function closeInfoOverlay() {
+    const overlay = document.getElementById('overlay-info');
     overlay.classList.add('d-none');
 }
 

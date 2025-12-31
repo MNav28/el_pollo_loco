@@ -22,8 +22,8 @@
 
     <h1>El Pollo Loco - Inmortal</h1>
 
-    <div id="overlay" class="overlay d-none">
-        <div id="overlay-content" class="overlay-content"></div>
+    <div id="overlay-info" class="overlay-info d-none">
+        <div id="overlay-info-content" class="overlay-info-content"></div>
     </div>
 
     <div id="game-container" class="game-container">
@@ -33,9 +33,9 @@
             <div id="menu-buttons" class="menu-buttons">
                 <!-- <button class="game-button restart-button">Restart</button> -->
                 <button class="game-button controls-button"
-                    onclick="openOverlay(getControlTemplate())">Controls</button>
+                    onclick="openInfoOverlay(getControlTemplate())">Controls</button>
                 <button class="game-button imprint-button"
-                    onclick="openOverlay(getImpressumTemplate())">Impressum</button>
+                    onclick="openInfoOverlay(getImpressumTemplate())">Impressum</button>
             </div>
         </div>
 

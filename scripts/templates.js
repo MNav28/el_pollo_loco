@@ -1,6 +1,6 @@
 function getImpressumTemplate() {
     return `
-        <div class="overlay-close" onclick="closeOverlay()">×</div>
+        <div class="overlay-info-close" onclick="closeInfoOverlay()">×</div>
         <h1>Impressum</h1>
         <h2>Angaben gemäß § 5 TMG</h2>
 
@@ -23,7 +23,7 @@ function getImpressumTemplate() {
 
 function getControlTemplate() {
     return `
-        <div class="overlay-close" onclick="closeOverlay()">×</div>
+        <div class="overlay-info-close" onclick="closeInfoOverlay()">×</div>
         <p>platzhalter für Steuerunganleitung</p>
     `
 }
