@@ -55,7 +55,11 @@
 
         <canvas id="canvas" width="720" height="480"></canvas>
 
-        <button id="sound-button" class="game-button sound-button d-none">🔊</button>
+        <div class="game-hud-bottom d-none" id="game-hud-bottom">
+            <div class="sound-control" onclick="toggleSound()">
+                <img id="sound-icon" src="./assets/img/volume_on.png" alt="Sound on">
+            </div>
+        </div>
 
         <div class="control-mobile-panel">
             <div class="control-mobile-panel-left">

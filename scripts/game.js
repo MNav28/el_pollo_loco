@@ -13,11 +13,10 @@ function init() {
 
 function startGame() {
     const startScreen = document.getElementById('start-screen');
-    const soundButton = document.getElementById('sound-button');
+    const gameHud = document.getElementById('game-hud-bottom');
 
     startScreen.classList.add('d-none');
-
-    soundButton.classList.remove('d-none');
+    gameHud.classList.remove('d-none');
     initLevel();
 
     world = new World(canvas, keyboard);
@@ -139,9 +138,11 @@ function returnToStartMenu() {
     const winningScreen = document.getElementById('winning-screen');
     const gameOverScreen = document.getElementById('gameover-screen');
     const startScreen = document.getElementById('start-screen');
+    const gameHud = document.getElementById('game-hud-bottom')
     gameOverScreen.classList.add('d-none');
     winningScreen.classList.add('d-none');
     startScreen.classList.remove('d-none');
+    gameHud.classList.add('d-none');
 }
 
 

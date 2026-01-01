@@ -294,11 +294,11 @@ class Character extends MoveableObject {
 
     showGameoverScreen() {
         const gameoverScreen = document.getElementById('gameover-screen');
-        const soundButton = document.getElementById('sound-button');
+        // const soundButton = document.getElementById('sound-button');
         this.stopAllActions();
         this.world.stopBackgroundMusic();
         this.playGameoverSound();
-        soundButton.classList.add('d-none');
+        // soundButton.classList.add('d-none');
         gameoverScreen.classList.remove('d-none');
     }
 
