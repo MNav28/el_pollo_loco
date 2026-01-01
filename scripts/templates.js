@@ -1,6 +1,15 @@
 function getImpressumTemplate() {
     return `
-        <div class="overlay-info-close" onclick="closeInfoOverlay()">×</div>
+        <div class="overlay-info-header">
+            <img 
+                src="./assets/img/close.svg" 
+                alt="Close"
+                class="overlay-info-close"
+                onclick="closeInfoOverlay()"
+            >
+        </div>
+
+        <div class="overlay-info-body">
         <h1>Impressum</h1>
         <h2>Angaben gemäß § 5 TMG</h2>
 
@@ -17,13 +26,23 @@ function getImpressumTemplate() {
         <p>Die Soundeffekte stammen von <a href="https://pixabay.com/sound-effects/" rel="nofollow" target="_blank">Pixabay</a> </p>
         <p>Das Hintergrundbild stammt von <a href="https://www.freepik.com" rel="nofollow" target="_blank">Freepik</a> </p>
         <p>Die Icons kommen von <a href="https://fontawesome.com/start" rel="nofollow" target="_blank">Fontawesome</a> </p>
+        </div>
     `;
 }
 
 
 function getControlTemplate() {
     return `
-        <div class="overlay-info-close" onclick="closeInfoOverlay()">×</div>
+        <div class="overlay-info-header">
+            <img 
+                src="./assets/img/close.svg" 
+                alt="Close"
+                class="overlay-info-close"
+                onclick="closeInfoOverlay()"
+            >
+        </div>
+        <div class="overlay-info-body">
         <p>platzhalter für Steuerunganleitung</p>
+        </div>
     `
 }
