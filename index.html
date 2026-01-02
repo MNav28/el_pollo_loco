@@ -28,6 +28,10 @@
 
     <div id="game-container" class="game-container">
 
+        <div class="sound-control">
+            <img id="sound-icon" src="./assets/img/volume_on.png" alt="Sound on">
+        </div>
+
         <div id="start-screen" class="start-screen">
             <button id="start-button" class="game-button start-button" onclick="startGame()">New Game</button>
             <div id="menu-buttons" class="menu-buttons">
@@ -55,11 +59,6 @@
 
         <canvas id="canvas" width="720" height="480"></canvas>
 
-        <div class="game-hud-bottom d-none" id="game-hud-bottom">
-            <div class="sound-control" onclick="toggleSound()">
-                <img id="sound-icon" src="./assets/img/volume_on.png" alt="Sound on">
-            </div>
-        </div>
 
         <div class="control-mobile-panel">
             <div class="control-mobile-panel-left">
