@@ -1,6 +1,7 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
+let soundEnabled = true;
 
 function init() {
 
@@ -139,6 +140,22 @@ function returnToStartMenu() {
     gameOverScreen.classList.add('d-none');
     winningScreen.classList.add('d-none');
     startScreen.classList.remove('d-none');
+}
+
+
+function toggleSound() {
+    const soundIcon = document.getElementById('sound-icon');
+    if(soundEnabled) {
+        console.log('sound icon clicked');       
+        soundIcon.src="./assets/img/volume_off.png";
+        world.stopBackgroundMusic();
+        soundEnabled = false;
+    }else {
+        console.log('sound icon clicked');
+        soundIcon.src="./assets/img/volume_on.png";
+        world.playBackgroundMusic();
+        soundEnabled = true;
+    }
 }
 
 
