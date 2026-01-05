@@ -97,7 +97,7 @@ class Character extends MoveableObject {
         this.offsetWidth = 65;
         this.offsetHeight = 140;
         this.idleTime = 0;
-        this.playSnoringSound();
+        //this.playSnoringSound();
     }
 
     animate() {
@@ -106,6 +106,10 @@ class Character extends MoveableObject {
         this.animateIdle();
         this.animateLongIdle();
         this.trackIdleTime();
+
+        setInterval(() => {
+            this.handleSnoringSound();
+        }, 200);
     }
 
     animateMovement() {
@@ -244,30 +248,34 @@ class Character extends MoveableObject {
         this.lastCollectedBottles = this.world.collectedBottles;
     }
 
-    playSnoringSound() {
-        setInterval(() => {
-            if (this.isStopped) return;
-            if (this.isLongIdle()) {
-                if (!this.isSnoringSoundPlaying) {
-                    this.snoring_sound.currentTime = 0;
-                    this.snoring_sound.play().catch((e) => {
-                        console.warn('Snoring sound konnte nicht abgespielt werden:', e);
-                    });
-                    this.isSnoringSoundPlaying = true;
-                }
-            } else {
-                if (this.isSnoringSoundPlaying) {
-                    this.snoring_sound.pause();
-                    this.snoring_sound.currentTime = 0;
-                    this.isSnoringSoundPlaying = false;
-                }
-            }
-        }, 200);
+    handleSnoringSound() {
+        if (!soundEnabled || this.isStopped) {
+            this.stopSnoringSound();
+            return;
+        }
+
+        if (this.isLongIdle() && !this.isSnoringSoundPlaying) {
+            this.snoring_sound.currentTime = 0;
+            this.snoring_sound.play().catch((e) => {
+                console.warn('Snoring sound konnte nicht abgespielt werden:', e);
+            });
+            this.isSnoringSoundPlaying = true;
+        }
+
+        if (!this.isLongIdle() && this.isSnoringSoundPlaying) {
+            this.stopSnoringSound();
+        }
+    }
+
+    stopSnoringSound() {
+        this.snoring_sound.pause();
+        this.snoring_sound.currentTime = 0;
+        this.isSnoringSoundPlaying = false;
     }
 
     playHurtSound() {
-        if (this.isStopped) return;
-        this.hurt_sound.pause();
+        if (!soundEnabled || this.isStopped) return;
+        //this.hurt_sound.pause();
         this.hurt_sound.currentTime = 0;
         this.hurt_sound.play().catch((e) => {
             console.warn('Hurt sound konnte nicht abgespielt werden:', e);
@@ -275,21 +283,24 @@ class Character extends MoveableObject {
     }
 
     stopAllActions() {
-        // stop all sounds
+        // set flag to stop running Animation
+        this.isStopped = true;
+    }
+
+    stopAllSounds() {
         this.walking_sound.pause();
         this.jump_sound.pause();
         this.collecting_sound.pause();
         this.snoring_sound.pause();
         this.hurt_sound.pause();
+        this.gameover_sound.pause();
 
         this.walking_sound.currentTime = 0;
         this.jump_sound.currentTime = 0;
         this.collecting_sound.currentTime = 0;
         this.snoring_sound.currentTime = 0;
         this.hurt_sound.currentTime = 0;
-
-        // set flag to stop running Animation
-        this.isStopped = true;
+        this.gameover_sound.currentTime = 0;
     }
 
     showGameoverScreen() {

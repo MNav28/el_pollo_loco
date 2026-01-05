@@ -149,6 +149,7 @@ function toggleSound() {
         console.log('sound icon clicked');       
         soundIcon.src="./assets/img/volume_off.png";
         world.stopBackgroundMusic();
+        world.character.stopAllSounds();
         soundEnabled = false;
     }else {
         console.log('sound icon clicked');
