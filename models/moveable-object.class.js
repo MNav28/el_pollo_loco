@@ -85,6 +85,7 @@ class MoveableObject extends DrawableObject {
     }
 
     playChickenKilledSound() {
+        if (!soundEnabled) return;
         this.chicken_killed_sound.currentTime = 0;
         this.chicken_killed_sound.play().catch(e => {
             console.warn('Chicken killed sound konnte nicht abgespielt werden:', e);
