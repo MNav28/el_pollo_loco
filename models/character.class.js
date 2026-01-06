@@ -327,7 +327,7 @@ class Character extends MoveableObject {
     playGameoverSound() {
         this.gameover_sound.pause();
         this.gameover_sound.currentTime = 0;
-
+        if (!soundEnabled) return;
         this.gameover_sound.play().catch((e) => {
             console.warn('Gameover sound konnte nicht abgespielt werden:', e);
         });
