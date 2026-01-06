@@ -227,6 +227,11 @@ class Character extends MoveableObject {
     }
 
     handleJumpSound() {
+        if (!soundEnabled) {
+            this.jump_sound.pause();
+            this.jump_sound.currentTime = 0;
+            return;
+        }
         if (this.isAboveGround() && !this.isJumpSoundPlayed) {
             this.isJumpSoundPlayed = true;
             this.jump_sound.currentTime = 0;
@@ -240,6 +245,7 @@ class Character extends MoveableObject {
     }
 
     handleCollectingSound() {
+        if (!soundEnabled || this.isStopped) return;
         let coinsAmountChanged = this.world.collectedCoins > this.lastCollectedCoins;
         let bottlesAmountChanged = this.world.collectedBottles > this.lastCollectedBottles;
 
