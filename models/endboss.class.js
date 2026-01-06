@@ -243,7 +243,7 @@ class Endboss extends MoveableObject {
     playWinningSound() {
         this.winning_sound.pause();
         this.winning_sound.currentTime = 0;
-
+        if (!soundEnabled) return;
         this.winning_sound.play().catch((e) => {
             console.warn('Winning sound konnte nicht abgespielt werden:', e);
         });
