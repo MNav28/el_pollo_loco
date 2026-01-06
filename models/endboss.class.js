@@ -226,6 +226,7 @@ class Endboss extends MoveableObject {
     }
 
     playCrySound() {
+        if (!soundEnabled) return;
         this.endboss_cry.currentTime = 0;
         this.endboss_cry.play().catch(e => {
             console.warn('Endboss cry sound konnte nicht abgespielt werden:', e);
