@@ -208,12 +208,17 @@ class Character extends MoveableObject {
     }
 
     handleWalkingSound() {
+        if (!soundEnabled) {
+            this.walking_sound.pause();
+            this.walking_sound.currentTime = 0;
+            return;
+        }
+
         if (this.isWalking() && !this.isAboveGround()) {
-            if (!this.walking_sound.playing) {
+            if (this.walking_sound.paused) {
                 this.walking_sound.play().catch((e) => {
                     console.warn('Laufsound konnte nicht abgespielt werden:', e);
                 });
-
             }
         } else {
             this.walking_sound.pause();
