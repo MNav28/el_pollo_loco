@@ -154,8 +154,8 @@ function toggleSound() {
     }else {
         console.log('sound icon clicked');
         soundIcon.src="./assets/img/volume_on.png";
-        world.playBackgroundMusic();
         soundEnabled = true;
+        world.playBackgroundMusic();
     }
 }
 

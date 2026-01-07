@@ -252,6 +252,7 @@ class World {
     }
 
     playBackgroundMusic() {
+        if (!soundEnabled) return;
         this.background_music.currentTime = 0;
         this.background_music.play().catch(e => {
             console.warn("Background music konnte nicht abgespielt werden:", e);
