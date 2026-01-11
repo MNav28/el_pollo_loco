@@ -236,6 +236,8 @@ class Endboss extends MoveableObject {
     showWinningScreen() {
         const winningScreen = document.getElementById('winning-screen');
         // const soundButton = document.getElementById('sound-button');
+        isGameActive = false;
+        world.stopBackgroundMusic();
         this.playWinningSound();
         winningScreen.classList.remove('d-none');
         // soundButton.classList.add('d-none');

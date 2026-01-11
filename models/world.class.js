@@ -30,7 +30,7 @@ class World {
         this.drawWorld();
         this.setWorld();
         this.run();
-        this.playBackgroundMusic();
+        //this.playBackgroundMusic();
     }
 
     setWorld() {

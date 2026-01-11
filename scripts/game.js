@@ -2,6 +2,7 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 let soundEnabled = true;
+let isGameActive = false;
 
 function init() {
 
@@ -20,6 +21,11 @@ function startGame() {
 
     world = new World(canvas, keyboard);
     world.keyboard.initMobileButtons();
+    isGameActive = true;
+
+    if (soundEnabled) {
+        world.playBackgroundMusic();
+    }
     console.log('My Character is', world.character);
 }
 
@@ -125,6 +131,8 @@ function hideOrientationOverlay() {
 
 
 function restartGame() {
+    isGameActive = false;
+    world.stopBackgroundMusic();
     const gameOverScreen = document.getElementById('gameover-screen');
     const winningScreen = document.getElementById('winning-screen');
     gameOverScreen.classList.add('d-none');
@@ -134,6 +142,8 @@ function restartGame() {
 
 
 function returnToStartMenu() {
+    isGameActive = false;
+    world.stopBackgroundMusic();
     const winningScreen = document.getElementById('winning-screen');
     const gameOverScreen = document.getElementById('gameover-screen');
     const startScreen = document.getElementById('start-screen');
@@ -145,17 +155,19 @@ function returnToStartMenu() {
 
 function toggleSound() {
     const soundIcon = document.getElementById('sound-icon');
-    if(soundEnabled) {
-        console.log('sound icon clicked');       
-        soundIcon.src="./assets/img/volume_off.png";
+    if (soundEnabled) {
+        console.log('sound icon clicked');
+        soundIcon.src = "./assets/img/volume_off.png";
+        soundEnabled = false;
         world.stopBackgroundMusic();
         world.character.stopAllSounds();
-        soundEnabled = false;
-    }else {
+    } else {
         console.log('sound icon clicked');
-        soundIcon.src="./assets/img/volume_on.png";
+        soundIcon.src = "./assets/img/volume_on.png";
         soundEnabled = true;
-        world.playBackgroundMusic();
+        if (isGameActive) {
+            world.playBackgroundMusic();
+        }
     }
 }
 

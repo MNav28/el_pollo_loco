@@ -318,6 +318,7 @@ class Character extends MoveableObject {
         const gameoverScreen = document.getElementById('gameover-screen');
         // const soundButton = document.getElementById('sound-button');
         this.stopAllActions();
+        isGameActive = false;
         this.world.stopBackgroundMusic();
         this.playGameoverSound();
         // soundButton.classList.add('d-none');
