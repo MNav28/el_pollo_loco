@@ -49,7 +49,7 @@ h1 {
     z-index: 10;
 }
 
-.start-button {
+/* .start-button {
     margin-top: 20px;
     padding: 10px 25px;
     font-size: 20px;
@@ -60,11 +60,11 @@ h1 {
     color: white;
     font-weight: bold;
     transition: background-color 0.2s;
-}
+} */
 
-.start-button:hover {
+/* .start-button:hover {
     background-color: #cc7a00;
-}
+} */
 
 .menu-buttons {
     position: absolute;
@@ -85,9 +85,27 @@ h1 {
     transition: background-color 0.3s ease;
 }
 
+.icon-button {
+    background-color: transparent;
+    padding: 0;
+}
+
+.icon-button img {
+    width: 48px;
+    height: 48px;
+    cursor: pointer;
+    transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.icon-button:hover img {
+    transform: scale(1.1);
+    opacity: 0.85;
+}
+
+/*
 .game-button:hover {
     background-color: #555;
-}
+} */
 
 /* .sound-button {
     position: absolute;
@@ -261,9 +279,12 @@ body.no-scroll {
 
 .sound-control {
     position: absolute;
-    bottom: 24px;      /* gleiche Höhe wie end-screen-footer */
-    right: 24px;       /* Abstand vom Rand */
-    z-index: 50; /* höher als Screens */
+    bottom: 24px;
+    /* gleiche Höhe wie end-screen-footer */
+    right: 24px;
+    /* Abstand vom Rand */
+    z-index: 50;
+    /* höher als Screens */
 }
 
 .sound-control img {

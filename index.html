@@ -33,13 +33,15 @@
         </div>
 
         <div id="start-screen" class="start-screen">
-            <button id="start-button" class="game-button start-button" onclick="startGame()">New Game</button>
+            <button id="start-button" class="game-button icon-button" onclick="startGame()">
+                <img src="./assets/img/play.svg" alt="Play" />
+            </button>
             <div id="menu-buttons" class="menu-buttons">
                 <!-- <button class="game-button restart-button">Restart</button> -->
-                <button class="game-button controls-button"
-                    onclick="openInfoOverlay(getControlTemplate())">Controls</button>
-                <button class="game-button imprint-button"
-                    onclick="openInfoOverlay(getImpressumTemplate())">Impressum</button>
+                <button class="game-button icon-button" onclick="openInfoOverlay(getControlTemplate())">
+                    <img src="./assets/img/settings.svg" alt="Controls" />
+                </button>
+                <button class="game-button" onclick="openInfoOverlay(getImpressumTemplate())">Impressum</button>
             </div>
         </div>
 
