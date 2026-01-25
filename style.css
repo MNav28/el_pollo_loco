@@ -91,8 +91,8 @@ h1 {
 }
 
 .icon-button img {
-    width: 48px;
-    height: 48px;
+    width: 32px;
+    height: 32px;
     cursor: pointer;
     transition: transform 0.15s ease, opacity 0.15s ease;
 }
@@ -145,6 +145,17 @@ h1 {
     color: #666;
 }
 
+.impressum-button {
+    position: fixed;
+    bottom: 16px;
+    left: 16px;
+    z-index: 100;
+    opacity: 0.85;
+}
+
+.impressum-button:hover {
+    opacity: 1;
+}
 
 
 /*
