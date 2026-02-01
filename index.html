@@ -28,9 +28,9 @@
 
     <div id="game-container" class="game-container">
 
-        <div class="sound-control" onclick="toggleSound()">
+        <!-- <div class="sound-control" onclick="toggleSound()">
             <img id="sound-icon" src="./assets/img/volume_on.png" alt="Sound on">
-        </div>
+        </div> -->
 
         <div id="start-screen" class="start-screen">
             <button id="start-button" class="game-button icon-button start-play" onclick="startGame()">
@@ -46,6 +46,10 @@
 
                 <button class="game-button icon-button" onclick="openInfoOverlay(getControlTemplate())">
                     <img src="./assets/img/settings.svg" alt="Controls" />
+                </button>
+
+                <button class="game-button icon-button" onclick="toggleSound()">
+                    <img id="sound-icon" src="./assets/img/volume_on.png" alt="Sound on">
                 </button>
             </div>
         </div>

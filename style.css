@@ -69,7 +69,7 @@ h1 {
 .menu-buttons {
     position: absolute;
     bottom: 24px;
-    left: 24px;
+    right: 24px;
     display: flex;
     gap: 12px;
     z-index: 50;
@@ -333,14 +333,15 @@ body.no-scroll {
     overflow: hidden;
 }
 
+/* 
 .sound-control {
     position: absolute;
     bottom: 24px;
-    /* gleiche Höhe wie end-screen-footer */
+    
     right: 24px;
-    /* Abstand vom Rand */
+    
     z-index: 50;
-    /* höher als Screens */
+    
 }
 
 .sound-control img {
@@ -353,7 +354,7 @@ body.no-scroll {
 .sound-control img:hover {
     transform: scale(1.1);
     opacity: 0.8;
-}
+} */
 
 .d-none {
     display: none;
