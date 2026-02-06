@@ -15,8 +15,10 @@ function init() {
 
 function startGame() {
     const startScreen = document.getElementById('start-screen');
+    const infoSettings = document.getElementById('info-settings-wrapper');
 
     startScreen.classList.add('d-none');
+    infoSettings.classList.add('d-none');
     initLevel();
 
     world = new World(canvas, keyboard);
