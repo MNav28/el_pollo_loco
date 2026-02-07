@@ -235,10 +235,12 @@ class Endboss extends MoveableObject {
 
     showWinningScreen() {
         const winningScreen = document.getElementById('winning-screen');
+        const soundIcon = document.getElementById('sound-icon-wrapper');
         // const soundButton = document.getElementById('sound-button');
         isGameActive = false;
         world.stopBackgroundMusic();
         this.playWinningSound();
+        soundIcon.classList.add('d-none');
         winningScreen.classList.remove('d-none');
         // soundButton.classList.add('d-none');
     }

@@ -139,6 +139,8 @@ function restartGame() {
     const winningScreen = document.getElementById('winning-screen');
     gameOverScreen.classList.add('d-none');
     winningScreen.classList.add('d-none');
+    const soundIcon = document.getElementById('sound-icon-wrapper');
+    soundIcon.classList.remove('d-none');
     startGame();
 }
 
@@ -149,9 +151,13 @@ function returnToStartMenu() {
     const winningScreen = document.getElementById('winning-screen');
     const gameOverScreen = document.getElementById('gameover-screen');
     const startScreen = document.getElementById('start-screen');
+    const infoSettings = document.getElementById('info-settings-wrapper');
+    const soundIcon = document.getElementById('sound-icon-wrapper');
     gameOverScreen.classList.add('d-none');
     winningScreen.classList.add('d-none');
     startScreen.classList.remove('d-none');
+    infoSettings.classList.remove('d-none');
+    soundIcon.classList.remove('d-none');
 }
 
 
