@@ -16,9 +16,11 @@ function init() {
 function startGame() {
     const startScreen = document.getElementById('start-screen');
     const infoSettings = document.getElementById('info-settings-wrapper');
+    const mobilePanel = document.getElementById('control-mobile-panel');
 
     startScreen.classList.add('d-none');
     infoSettings.classList.add('d-none');
+    mobilePanel.classList.remove('d-none');
     initLevel();
 
     world = new World(canvas, keyboard);
