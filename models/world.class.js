@@ -59,14 +59,36 @@ class World {
         if (this.keyboard.D && this.canThrow && this.collectedBottles > 0) {
             console.log("D wurde gedrückt! Erstelle Flasche...");
             this.character.idleTime = 0;
-            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
-            bottle.throwAnimate(); // start animation
+
+            let spawnPosition = this.getBottleSpawnPosition();
+            let spawnX = spawnPosition.spawnX;
+            let spawnY = spawnPosition.spawnY;
+
+            let bottle = new ThrowableObject(spawnX, spawnY);
+            bottle.otherDirection = this.character.otherDirection;
+            bottle.throwAnimate();
             this.throwableObjects.push(bottle);
             this.collectedBottles--;
             this.updateStatusbarBottle();
+
             this.canThrow = false;
-            setTimeout(() => this.canThrow = true, 800);
+            setTimeout(() => {
+                this.canThrow = true;
+            }, 800);
         }
+    }
+
+    getBottleSpawnPosition() {
+        let spawnX;
+        let spawnY = this.character.y + 100;
+
+        if (this.character.otherDirection) {
+            spawnX = this.character.x - 30;
+        } else {
+            spawnX = this.character.x + 100;
+        }
+
+        return { spawnX, spawnY };
     }
 
     checkCollisionBottles() {

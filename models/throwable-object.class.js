@@ -49,7 +49,11 @@ class ThrowableObject extends MoveableObject {
         this.applyGravity();
 
         this.throwInterval = setInterval(() => {
-            this.x += 10;
+            if (this.otherDirection) {
+                this.x -= 10;
+            } else {
+                this.x += 10;
+            }
             this.playAnimation(this.salsa_bottle_rotation_images);
         }, 25);
     }
