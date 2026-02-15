@@ -292,9 +292,9 @@ h1 {
     border: none;
     background: rgba(0, 0, 0, 0.6);
     color: white;
-    font-size: 14px;
+    /* font-size: 14px;
     font-weight: bold;
-    /* display: flex; */
+    display: flex; */
     display: flex;
     justify-content: center;
     align-items: center;
