@@ -267,7 +267,7 @@ h1 {
 .control-mobile-panel {
     border: 2px solid green;
     position: absolute;
-    bottom: 10px;
+    bottom: 2px;
     left: 0;
     width: 100%;
     padding: 0 15px;
@@ -282,7 +282,7 @@ h1 {
 .control-mobile-panel-left,
 .control-mobile-panel-right {
     display: flex;
-    gap: 12px;
+    gap: 28px;
 }
 
 .control-mobile-panel button {
