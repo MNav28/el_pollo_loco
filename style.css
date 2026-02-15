@@ -273,7 +273,7 @@ h1 {
     padding: 0 15px;
     box-sizing: border-box;
     /* display: none; */
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     z-index: 30;
     pointer-events: auto;
@@ -286,21 +286,23 @@ h1 {
 }
 
 .control-mobile-panel button {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
+    width: auto;
+    height: auto;
+    padding: 0;
     border: none;
-    background: rgba(0, 0, 0, 0.6);
-    color: white;
-    /* font-size: 14px;
-    font-weight: bold;
-    display: flex; */
+    background: none;
+    border-radius: 0;
+    box-shadow: none;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    user-select: none;
-    touch-action: none;
+}
+
+.control-mobile-panel button img {
+    width: 56px;   /* Größe anpassen */
+    height: 56px;
+    pointer-events: none; /* wichtig für sauberes Touch-Verhalten */
 }
 
 .orientation-overlay {
