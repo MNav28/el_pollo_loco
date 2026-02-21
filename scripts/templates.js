@@ -43,8 +43,76 @@ function getControlTemplate() {
                 onclick="closeInfoOverlay()"
             >
         </div>
-        <div class="overlay-info-body">
-        <p>platzhalter für Steuerunganleitung</p>
+
+         <div class="overlay-info-body">
+
+    <h1>Steuerung</h1>
+
+    <div class="controls-wrapper">
+
+        <!-- DESKTOP -->
+        <div class="controls-column">
+            <h2>Desktop</h2>
+
+            <div class="control-grid">
+
+                <div class="control-row">
+                    <div class="key">←</div>
+                    <span>Nach links laufen</span>
+                </div>
+
+                <div class="control-row">
+                    <div class="key">→</div>
+                    <span>Nach rechts laufen</span>
+                </div>
+
+                <div class="control-row">
+                    <div class="key space">⎵</div>
+                    <span>Springen</span>
+                </div>
+
+                <div class="control-row">
+                    <div class="key">D</div>
+                    <span>Flasche werfen</span>
+                </div>
+
+            </div>
         </div>
-    `
+
+        <!-- DIVIDER -->
+        <div class="controls-divider"></div>
+
+        <!-- MOBILE -->
+        <div class="controls-column">
+            <h2>Mobil</h2>
+
+            <div class="control-grid">
+
+                <div class="control-row">
+                    <img src="./assets/img/left.svg" alt="Links">
+                    <span>Nach links laufen</span>
+                </div>
+
+                <div class="control-row">
+                    <img src="./assets/img/right.svg" alt="Rechts">
+                    <span>Nach rechts laufen</span>
+                </div>
+
+                <div class="control-row">
+                    <img src="./assets/img/up.svg" alt="Springen">
+                    <span>Springen</span>
+                </div>
+
+                <div class="control-row">
+                    <img src="./assets/img/throw.svg" alt="Werfen">
+                    <span>Flasche werfen</span>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+    `;
 }

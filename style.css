@@ -300,9 +300,11 @@ h1 {
 }
 
 .control-mobile-panel button img {
-    width: 56px;   /* Größe anpassen */
+    width: 56px;
+    /* Größe anpassen */
     height: 56px;
-    pointer-events: none; /* wichtig für sauberes Touch-Verhalten */
+    pointer-events: none;
+    /* wichtig für sauberes Touch-Verhalten */
 }
 
 .orientation-overlay {
@@ -362,6 +364,114 @@ body.no-scroll {
     transform: scale(1.1);
     opacity: 0.8;
 } */
+
+/* Overlay Body */
+.overlay-info-body {
+    background-color: #f7d046;
+    color: #000;
+    padding: 40px 24px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+/* Headline */
+.overlay-info-body h1 {
+    font-size: 48px;
+    margin-bottom: 40px;
+}
+
+/* Wrapper für Desktop + Mobile */
+.controls-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 48px;
+
+    width: 100%;
+    max-width: 800px;
+}
+
+/* Spalten */
+.controls-column {
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Senkrechter Divider */
+.controls-divider {
+    width: 2px;
+    background: rgba(0, 0, 0, 0.25);
+    border-radius: 2px;
+
+    align-self: stretch;
+}
+
+/* Section Headline */
+.controls-column h2 {
+    font-size: 32px;
+    margin-bottom: 24px;
+}
+
+/* Grid */
+.control-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    width: 100%;
+}
+
+/* Zeile */
+.control-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+
+    background: rgba(0, 0, 0, 0.08);
+    padding: 14px 20px;
+    border-radius: 14px;
+}
+
+/* Desktop Keys */
+.key {
+    min-width: 48px;
+    height: 48px;
+
+    background: #fff;
+    border-radius: 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 22px;
+    font-weight: bold;
+
+    box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.2);
+}
+
+.key.space {
+    font-size: 26px;
+}
+
+/* Mobile Icons */
+.control-row img {
+    width: 44px;
+    height: 44px;
+}
+
+/* Text */
+.control-row span {
+    font-size: 22px;
+    font-weight: 600;
+    color: #2a1a00;
+}
 
 .d-none {
     display: none;
