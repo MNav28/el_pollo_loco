@@ -58,17 +58,17 @@ function getControlTemplate() {
 
                 <div class="control-row">
                     <div class="key">←</div>
-                    <span>Nach links laufen</span>
+                    <span>links laufen</span>
                 </div>
 
                 <div class="control-row">
                     <div class="key">→</div>
-                    <span>Nach rechts laufen</span>
+                    <span>rechts laufen</span>
                 </div>
 
                 <div class="control-row">
                     <div class="key space">⎵</div>
-                    <span>Springen</span>
+                    <span>springen</span>
                 </div>
 
                 <div class="control-row">
@@ -79,8 +79,8 @@ function getControlTemplate() {
             </div>
         </div>
 
-        <!-- DIVIDER -->
-        <div class="controls-divider"></div>
+        <!-- separator -->
+        <div class="controls-separator"></div>
 
         <!-- MOBILE -->
         <div class="controls-column">
@@ -90,17 +90,17 @@ function getControlTemplate() {
 
                 <div class="control-row">
                     <img src="./assets/img/left.svg" alt="Links">
-                    <span>Nach links laufen</span>
+                    <span>links laufen</span>
                 </div>
 
                 <div class="control-row">
                     <img src="./assets/img/right.svg" alt="Rechts">
-                    <span>Nach rechts laufen</span>
+                    <span>rechts laufen</span>
                 </div>
 
                 <div class="control-row">
                     <img src="./assets/img/up.svg" alt="Springen">
-                    <span>Springen</span>
+                    <span>springen</span>
                 </div>
 
                 <div class="control-row">
