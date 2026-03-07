@@ -1,177 +1,45 @@
-/* =========================================================
-   GLOBAL MOBILE RESET
-   ========================================================= */
+@media (max-width: 720px) {
+  canvas {
+    width: 100%;
+  }
 
-@media (max-width: 900px) {
+  .game-container {
+    width: 100%;
+    height: auto;
+  }
 
-    body {
-        padding: 0;
-        justify-content: flex-start;
-    }
+  .play-icon {
+    width: 90px;
+    height: 90px;
+  }
 
-    h1 {
-        font-size: 36px;
-        margin: 12px 0;
-        text-align: center;
-    }
+
 }
 
+@media (max-width: 520px) {
+  h1 {
+    /* height: 72px;
+    width: 300px; */
 
-/* =========================================================
-   GAME CONTAINER & CANVAS
-   ========================================================= */
+    font-size: 32px;
+    text-align: center;
+  }
 
-@media (max-width: 900px) {
-
-    .game-container {
-        width: 100vw;
-        height: auto;
-        aspect-ratio: 3 / 2; /* 720x480 Verhältnis */
-        max-height: 100vh;
-    }
-
-    canvas {
-        width: 100%;
-        height: auto;
-    }
 }
 
+/*  *** HEIGHT ***  */
 
-/* =========================================================
-   START / END SCREENS
-   ========================================================= */
+@media (max-height: 480px) {
+  h1 {
+    display: none;
+  }
 
-@media (max-width: 900px) {
+  canvas {
+    height: 100vh;
+  }
 
-    .start-screen {
-        background-position: center;
-    }
+  .game-container {
+    width: 100%;
+  }
 
-    .play-icon {
-        width: 96px;
-        height: 96px;
-    }
-
-    .end-screen-footer {
-        gap: 24px;
-        margin-bottom: 16px;
-    }
-
-    .end-screen-footer img {
-        width: 44px;
-        height: 44px;
-    }
-}
-
-
-/* =========================================================
-   MENU BUTTONS (INFO / SETTINGS / SOUND)
-   ========================================================= */
-
-@media (max-width: 900px) {
-
-    .menu-buttons {
-        bottom: 12px;
-        gap: 60px;
-    }
-
-    .icon-button img {
-        width: 30px;
-        height: 30px;
-    }
-}
-
-
-/* =========================================================
-   MOBILE CONTROL PANEL
-   ========================================================= */
-
-@media (max-width: 900px) {
-
-    .control-mobile-panel {
-        display: flex;
-        padding: 0 20px;
-        bottom: 8px;
-    }
-
-    .control-mobile-panel-left,
-    .control-mobile-panel-right {
-        gap: 24px;
-    }
-
-    .control-mobile-panel button img {
-        width: 52px;
-        height: 52px;
-    }
-}
-
-
-/* =========================================================
-   INFO OVERLAY (IMPRESSUM / CONTROLS)
-   ========================================================= */
-
-@media (max-width: 900px) {
-
-    .overlay-info-content {
-        width: calc(100vw - 24px);
-        max-height: calc(100vh - 40px);
-        padding: 16px;
-    }
-
-    .overlay-info-body {
-        padding: 24px 16px;
-    }
-
-    .overlay-info-body h1 {
-        font-size: 32px;
-        margin-bottom: 24px;
-    }
-
-    .overlay-info-body h2 {
-        font-size: 24px;
-    }
-
-    .overlay-info-body p,
-    .control-row span {
-        font-size: 18px;
-    }
-
-    .controls-wrapper {
-        flex-direction: column;
-        gap: 32px;
-    }
-
-    .controls-separator {
-        width: 100%;
-        height: 2px;
-    }
-}
-
-
-/* =========================================================
-   ORIENTATION HANDLING
-   ========================================================= */
-
-/* Hochformat → Spiel blockieren */
-@media (max-width: 900px) and (orientation: portrait) {
-
-    #orientation-overlay {
-        display: flex;
-    }
-
-    .game-container {
-        display: none;
-    }
-}
-
-/* Querformat → Spiel erlauben */
-@media (max-width: 900px) and (orientation: landscape) {
-
-    #orientation-overlay {
-        display: none;
-    }
-
-    .game-container {
-        display: flex;
-    }
 }
