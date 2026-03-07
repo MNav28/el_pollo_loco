@@ -1,6 +1,7 @@
 @media (max-width: 740px) {
   canvas {
     width: 100%;
+    height: auto;
   }
 
   .game-container {
@@ -41,7 +42,6 @@
     font-size: 32px;
     text-align: center;
   }
-
 }
 
 /*  *** HEIGHT ***  */
@@ -52,11 +52,28 @@
   }
 
   canvas {
-    height: 100vh;
+    /* height: 100vh; */
+    height: 100%;
+    width: auto;
   }
 
   .game-container {
     width: 100%;
+    height: 100vh;
+  }
+
+  .control-mobile-panel {
+    padding: 0 6px;
+  }
+
+  .control-mobile-panel button img {
+    width: 36px;
+    height: 36px;
+  }
+
+  .control-mobile-panel-left,
+  .control-mobile-panel-right {
+    gap: 16px;
   }
 
 }
