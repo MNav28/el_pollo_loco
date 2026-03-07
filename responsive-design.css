@@ -1,4 +1,4 @@
-@media (max-width: 720px) {
+@media (max-width: 740px) {
   canvas {
     width: 100%;
   }
@@ -13,6 +13,23 @@
     height: 90px;
   }
 
+  .menu-buttons {
+    bottom: 9px;
+  }
+
+  .icon-button img {
+    width: 28px;
+    height: 28px;
+  }
+
+  .control-mobile-panel button img {
+    width: 42px;
+    height: 42px;
+  }
+
+  .control-mobile-panel {
+    bottom: 3px;
+  }
 
 }
 
