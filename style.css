@@ -49,23 +49,6 @@ h1 {
     z-index: 10;
 }
 
-/* .start-button {
-    margin-top: 20px;
-    padding: 10px 25px;
-    font-size: 20px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    background-color: #ff9900;
-    color: white;
-    font-weight: bold;
-    transition: background-color 0.2s;
-} */
-
-/* .start-button:hover {
-    background-color: #cc7a00;
-} */
-
 .info-settings-wrapper {
     display: flex;
     gap: 100px;
@@ -113,16 +96,6 @@ h1 {
     padding: 0;
 }
 
-/* .start-screen>.icon-button img {
-    width: 140px;
-    height: 140px;
-    transition: transform 0.2s ease;
-}
-
-.start-screen>.icon-button:hover img {
-    transform: scale(1.1);
-} */
-
 .game-button:not(.icon-button) {
     padding: 8px 16px;
     background-color: #333;
@@ -150,43 +123,6 @@ h1 {
 .start-play:hover {
     color: #666;
 }
-
-/* .impressum-button {
-    position: fixed;
-    bottom: 16px;
-    left: 16px;
-    z-index: 100;
-    opacity: 0.85;
-}
-
-.impressum-button:hover {
-    opacity: 1;
-} */
-
-
-/*
-.game-button:hover {
-    background-color: #555;
-} */
-
-/* .sound-button {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    padding: 10px 12px;
-    font-size: 18px;
-    border: none;
-    border-radius: 8px;
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    cursor: pointer;
-    z-index: 20;
-    transition: background-color 0.2s ease;
-}
-
-.sound-button:hover {
-    background-color: rgba(0, 0, 0, 0.7);
-} */
 
 .winning-screen {
     background-image: url('./assets/img/9_intro_outro_screens/win/won_2.png');
@@ -346,41 +282,6 @@ body.no-scroll {
     overflow: hidden;
 }
 
-/* 
-.sound-control {
-    position: absolute;
-    bottom: 24px;
-    
-    right: 24px;
-    
-    z-index: 50;
-    
-}
-
-.sound-control img {
-    width: 28px;
-    height: 28px;
-    cursor: pointer;
-    transition: transform 0.15s ease, opacity 0.15s ease;
-}
-
-.sound-control img:hover {
-    transform: scale(1.1);
-    opacity: 0.8;
-} */
-
-/* Overlay Body */
-/* .overlay-info-body {
-    background-color: #f7d046;
-    color: #000;
-    padding: 40px 24px;
-    border-radius: 12px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-} */
-
 /* Headline */
 .overlay-info-body h1 {
     font-size: 48px;
@@ -474,14 +375,14 @@ body.no-scroll {
 }
 
 
-@media (min-width: 901px) {
-    .control-mobile-panel {
-        display: none;
-    }
+@media (hover: none) and (pointer: coarse) {
+  .control-mobile-panel:not(.d-none) {
+    display: flex;
+  }
 }
 
-@media (max-width: 900px) {
-    .control-mobile-panel:not(.d-none) {
-        display: flex;
-    }
+@media (hover: hover) and (pointer: fine) {
+  .control-mobile-panel {
+    display: none;
+  }
 }
