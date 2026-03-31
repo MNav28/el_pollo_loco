@@ -375,13 +375,13 @@ body.no-scroll {
 }
 
 
-@media (hover: none) and (pointer: coarse) {
+@media (pointer: coarse) {
   .control-mobile-panel:not(.d-none) {
     display: flex;
   }
 }
 
-@media (hover: hover) and (pointer: fine) {
+@media (pointer: fine) {
   .control-mobile-panel {
     display: none;
   }
