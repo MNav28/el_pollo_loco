@@ -239,7 +239,7 @@ class Endboss extends MoveableObject {
         const mobilePanel = document.getElementById('control-mobile-panel');
         // const soundButton = document.getElementById('sound-button');
         isGameActive = false;
-        world.stopBackgroundMusic();
+        this.world.stopBackgroundMusic();
         this.playWinningSound();
         mobilePanel.classList.add('d-none');
         soundIcon.classList.add('d-none');
