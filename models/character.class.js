@@ -142,7 +142,7 @@ class Character extends MoveableObject {
                 if (!this.isDeadAlreadyHandled) {
                     this.isDeadAlreadyHandled = true;
 
-                    this.stopAllActions();
+                    this.stopCharacter();
                     this.world.stopBackgroundMusic();
 
                     setTimeout(() => {
@@ -293,7 +293,7 @@ class Character extends MoveableObject {
         });
     }
 
-    stopAllActions() {
+    stopCharacter() {
         // set flag to stop running Animation
         this.isStopped = true;
     }
@@ -319,7 +319,7 @@ class Character extends MoveableObject {
         const soundIcon = document.getElementById('sound-icon-wrapper');
         const mobilePanel = document.getElementById('control-mobile-panel');
         // const soundButton = document.getElementById('sound-button');
-        this.stopAllActions();
+        this.stopCharacter();
         isGameActive = false;
         this.world.stopBackgroundMusic();
         this.playGameoverSound();
