@@ -315,18 +315,9 @@ class Character extends MoveableObject {
     }
 
     showGameoverScreen() {
-        const gameoverScreen = document.getElementById('gameover-screen');
-        const soundIcon = document.getElementById('sound-icon-wrapper');
-        const mobilePanel = document.getElementById('control-mobile-panel');
-        // const soundButton = document.getElementById('sound-button');
         this.stopCharacter();
-        isGameActive = false;
-        this.world.stopBackgroundMusic();
+        this.world.showEndScreen('lose');
         this.playGameoverSound();
-        // soundButton.classList.add('d-none');
-        mobilePanel.classList.add('d-none');
-        soundIcon.classList.add('d-none');
-        gameoverScreen.classList.remove('d-none');
     }
 
     playGameoverSound() {

@@ -137,10 +137,8 @@ function hideOrientationOverlay() {
 function restartGame() {
     isGameActive = false;
     world.stopBackgroundMusic();
-    const gameOverScreen = document.getElementById('gameover-screen');
-    const winningScreen = document.getElementById('winning-screen');
-    gameOverScreen.classList.add('d-none');
-    winningScreen.classList.add('d-none');
+    const endScreen = document.getElementById('end-screen');
+    endScreen.classList.add('d-none');
     const soundIcon = document.getElementById('sound-icon-wrapper');
     soundIcon.classList.remove('d-none');
     startGame();
@@ -150,13 +148,11 @@ function restartGame() {
 function returnToStartMenu() {
     isGameActive = false;
     world.stopBackgroundMusic();
-    const winningScreen = document.getElementById('winning-screen');
-    const gameOverScreen = document.getElementById('gameover-screen');
+    const endScreen = document.getElementById('end-screen');
     const startScreen = document.getElementById('start-screen');
     const infoSettings = document.getElementById('info-settings-wrapper');
     const soundIcon = document.getElementById('sound-icon-wrapper');
-    gameOverScreen.classList.add('d-none');
-    winningScreen.classList.add('d-none');
+    endScreen.classList.add('d-none');
     startScreen.classList.remove('d-none');
     infoSettings.classList.remove('d-none');
     soundIcon.classList.remove('d-none');

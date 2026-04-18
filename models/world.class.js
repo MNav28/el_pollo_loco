@@ -286,4 +286,18 @@ class World {
         this.background_music.currentTime = 0;
     }
 
+    showEndScreen(type) {
+        const screen = document.getElementById('end-screen');
+        const soundIcon = document.getElementById('sound-icon-wrapper');
+        const mobilePanel = document.getElementById('control-mobile-panel');
+        screen.classList.remove('win', 'lose');
+        screen.classList.add(type);
+        screen.classList.remove('d-none');
+        mobilePanel.classList.add('d-none');
+        soundIcon.classList.add('d-none');
+
+        isGameActive = false;
+        this.stopBackgroundMusic();
+    }
+
 }

@@ -124,16 +124,7 @@ h1 {
     color: #666;
 }
 
-.winning-screen {
-    background-image: url('./assets/img/9_intro_outro_screens/win/won_2.png');
-}
-
-.gameover-screen {
-    background-image: url('./assets/img/9_intro_outro_screens/game_over/game over!.png');
-}
-
-.winning-screen,
-.gameover-screen {
+.end-screen {
     position: absolute;
     inset: 0;
     z-index: 15;
@@ -144,6 +135,14 @@ h1 {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+}
+
+.end-screen.win {
+    background-image: url('./assets/img/9_intro_outro_screens/win/won_2.png');
+}
+
+.end-screen.lose {
+    background-image: url('./assets/img/9_intro_outro_screens/game_over/game over!.png');
 }
 
 .end-screen-footer {
@@ -376,13 +375,13 @@ body.no-scroll {
 
 
 @media (pointer: coarse) {
-  .control-mobile-panel:not(.d-none) {
-    display: flex;
-  }
+    .control-mobile-panel:not(.d-none) {
+        display: flex;
+    }
 }
 
 @media (pointer: fine) {
-  .control-mobile-panel {
-    display: none;
-  }
+    .control-mobile-panel {
+        display: none;
+    }
 }
