@@ -315,6 +315,7 @@ class Character extends MoveableObject {
     }
 
     showGameoverScreen() {
+        this.stopAllSounds();
         this.stopCharacter();
         this.world.showEndScreen('lose');
         this.playGameoverSound();
