@@ -76,4 +76,8 @@
     gap: 16px;
   }
 
+  .menu-buttons {
+    bottom: 8px;
+  }
+
 }
