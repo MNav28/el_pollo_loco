@@ -12,6 +12,7 @@ class MoveableObject extends DrawableObject {
         this.chicken_killed_sound = new Audio('./assets/audio/kill_enemy.mp3');
     }
 
+
     applyGravity() {
         setInterval(() => {
             if (this.isAboveGround() || this.speedY > 0) {
@@ -22,20 +23,15 @@ class MoveableObject extends DrawableObject {
         }, 1000 / 25)
     }
 
+
     isAboveGround() {
-        if (this instanceof ThrowableObject) {  // throwable object should always fall
+        if (this instanceof ThrowableObject) {
             return true
         } else {
             return this.y < 150;
         }
     }
-    /*
-    isColliding(mo) {
-        return this.x + this.width > mo.x &&
-            this.y + this.height > mo.y &&
-            this.x < mo.x &&
-            this.y < mo.y + mo.height;
-    }  */
+ 
 
     isColliding(obj) {
         return (this.x + this.offsetX + this.width - this.offsetWidth) >= (obj.x + obj.offsetX) &&
@@ -54,6 +50,7 @@ class MoveableObject extends DrawableObject {
         }
     }
 
+
     isDead() {
         return this.energy == 0;
     }
@@ -65,6 +62,7 @@ class MoveableObject extends DrawableObject {
         return timepassed < 1;
     }
 
+
     playAnimation(images) {
         let i = this.currentImage % images.length;
         let path = images[i];
@@ -72,18 +70,22 @@ class MoveableObject extends DrawableObject {
         this.currentImage++;
     }
 
+
     moveRight() {
         this.x += this.speed;
     }
+
 
     moveLeft() {
         this.x -= this.speed;
     }
 
+
     jump() {
         this.speedY = 30;
     }
 
+    
     playChickenKilledSound() {
         if (!soundEnabled) return;
         this.chicken_killed_sound.currentTime = 0;

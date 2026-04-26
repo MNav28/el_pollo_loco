@@ -1,9 +1,6 @@
 class World {
     myTest = console.log('ein test');
     character = new Character();
-    // enemies = level1.enemies;
-    // clouds = level1.clouds;  
-    // backgroundObjects = level1.backgroundObjects;
 
     level = level1;
     canvas;
@@ -14,7 +11,6 @@ class World {
     statusBarBottle = new StatusBarBottle();
     statusBarCoin = new StatusBarCoin();
     statusBarEndboss = new StatusBarEndboss();
-    //bottle = new ThrowableObject();
     throwableObjects = [];
     collectedBottles = 0;
     collectedCoins = 0;
@@ -30,7 +26,6 @@ class World {
         this.drawWorld();
         this.setWorld();
         this.run();
-        //this.playBackgroundMusic();
     }
 
     setWorld() {
@@ -50,7 +45,6 @@ class World {
             this.checkCollisionBottles();
             this.checkCollisionCoins();
             this.checkCollisionBottlesWithEnemies();
-            //console.log(this.character.y);
         }, 33);
     }
 
@@ -96,7 +90,6 @@ class World {
             if (this.character.isColliding(bottle) && this.collectedBottles < 8) {
                 console.log('collision with bottle !');
                 this.collectBottle(bottle);
-                //console.log('amount of bottles =', this.collectedBottles);
             }
         });
     }
@@ -144,8 +137,8 @@ class World {
             if (this.character.isColliding(enemy) && !enemy.isDead()) {
                 if (this.isJumpingOnEnemy(enemy)) {
                     this.killChicken(enemy);
-                    this.character.speedY = 25; // Bounce-Effekt
-                    this.character.y = 150;     // character position zurück auf Bodenhöhe setzen!
+                    this.character.speedY = 25;
+                    this.character.y = 150;
                     return;
                 } else if (!this.character.isHurt()) {
                     this.character.hit();
@@ -161,7 +154,6 @@ class World {
     }
 
     isJumpingOnEnemy(enemy) {
-        //console.log('Enemy von oben getroffen');
         return this.character.isAboveGround() &&
             this.character.speedY < 0 &&
             this.character.isColliding(enemy);

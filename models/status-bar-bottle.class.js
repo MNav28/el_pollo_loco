@@ -21,7 +21,7 @@ class StatusBarBottle extends DrawableObject {
         this.setPercentage(0); 
     }
 
-    setPercentage(percentage) {  // um das jeweilige image anzuzeigen aus dem array
+    setPercentage(percentage) {
         this.percentage = percentage;  // => 0 ...5
         let path = this.IMAGES_STATUSBAR_BOTTLE[this.getImageIndex()];  
         this.img = this.imageCache[path];

@@ -3,7 +3,6 @@ class Endboss extends MoveableObject {
     height = 480;
     width = 320;
     moveInterval;
-    //animationInterval;
     IMAGES_WALKING = [
         './assets/img/4_enemie_boss_chicken/1_walk/G1.png',
         './assets/img/4_enemie_boss_chicken/1_walk/G2.png',
@@ -59,10 +58,8 @@ class Endboss extends MoveableObject {
         this.isCurrentlyHurt = false;
         this.frameInterval = 200;
         this.totalCycles = 2;
-        //this.animate();
-        // Für Bewegung
         this.moveDistance = 0;
-        this.direction = 1; // 1 = right, -1 = left
+        this.direction = 1;
         this.maxDistance = 400;
         this.isAlreadyDead = false;
         this.hurtInterval = null;
@@ -96,7 +93,6 @@ class Endboss extends MoveableObject {
 
 
     startWalking() {
-        // movement
         if (this.direction === 1) {
             this.moveRight();
             this.otherDirection = true;
@@ -107,11 +103,10 @@ class Endboss extends MoveableObject {
 
         this.moveDistance += this.speed;
         if (this.moveDistance >= this.maxDistance) {
-            this.direction *= -1; // change direction
+            this.direction *= -1;
             this.moveDistance = 0;
         }
 
-        // start walk Animation if not aktiv
         if (!this.walkingAnimationInterval) {
             this.walkingAnimationInterval = setInterval(() => {
                 this.playAnimation(this.IMAGES_WALKING);
@@ -132,7 +127,7 @@ class Endboss extends MoveableObject {
 
 
     startAlertAnimation() {
-        if (this.alertAnimationInterval) return; // is already active
+        if (this.alertAnimationInterval) return;
         this.alertAnimationInterval = setInterval(() => {
             this.playAnimation(this.IMAGES_ALERT);
         }, 150);
@@ -183,8 +178,8 @@ class Endboss extends MoveableObject {
             this.playDeathAnimation();
             this.isAlreadyDead = true;
 
-            this.world.stopBackgroundMusic(); // stop background music
-            this.world.character.stopCharacter(); // deactivate character
+            this.world.stopBackgroundMusic();
+            this.world.character.stopCharacter();
 
             setTimeout(() => {
                 this.showWinningScreen();
@@ -225,6 +220,7 @@ class Endboss extends MoveableObject {
         }
     }
 
+
     playCrySound() {
         if (!soundEnabled) return;
         this.endboss_cry.currentTime = 0;
@@ -233,10 +229,12 @@ class Endboss extends MoveableObject {
         });
     }
 
+
     showWinningScreen() {
         this.world.showEndScreen('win');
         this.playWinningSound();
     }
+
 
     playWinningSound() {
         this.winning_sound.pause();

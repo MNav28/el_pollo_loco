@@ -35,14 +35,6 @@ class ThrowableObject extends MoveableObject {
         this.offsetHeight = 20;
     }
 
-    /*
-    throw() {  
-        this.speedY = 25 ;        
-        this.applyGravity();
-        setInterval(() => {
-            this.x += 10;
-        }, 25);
-    }  */
 
     throwAnimate() {
         this.speedY = 25;

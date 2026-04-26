@@ -22,9 +22,9 @@ class StatusBarHealth extends DrawableObject {
         this.setPercentage(100); 
     }
 
-    // setPercentage(50);
-    setPercentage(percentage) {  // um das jeweilige image anzuzeigen aus dem array
-        this.percentage = percentage;  // => 0 ...5
+    
+    setPercentage(percentage) {
+        this.percentage = percentage;
         let path = this.IMAGES_STATUSBAR_HEALTH[this.getImageIndex()];  
         this.img = this.imageCache[path];
     }

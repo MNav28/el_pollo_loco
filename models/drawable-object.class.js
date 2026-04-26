@@ -1,6 +1,6 @@
 class DrawableObject {
-    img; // das aktuelle Bild
-    imageCache = {}; // zum zwischenspeichern von Bildern; chache = Zwischenspeicher
+    img;
+    imageCache = {};
     currentImage = 0;
     x = 100;
     y = 250;

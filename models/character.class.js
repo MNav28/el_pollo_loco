@@ -2,7 +2,6 @@ class Character extends MoveableObject {
     height = 280;
     width = 120;
     y = 155;
-    //y = 80;
     speed = 10;
     IMAGES_WALKING = [
         './assets/img/2_character_pepe/2_walk/W-21.png',
@@ -97,7 +96,6 @@ class Character extends MoveableObject {
         this.offsetWidth = 65;
         this.offsetHeight = 140;
         this.idleTime = 0;
-        //this.playSnoringSound();
     }
 
     animate() {
@@ -286,7 +284,6 @@ class Character extends MoveableObject {
 
     playHurtSound() {
         if (!soundEnabled || this.isStopped) return;
-        //this.hurt_sound.pause();
         this.hurt_sound.currentTime = 0;
         this.hurt_sound.play().catch((e) => {
             console.warn('Hurt sound konnte nicht abgespielt werden:', e);
@@ -294,7 +291,6 @@ class Character extends MoveableObject {
     }
 
     stopCharacter() {
-        // set flag to stop running Animation
         this.isStopped = true;
     }
 
@@ -330,9 +326,5 @@ class Character extends MoveableObject {
         });
     }
 
-
-
-    // jump() {
-    // }
 }
 
