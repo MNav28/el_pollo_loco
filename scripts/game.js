@@ -3,6 +3,7 @@ let world;
 let keyboard = new Keyboard();
 let soundEnabled = true;
 let isGameActive = false;
+const DEBUG_FRAME = false;
 
 function init() {
 
