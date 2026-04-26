@@ -15,17 +15,14 @@ function initLevel() {
             new Chicken(2600),
             new Chicken(6000),
             new ChickenSmall(1050),
-            // new ChickenSmall(930),
             new ChickenSmall(1900),
             new ChickenSmall(4100),
-            // new ChickenSmall(4410),
             new ChickenSmall(3700),
-            // new ChickenSmall(2700),
             new ChickenSmall(3200),
             new ChickenSmall(3800),
             new ChickenSmall(5100),
             new ChickenSmall(5600),
-            new Endboss(),   // als neues enemie fügen wir den Endboss hinzu
+            new Endboss(),
         ],
         [
             new Cloud(0, 50, 0),
