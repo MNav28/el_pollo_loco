@@ -36,15 +36,10 @@
 
 @media (max-width: 520px) {
   h1 {
-    /* height: 72px;
-    width: 300px; */
-
     font-size: 32px;
     text-align: center;
   }
 }
-
-/*  *** HEIGHT ***  */
 
 @media (max-height: 480px) {
   h1 {
@@ -52,7 +47,6 @@
   }
 
   canvas {
-    /* height: 100vh; */
     height: 100%;
     width: auto;
   }

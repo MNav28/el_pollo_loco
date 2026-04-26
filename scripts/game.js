@@ -35,7 +35,6 @@ function startGame() {
 
 
 window.addEventListener("keydown", (e) => {
-    //console.log(e)  
 
     if (e.keyCode == 37) {
         keyboard.LEFT = true;

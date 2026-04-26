@@ -171,7 +171,6 @@ h1 {
     overflow-y: auto;
     padding: 20px;
     border-radius: 12px;
-    /* font-family: Arial, sans-serif; */
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -211,7 +210,6 @@ h1 {
     width: 100%;
     padding: 0 15px;
     box-sizing: border-box;
-    /* display: none; */
     justify-content: space-around;
     align-items: center;
     z-index: 30;
@@ -240,10 +238,8 @@ h1 {
 
 .control-mobile-panel button img {
     width: 56px;
-    /* Größe anpassen */
     height: 56px;
     pointer-events: none;
-    /* wichtig für sauberes Touch-Verhalten */
 }
 
 .orientation-overlay {
@@ -273,21 +269,15 @@ h1 {
     filter: invert(1);
 }
 
-/* .control-mobile-panel {
-    display: none;
-} */
-
 body.no-scroll {
     overflow: hidden;
 }
 
-/* Headline */
 .overlay-info-body h1 {
     font-size: 48px;
     margin-bottom: 40px;
 }
 
-/* Wrapper für Desktop + Mobile */
 .controls-wrapper {
     display: flex;
     justify-content: space-between;
@@ -297,7 +287,6 @@ body.no-scroll {
     max-width: 800px;
 }
 
-/* Spalten */
 .controls-column {
     flex: 1;
     display: flex;
@@ -305,7 +294,6 @@ body.no-scroll {
     align-items: center;
 }
 
-/* Senkrechter Divider */
 .controls-separator {
     width: 2px;
     background: rgba(0, 0, 0, 0.25);
@@ -313,13 +301,11 @@ body.no-scroll {
     align-self: stretch;
 }
 
-/* Section Headline */
 .controls-column h2 {
     font-size: 32px;
     margin-bottom: 24px;
 }
 
-/* Grid */
 .control-grid {
     display: flex;
     flex-direction: column;
@@ -327,7 +313,6 @@ body.no-scroll {
     width: 100%;
 }
 
-/* Zeile */
 .control-row {
     display: flex;
     align-items: center;
@@ -338,7 +323,6 @@ body.no-scroll {
     border-radius: 14px;
 }
 
-/* Desktop Keys */
 .key {
     min-width: 44px;
     height: 44px;
@@ -356,13 +340,11 @@ body.no-scroll {
     font-size: 26px;
 }
 
-/* Mobile Icons */
 .control-row img {
     width: 44px;
     height: 44px;
 }
 
-/* Text */
 .control-row span {
     font-size: 22px;
     font-weight: 600;
