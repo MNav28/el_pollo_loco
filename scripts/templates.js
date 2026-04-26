@@ -13,9 +13,9 @@ function getImpressumTemplate() {
         <h1>Impressum</h1>
         <h2>Angaben gemäß § 5 TMG</h2>
 
-        <p><b>Michael Mustermann</b><br>
-        Musterstr. 91<br>
-        81373 Musterstadt</p>
+        <p><b>Michael Navarro</b><br>
+        Ganghoferstr. 91<br>
+        81373 München</p>
 
         <h2>Kontakt</h2>
         <p>
