@@ -17,7 +17,7 @@ class Chicken extends MoveableObject {
         this.loadImages(this.IMAGES_WALKING);
         this.x = x;
         this.speed = 0.15 + Math.random() * 0.25;
-
+        this.isStopped = false;
         this.animate();
         this.offsetX = 10;
         this.offsetY = 10;
@@ -28,10 +28,12 @@ class Chicken extends MoveableObject {
 
     animate() {
         this.moveInterval = setInterval(() => {
+            if (this.isStopped) return;
             this.moveLeft();
         }, 1000 / 60);
 
         this.animationInterval = setInterval(() => {
+            if (this.isStopped) return;
             this.playAnimation(this.IMAGES_WALKING);
         }, 200);
     }

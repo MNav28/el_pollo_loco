@@ -11,6 +11,7 @@ class Cloud extends MoveableObject {
         super();
         this.loadImage(this.clouds_floating[imageIndex % this.clouds_floating.length]);
         this.loadImages(this.clouds_floating);
+        this.isStopped = false;
         this.x = x;
         this.y = y;
         this.animate();
@@ -18,6 +19,7 @@ class Cloud extends MoveableObject {
 
     animate() {
         setInterval(() => {
+            if (this.isStopped) return;
             this.moveLeft();
             if (this.x + this.width < 0) {
                 this.x += 3400;

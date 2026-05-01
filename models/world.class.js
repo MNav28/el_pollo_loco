@@ -283,7 +283,9 @@ class World {
         screen.classList.remove('d-none');
         mobilePanel.classList.add('d-none');
         soundIcon.classList.add('d-none');
-
+        [...this.level.enemies, ...this.level.clouds].forEach(object => {
+            object.isStopped = true;
+        });
         isGameActive = false;
         this.stopBackgroundMusic();
     }
