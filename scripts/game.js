@@ -8,7 +8,7 @@ const DEBUG_FRAME = false;
 function init() {
 
     canvas = document.getElementById('canvas')
-
+    loadSoundState();
     checkDeviceOrientation();
     console.log('Canvas is ready, but world not started yet');
 }
@@ -158,24 +158,50 @@ function returnToStartMenu() {
 
 
 function toggleSound() {
-    const soundIcon = document.getElementById('sound-icon');
-    if (soundEnabled) {
-        console.log('sound icon clicked');
-        soundIcon.src = "./assets/img/volume_off.png";
-        soundEnabled = false;
+    soundEnabled = !soundEnabled;
+    updateSoundIcon();
+    saveSoundState();
+    if (!soundEnabled) {
         if (world) {
             world.stopBackgroundMusic();
             world.character.stopAllSounds();
         }
     } else {
-        console.log('sound icon clicked');
-        soundIcon.src = "./assets/img/volume_on.png";
-        soundEnabled = true;
-        if (isGameActive) {
+        if (isGameActive && world) {
             world.playBackgroundMusic();
         }
     }
 }
+
+
+function saveSoundState() {
+    localStorage.setItem('soundEnabled', soundEnabled);
+}
+
+
+function loadSoundState() {
+    const savedSoundState = localStorage.getItem('soundEnabled');
+
+    if (savedSoundState !== null) {
+        soundEnabled = savedSoundState === 'true';
+    }
+
+    updateSoundIcon();
+}
+
+
+function updateSoundIcon() {
+    const soundIcon = document.getElementById('sound-icon');
+
+    if (!soundIcon) return;
+
+    if (soundEnabled) {
+        soundIcon.src = './assets/img/volume_on.png';
+    } else {
+        soundIcon.src = './assets/img/volume_off.png';
+    }
+}
+
 
 
 window.addEventListener('resize', checkDeviceOrientation);
