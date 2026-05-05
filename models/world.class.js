@@ -52,6 +52,8 @@ class World {
         if (this.character.isStopped) return;
         if (this.keyboard.D && this.canThrow && this.collectedBottles > 0) {
             console.log("D wurde gedrückt! Erstelle Flasche...");
+            console.log('Bottle throw triggered');
+            console.log('Flaschen vor Wurf:', this.collectedBottles);
             this.character.idleTime = 0;
 
             let spawnPosition = this.getBottleSpawnPosition();
@@ -64,7 +66,7 @@ class World {
             this.throwableObjects.push(bottle);
             this.collectedBottles--;
             this.updateStatusbarBottle();
-
+            console.log('Verbleibende Flaschen im Inventar:', this.collectedBottles);
             this.canThrow = false;
             setTimeout(() => {
                 this.canThrow = true;
@@ -100,6 +102,8 @@ class World {
             this.level.bottles.splice(index, 1);
             this.collectedBottles++;
             this.updateStatusbarBottle();
+            console.log('Bottle collected');
+            console.log('Gesammelte Flaschen insgesamt:', this.collectedBottles);
         }
     }
 
