@@ -137,22 +137,25 @@ class World {
     }
 
     checkEnemyCollisions() {
-        this.level.enemies.forEach((enemy, index) => {
+        this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy) && !enemy.isDead()) {
+
                 if (this.isJumpingOnEnemy(enemy)) {
                     this.killChicken(enemy);
                     this.character.speedY = 25;
                     this.character.y = 150;
-                    return;
-                } else if (!this.character.isHurt()) {
-                    this.character.hit();
-                    this.character.playHurtSound();
-                    console.log('von der Seite getroffen');
-                    if (this.character.isStopped) return;
-                    this.statusBarHealth.setPercentage(this.character.energy);
+                    this.character.lastBounce = new Date().getTime();
                     return;
                 }
 
+                if (!this.character.wasJustBouncing() && !this.character.isHurt()) {
+                    this.character.hit();
+                    this.character.playHurtSound();
+                    console.log('von der Seite getroffen');
+
+                    if (this.character.isStopped) return;
+                    this.statusBarHealth.setPercentage(this.character.energy);
+                }
             }
         });
     }

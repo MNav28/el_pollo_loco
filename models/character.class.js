@@ -3,6 +3,8 @@ class Character extends MoveableObject {
     width = 120;
     y = 155;
     speed = 10;
+    lastBounce = 0;
+
     IMAGES_WALKING = [
         './assets/img/2_character_pepe/2_walk/W-21.png',
         './assets/img/2_character_pepe/2_walk/W-22.png',
@@ -324,6 +326,10 @@ class Character extends MoveableObject {
         this.gameover_sound.play().catch((e) => {
             console.warn('Gameover sound konnte nicht abgespielt werden:', e);
         });
+    }
+
+    wasJustBouncing() {
+        return new Date().getTime() - this.lastBounce < 300;
     }
 
 }
