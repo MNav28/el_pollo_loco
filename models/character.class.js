@@ -152,7 +152,7 @@ class Character extends MoveableObject {
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
             } else if (this.isAboveGround()) {
-                this.playAnimation(this.IMAGES_JUMPING);
+                this.playJumpAnimation();
             } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                 this.playAnimation(this.IMAGES_WALKING);
             }
@@ -330,6 +330,30 @@ class Character extends MoveableObject {
 
     wasJustBouncing() {
         return new Date().getTime() - this.lastBounce < 300;
+    }
+
+    playJumpAnimation() {
+        let jumpIndex = 8;
+
+        if (this.speedY > 26) {
+            jumpIndex = 0;
+        } else if (this.speedY > 22) {
+            jumpIndex = 1;
+        } else if (this.speedY > 18) {
+            jumpIndex = 2;
+        } else if (this.speedY > 14) {
+            jumpIndex = 3;
+        } else if (this.speedY > 9) {
+            jumpIndex = 4;
+        } else if (this.speedY > 4) {
+            jumpIndex = 5;
+        } else if (this.speedY > -4) {
+            jumpIndex = 6;
+        } else if (this.speedY > -10) {
+            jumpIndex = 7;
+        }
+
+        this.img = this.imageCache[this.IMAGES_JUMPING[jumpIndex]];
     }
 
 }
