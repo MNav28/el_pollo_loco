@@ -292,6 +292,8 @@ class World {
         soundIcon.classList.add('d-none');
         [...this.level.enemies, ...this.level.clouds].forEach(object => {
             object.isStopped = true;
+            if (object instanceof Endboss) {
+            object.stopAllAnimations();}
         });
         isGameActive = false;
         this.stopBackgroundMusic();

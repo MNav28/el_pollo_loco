@@ -57,6 +57,8 @@ class Endboss extends MoveableObject {
         this.offsetHeight = 140;
         this.isCurrentlyHurt = false;
         this.frameInterval = 200;
+        this.isChasing = false;
+        this.chaseAnimationInterval = null;
         this.totalCycles = 2;
         this.moveDistance = 0;
         this.direction = 1;
@@ -74,6 +76,12 @@ class Endboss extends MoveableObject {
         this.moveInterval = setInterval(() => {
             const character = this.world.character;
             const distance = Math.abs(this.x - character.x);
+
+            if (this.isChasing && !this.isCurrentlyHurt) {
+                this.chaseCharacter(character);
+                return;
+            }
+
             if (distance <= 300 && !this.isCurrentlyHurt) {
                 if (!this.isAlerting) {
                     this.stopWalkingAnimation();
@@ -81,7 +89,7 @@ class Endboss extends MoveableObject {
                     this.isAlerting = true;
                     this.startAlertAnimation();
                 }
-            } else if (!this.isCurrentlyHurt) {
+            } else if (!this.isCurrentlyHurt && !this.isChasing) {
                 if (this.isAlerting) {
                     this.isAlerting = false;
                     this.stopAlertAnimation();
@@ -93,6 +101,7 @@ class Endboss extends MoveableObject {
 
 
     startWalking() {
+        this.stopAlertAnimation();
         if (this.direction === 1) {
             this.moveRight();
             this.otherDirection = true;
@@ -126,8 +135,58 @@ class Endboss extends MoveableObject {
     }
 
 
+    chaseCharacter(character) {
+        this.faceCharacter(character);
+        if (character.x < this.x) {
+            this.moveLeft();
+        } else {
+            this.moveRight();
+        }
+        if (!this.chaseAnimationInterval) {
+            this.startChaseAnimation();
+        }
+    }
+
+
+    startChaseAnimation() {
+        this.stopWalkingAnimation();
+        this.stopAlertAnimation();
+        this.stopChaseAnimation();
+        let showAlert = false;
+        this.chaseAnimationInterval = setInterval(() => {
+            if (showAlert) {
+                this.playAnimation(this.IMAGES_ALERT);
+            } else {
+                this.playAnimation(this.IMAGES_WALKING);
+            }
+
+            showAlert = !showAlert;
+        }, 180);
+    }
+
+
+    stopChaseAnimation() {
+        if (this.chaseAnimationInterval) {
+            clearInterval(this.chaseAnimationInterval);
+            this.chaseAnimationInterval = null;
+        }
+    }
+
+
+    stopAllAnimations() {
+        this.stopWalkingAnimation();
+        this.stopAlertAnimation();
+        this.stopHurtAnimation();
+        this.stopChaseAnimation();
+        clearInterval(this.moveInterval);
+    }
+
+
     startAlertAnimation() {
+
         if (this.alertAnimationInterval) return;
+        this.stopWalkingAnimation();
+        this.stopChaseAnimation();
         this.alertAnimationInterval = setInterval(() => {
             this.playAnimation(this.IMAGES_ALERT);
         }, 150);
@@ -153,27 +212,36 @@ class Endboss extends MoveableObject {
             return;
         }
         this.isCurrentlyHurt = true;
+        this.stopWalkingAnimation();
+        this.stopAlertAnimation();
+        this.stopChaseAnimation();
+        this.isCurrentlyHurt = true;
         let i = 0;
         let totalFrames = this.IMAGES_HURT.length * this.totalCycles;
         this.hurtInterval = setInterval(() => {
-            this.img = this.imageCache[this.IMAGES_HURT[i % this.IMAGES_HURT.length]];
+            this.img = this.imageCache[
+                this.IMAGES_HURT[i % this.IMAGES_HURT.length]
+            ];
             i++;
             if (i >= totalFrames) {
                 clearInterval(this.hurtInterval);
                 this.hurtInterval = null;
                 this.isCurrentlyHurt = false;
+
+                if (this.isChasing) {
+                    this.startChaseAnimation();
+                } else {
+                    this.startWalking();
+                }
             }
         }, this.frameInterval);
     }
-
 
     hit() {
         if (this.isDead()) {
             if (this.isAlreadyDead) return;
             console.log('you won the game');
-            this.stopAlertAnimation();
-            this.stopWalkingAnimation();
-            this.stopHurtAnimation();
+            this.stopAllAnimations();
             clearInterval(this.moveInterval);
             this.playDeathAnimation();
             this.isAlreadyDead = true;
@@ -193,7 +261,9 @@ class Endboss extends MoveableObject {
             this.energy = 0;
         }
         this.lastHit = new Date().getTime();
+        this.isChasing = true; // sofort aktivieren
         this.hurtAnimation();
+
     }
 
 
