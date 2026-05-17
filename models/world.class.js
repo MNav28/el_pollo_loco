@@ -157,6 +157,11 @@ class World {
                     this.statusBarHealth.setPercentage(this.character.energy);
                 }
             }
+            if (enemy instanceof Endboss) {
+                if (this.character.x > enemy.x + 40) {
+                    this.character.x = enemy.x + 40;
+                }
+            }
         });
     }
 
@@ -293,7 +298,8 @@ class World {
         [...this.level.enemies, ...this.level.clouds].forEach(object => {
             object.isStopped = true;
             if (object instanceof Endboss) {
-            object.stopAllAnimations();}
+                object.stopAllAnimations();
+            }
         });
         isGameActive = false;
         this.stopBackgroundMusic();

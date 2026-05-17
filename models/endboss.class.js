@@ -125,7 +125,12 @@ class Endboss extends MoveableObject {
 
 
     faceCharacter(character) {
-        if (character.x < this.x) {
+        let distance = character.x - this.x;
+        if (Math.abs(distance) < 40) {
+            return;
+        }
+
+        if (distance < 0) {
             this.otherDirection = false;
             this.direction = -1;
         } else {
@@ -237,6 +242,7 @@ class Endboss extends MoveableObject {
         }, this.frameInterval);
     }
 
+    
     hit() {
         if (this.isDead()) {
             if (this.isAlreadyDead) return;
