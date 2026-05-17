@@ -149,7 +149,11 @@ class World {
                 }
 
                 if (!this.character.wasJustBouncing() && !this.character.isHurt()) {
-                    this.character.hit();
+                    if (enemy instanceof Endboss) {
+                        this.character.hit(25);
+                    } else {
+                        this.character.hit();
+                    }
                     this.character.playHurtSound();
                     console.log('von der Seite getroffen');
 

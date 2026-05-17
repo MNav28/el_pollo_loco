@@ -31,7 +31,7 @@ class MoveableObject extends DrawableObject {
             return this.y < 150;
         }
     }
- 
+
 
     isColliding(obj) {
         return (this.x + this.offsetX + this.width - this.offsetWidth) >= (obj.x + obj.offsetX) &&
@@ -41,8 +41,9 @@ class MoveableObject extends DrawableObject {
     }
 
 
-    hit() {
-        this.energy -= 5;
+    hit(damage = 7) {
+        this.energy -= damage;
+
         if (this.energy < 0) {
             this.energy = 0;
         } else {
@@ -85,7 +86,7 @@ class MoveableObject extends DrawableObject {
         this.speedY = 30;
     }
 
-    
+
     playChickenKilledSound() {
         if (!soundEnabled) return;
         this.chicken_killed_sound.currentTime = 0;
