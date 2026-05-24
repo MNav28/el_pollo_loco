@@ -58,7 +58,6 @@ class Endboss extends MoveableObject {
         this.isCurrentlyHurt = false;
         this.frameInterval = 200;
         this.isChasing = false;
-        this.chaseAnimationInterval = null;
         this.totalCycles = 2;
         this.moveDistance = 0;
         this.direction = 1;
@@ -116,11 +115,16 @@ class Endboss extends MoveableObject {
             this.moveDistance = 0;
         }
 
-        if (!this.walkingAnimationInterval) {
-            this.walkingAnimationInterval = setInterval(() => {
-                this.playAnimation(this.IMAGES_WALKING);
-            }, this.frameInterval);
-        }
+        this.startWalkingAnimation();
+    }
+
+
+    startWalkingAnimation() {
+        if (this.walkingAnimationInterval) return;
+
+        this.walkingAnimationInterval = setInterval(() => {
+            this.playAnimation(this.IMAGES_WALKING);
+        }, this.frameInterval);
     }
 
 
@@ -147,33 +151,9 @@ class Endboss extends MoveableObject {
         } else {
             this.moveRight();
         }
-        if (!this.chaseAnimationInterval) {
-            this.startChaseAnimation();
-        }
-    }
 
-
-    startChaseAnimation() {
-        this.stopWalkingAnimation();
-        this.stopAlertAnimation();
-        this.stopChaseAnimation();
-        let showAlert = false;
-        this.chaseAnimationInterval = setInterval(() => {
-            if (showAlert) {
-                this.playAnimation(this.IMAGES_ALERT);
-            } else {
-                this.playAnimation(this.IMAGES_WALKING);
-            }
-
-            showAlert = !showAlert;
-        }, 180);
-    }
-
-
-    stopChaseAnimation() {
-        if (this.chaseAnimationInterval) {
-            clearInterval(this.chaseAnimationInterval);
-            this.chaseAnimationInterval = null;
+        if (!this.walkingAnimationInterval) {
+            this.startWalkingAnimation();
         }
     }
 
@@ -182,16 +162,13 @@ class Endboss extends MoveableObject {
         this.stopWalkingAnimation();
         this.stopAlertAnimation();
         this.stopHurtAnimation();
-        this.stopChaseAnimation();
         clearInterval(this.moveInterval);
     }
 
 
     startAlertAnimation() {
-
         if (this.alertAnimationInterval) return;
         this.stopWalkingAnimation();
-        this.stopChaseAnimation();
         this.alertAnimationInterval = setInterval(() => {
             this.playAnimation(this.IMAGES_ALERT);
         }, 150);
@@ -219,7 +196,6 @@ class Endboss extends MoveableObject {
         this.isCurrentlyHurt = true;
         this.stopWalkingAnimation();
         this.stopAlertAnimation();
-        this.stopChaseAnimation();
         this.isCurrentlyHurt = true;
         let i = 0;
         let totalFrames = this.IMAGES_HURT.length * this.totalCycles;
@@ -232,17 +208,12 @@ class Endboss extends MoveableObject {
                 clearInterval(this.hurtInterval);
                 this.hurtInterval = null;
                 this.isCurrentlyHurt = false;
-
-                if (this.isChasing) {
-                    this.startChaseAnimation();
-                } else {
-                    this.startWalking();
-                }
+                this.startWalkingAnimation();
             }
         }, this.frameInterval);
     }
 
-    
+
     hit() {
         if (this.isDead()) {
             if (this.isAlreadyDead) return;
@@ -267,7 +238,7 @@ class Endboss extends MoveableObject {
             this.energy = 0;
         }
         this.lastHit = new Date().getTime();
-        this.isChasing = true; // sofort aktivieren
+        this.isChasing = true;
         this.hurtAnimation();
 
     }
