@@ -140,7 +140,7 @@ class World {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy) && !enemy.isDead()) {
 
-                if (this.isJumpingOnEnemy(enemy)) {
+                if (this.isJumpingOnEnemy(enemy) && !(enemy instanceof Endboss)) {
                     this.killChicken(enemy);
                     this.character.speedY = 25;
                     this.character.y = 150;
