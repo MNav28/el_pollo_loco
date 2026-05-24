@@ -220,8 +220,6 @@ class World {
         });
     }
 
-
-
     drawWorld() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.translate(this.camera_x, 0)
@@ -234,8 +232,8 @@ class World {
         this.addToMap(this.statusBarCoin);
         this.addToMap(this.statusBarEndboss);
         this.ctx.translate(this.camera_x, 0)
-        this.addToMap(this.character);
         this.addObjectsToMap(this.level.enemies);
+        this.addToMap(this.character);
         this.addObjectsToMap(this.level.bottles);
         this.addObjectsToMap(this.throwableObjects);
         this.ctx.translate(-this.camera_x, 0);
