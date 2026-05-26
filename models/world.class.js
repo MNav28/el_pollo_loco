@@ -1,5 +1,4 @@
 class World {
-    myTest = console.log('ein test');
     character = new Character();
 
     level = level1;
@@ -51,9 +50,6 @@ class World {
     checkThrowObjects() {
         if (this.character.isStopped) return;
         if (this.keyboard.D && this.canThrow && this.collectedBottles > 0) {
-            console.log("D wurde gedrückt! Erstelle Flasche...");
-            console.log('Bottle throw triggered');
-            console.log('Flaschen vor Wurf:', this.collectedBottles);
             this.character.idleTime = 0;
 
             let spawnPosition = this.getBottleSpawnPosition();
@@ -66,7 +62,6 @@ class World {
             this.throwableObjects.push(bottle);
             this.collectedBottles--;
             this.updateStatusbarBottle();
-            console.log('Verbleibende Flaschen im Inventar:', this.collectedBottles);
             this.canThrow = false;
             setTimeout(() => {
                 this.canThrow = true;
@@ -90,7 +85,6 @@ class World {
     checkCollisionBottles() {
         this.level.bottles.forEach((bottle) => {
             if (this.character.isColliding(bottle) && this.collectedBottles < 8) {
-                console.log('collision with bottle !');
                 this.collectBottle(bottle);
             }
         });
@@ -102,8 +96,6 @@ class World {
             this.level.bottles.splice(index, 1);
             this.collectedBottles++;
             this.updateStatusbarBottle();
-            console.log('Bottle collected');
-            console.log('Gesammelte Flaschen insgesamt:', this.collectedBottles);
         }
     }
 
@@ -115,9 +107,7 @@ class World {
     checkCollisionCoins() {
         this.level.coins.forEach((coin) => {
             if (this.character.isColliding(coin) && this.collectedCoins < 8) {
-                console.log('collision with coin!');
                 this.collectCoin(coin);
-                console.log('amount of coins =', this.collectedCoins);
             }
         });
     }
@@ -155,8 +145,6 @@ class World {
                         this.character.hit();
                     }
                     this.character.playHurtSound();
-                    console.log('von der Seite getroffen');
-
                     if (this.character.isStopped) return;
                     this.statusBarHealth.setPercentage(this.character.energy);
                 }
@@ -196,7 +184,6 @@ class World {
                 if (bottle.isColliding(enemy)) {
                     if (enemy instanceof Endboss) {
                         if (!enemy.isHurt()) {
-                            console.log('endboss got hitted');
                             enemy.playCrySound();
                             enemy.hurtAnimation();
                             enemy.hit();

@@ -3,14 +3,13 @@ let world;
 let keyboard = new Keyboard();
 let soundEnabled = true;
 let isGameActive = false;
-const DEBUG_FRAME = true;
+const DEBUG_FRAME = false;
 
 function init() {
 
     canvas = document.getElementById('canvas')
     loadSoundState();
     checkDeviceOrientation();
-    console.log('Canvas is ready, but world not started yet');
 }
 
 
@@ -31,7 +30,6 @@ function startGame() {
     if (soundEnabled) {
         world.playBackgroundMusic();
     }
-    console.log('My Character is', world.character);
 }
 
 

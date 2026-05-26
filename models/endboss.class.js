@@ -217,7 +217,6 @@ class Endboss extends MoveableObject {
     hit() {
         if (this.isDead()) {
             if (this.isAlreadyDead) return;
-            console.log('you won the game');
             this.stopAllAnimations();
             clearInterval(this.moveInterval);
             this.playDeathAnimation();
@@ -247,7 +246,6 @@ class Endboss extends MoveableObject {
     playDeathAnimation() {
         if (this.deathAnimationInterval) return;
         let i = 0;
-        console.log('death animation showed');
         this.deathAnimationInterval = setInterval(() => {
             this.img = this.imageCache[this.IMAGES_DEAD[i]];
             i++;
