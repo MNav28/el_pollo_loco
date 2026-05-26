@@ -297,6 +297,7 @@ class World {
         screen.classList.remove('d-none');
         mobilePanel.classList.add('d-none');
         soundIcon.classList.add('d-none');
+        this.character.stopAllSounds();
         [...this.level.enemies, ...this.level.clouds].forEach(object => {
             object.isStopped = true;
             if (object instanceof Endboss) {
