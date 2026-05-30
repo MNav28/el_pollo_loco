@@ -185,7 +185,6 @@ class World {
                     if (enemy instanceof Endboss) {
                         if (!enemy.isHurt()) {
                             enemy.playCrySound();
-                            enemy.hurtAnimation();
                             enemy.hit();
                             this.statusBarEndboss.setPercentage(enemy.energy);
                         }

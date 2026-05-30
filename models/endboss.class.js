@@ -215,13 +215,18 @@ class Endboss extends MoveableObject {
 
 
     hit() {
+        this.energy -= 10;
+        if (this.energy < 0) {
+            this.energy = 0;
+        }
+        this.lastHit = new Date().getTime();
+        this.isChasing = true;
+
         if (this.isDead()) {
             if (this.isAlreadyDead) return;
             this.stopAllAnimations();
-            clearInterval(this.moveInterval);
             this.playDeathAnimation();
             this.isAlreadyDead = true;
-
             this.world.stopBackgroundMusic();
             this.world.character.stopCharacter();
 
@@ -232,14 +237,7 @@ class Endboss extends MoveableObject {
             return;
         }
 
-        this.energy -= 10;
-        if (this.energy < 0) {
-            this.energy = 0;
-        }
-        this.lastHit = new Date().getTime();
-        this.isChasing = true;
         this.hurtAnimation();
-
     }
 
 
