@@ -50,6 +50,8 @@ class Endboss extends MoveableObject {
         this.endboss_cry = new Audio('./assets/audio/endboss_cry.mp3');
         this.winning_sound = new Audio('./assets/audio/winning_sound.mp3');
         this.speed = 1.2;
+        this.chaseSpeed = 3;
+        this.maxChaseSpeed = 5;
         this.x = 2900;
         this.offsetX = 40;
         this.offsetY = 130;
@@ -146,10 +148,27 @@ class Endboss extends MoveableObject {
 
     chaseCharacter(character) {
         this.faceCharacter(character);
+        let distance = Math.abs(character.x - this.x);
+        if (distance < 40) {
+
+            this.stopWalkingAnimation();
+
+            if (!this.isAlerting) {
+                this.isAlerting = true;
+                this.startAlertAnimation();
+            }
+            return;
+        }
+
+        if (this.isAlerting) {
+            this.isAlerting = false;
+            this.stopAlertAnimation();
+        }
+
         if (character.x < this.x) {
-            this.moveLeft();
+            this.x -= this.chaseSpeed;
         } else {
-            this.moveRight();
+            this.x += this.chaseSpeed;
         }
 
         if (!this.walkingAnimationInterval) {
@@ -213,20 +232,26 @@ class Endboss extends MoveableObject {
         }, this.frameInterval);
     }
 
-
     hit() {
         this.energy -= 10;
         if (this.energy < 0) {
             this.energy = 0;
         }
+
         this.lastHit = new Date().getTime();
         this.isChasing = true;
 
+        if (this.chaseSpeed < this.maxChaseSpeed) {
+            this.chaseSpeed += 0.2;
+        }
+
         if (this.isDead()) {
             if (this.isAlreadyDead) return;
+
             this.stopAllAnimations();
             this.playDeathAnimation();
             this.isAlreadyDead = true;
+
             this.world.stopBackgroundMusic();
             this.world.character.stopCharacter();
 
