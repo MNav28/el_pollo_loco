@@ -78,26 +78,47 @@ class Endboss extends MoveableObject {
             const character = this.world.character;
             const distance = Math.abs(this.x - character.x);
 
-            if (this.isChasing && !this.isCurrentlyHurt) {
-                this.chaseCharacter(character);
-                return;
-            }
+            if (this.handleChasing(character)) return;
 
             if (distance <= 300 && !this.isCurrentlyHurt) {
-                if (!this.isAlerting) {
-                    this.stopWalkingAnimation();
-                    this.faceCharacter(character);
-                    this.isAlerting = true;
-                    this.startAlertAnimation();
-                }
-            } else if (!this.isCurrentlyHurt && !this.isChasing) {
-                if (this.isAlerting) {
-                    this.isAlerting = false;
-                    this.stopAlertAnimation();
-                }
-                this.startWalking();
+                this.handleAlertState(character);
+            } else {
+                this.handlePatrolState();
             }
         }, 1000 / 60);
+    }
+
+
+    handleChasing(character) {
+        if (this.isChasing && !this.isCurrentlyHurt) {
+            this.chaseCharacter(character);
+            return true;
+        }
+
+        return false;
+    }
+
+
+    handleAlertState(character) {
+        if (!this.isAlerting) {
+            this.stopWalkingAnimation();
+            this.faceCharacter(character);
+            this.isAlerting = true;
+            this.startAlertAnimation();
+        }
+    }
+
+
+    handlePatrolState() {
+        if (this.isCurrentlyHurt || this.isChasing) {
+            return;
+        }
+
+        if (this.isAlerting) {
+            this.isAlerting = false;
+            this.stopAlertAnimation();
+        }
+        this.startWalking();
     }
 
 
@@ -231,6 +252,7 @@ class Endboss extends MoveableObject {
             }
         }, this.frameInterval);
     }
+    
 
     hit() {
         this.energy -= 10;
