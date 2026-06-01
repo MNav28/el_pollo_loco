@@ -258,24 +258,47 @@ class Endboss extends MoveableObject {
         if (this.isDead() || this.isCurrentlyHurt) {
             return;
         }
+
+        this.prepareHurtState();
+        this.startHurtAnimation();
+    }
+
+
+    prepareHurtState() {
         this.isCurrentlyHurt = true;
         this.stopWalkingAnimation();
         this.stopAlertAnimation();
-        this.isCurrentlyHurt = true;
-        let i = 0;
+    }
+
+
+    startHurtAnimation() {
+        let currentFrame = 0;
         let totalFrames = this.IMAGES_HURT.length * this.totalCycles;
+
         this.hurtInterval = setInterval(() => {
-            this.img = this.imageCache[
-                this.IMAGES_HURT[i % this.IMAGES_HURT.length]
-            ];
-            i++;
-            if (i >= totalFrames) {
-                clearInterval(this.hurtInterval);
-                this.hurtInterval = null;
-                this.isCurrentlyHurt = false;
-                this.startWalkingAnimation();
+            this.playHurtFrame(currentFrame);
+            currentFrame++;
+            if (currentFrame >= totalFrames) {
+                this.finishHurtAnimation();
             }
         }, this.frameInterval);
+    }
+
+
+    playHurtFrame(currentFrame) {
+        let imageIndex = currentFrame % this.IMAGES_HURT.length;
+
+        this.img = this.imageCache[
+            this.IMAGES_HURT[imageIndex]
+        ];
+    }
+
+
+    finishHurtAnimation() {
+        clearInterval(this.hurtInterval);
+        this.hurtInterval = null;
+        this.isCurrentlyHurt = false;
+        this.startWalkingAnimation();
     }
 
 
