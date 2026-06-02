@@ -303,38 +303,58 @@ class Endboss extends MoveableObject {
 
 
     hit() {
-        this.energy -= 10;
-        if (this.energy < 0) {
-            this.energy = 0;
-        }
-
-        this.lastHit = new Date().getTime();
-        this.isChasing = true;
-
-        if (this.chaseSpeed < this.maxChaseSpeed) {
-            this.chaseSpeed += 0.2;
-        }
+        this.reduceEnergy();
+        this.activateChaseMode();
 
         if (this.isDead()) {
-            if (this.isAlreadyDead) return;
-
-            this.stopAllAnimations();
-            this.playDeathAnimation();
-            this.isAlreadyDead = true;
-
-            this.world.stopBackgroundMusic();
-            this.world.character.stopCharacter();
-
-            setTimeout(() => {
-                this.showWinningScreen();
-            }, 1200);
-
+            this.handleDeath();
             return;
         }
 
         this.hurtAnimation();
     }
 
+
+    reduceEnergy() {
+        this.energy -= 10;
+
+        if (this.energy < 0) {
+            this.energy = 0;
+        }
+
+        this.lastHit = new Date().getTime();
+    }
+
+
+    activateChaseMode() {
+        this.isChasing = true;
+
+        if (this.chaseSpeed < this.maxChaseSpeed) {
+            this.chaseSpeed += 0.2;
+        }
+    }
+
+
+    handleDeath() {
+        if (this.isAlreadyDead) {
+            return;
+        }
+
+        this.stopAllAnimations();
+        this.playDeathAnimation();
+        this.isAlreadyDead = true;
+        this.world.stopBackgroundMusic();
+        this.world.character.stopCharacter();
+        this.showWinningScreenWithDelay();
+    }
+
+
+    showWinningScreenWithDelay() {
+        setTimeout(() => {
+            this.showWinningScreen();
+        }, 1200);
+    }
+    
 
     playDeathAnimation() {
         if (this.deathAnimationInterval) return;
