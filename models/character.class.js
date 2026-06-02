@@ -100,6 +100,7 @@ class Character extends MoveableObject {
         this.idleTime = 0;
     }
 
+
     animate() {
         this.animateMovement();
         this.animateCharacterStates();
@@ -112,26 +113,63 @@ class Character extends MoveableObject {
         }, 200);
     }
 
+
     animateMovement() {
         setInterval(() => {
             if (this.isStopped) return;
-            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-                this.moveRight();
-                this.otherDirection = false;
-            }
-            if (this.world.keyboard.LEFT && this.x > 0) {
-                this.moveLeft();
-                this.otherDirection = true;
-            }
-            if (this.world.keyboard.SPACE && !this.isAboveGround()) {
-                this.jump();
-            }
-            this.world.camera_x = -this.x + 100;
-            this.handleWalkingSound();
-            this.handleJumpSound();
-            this.handleCollectingSound();
+
+            this.handleMovementInput();
+            this.updateCameraPosition();
+            this.handleMovementSounds();
         }, 1000 / 60);
     }
+
+
+    handleMovementInput() {
+        this.handleMoveRight();
+        this.handleMoveLeft();
+        this.handleJumpInput();
+    }
+
+
+    handleMoveRight() {
+        if (this.world.keyboard.RIGHT &&
+            this.x < this.world.level.level_end_x) {
+            this.moveRight();
+            this.otherDirection = false;
+        }
+    }
+
+
+    handleMoveLeft() {
+        if (this.world.keyboard.LEFT &&
+            this.x > 0) {
+            this.moveLeft();
+            this.otherDirection = true;
+        }
+    }
+
+
+    handleJumpInput() {
+        if (this.world.keyboard.SPACE &&
+            !this.isAboveGround()) {
+
+            this.jump();
+        }
+    }
+
+
+    updateCameraPosition() {
+        this.world.camera_x = -this.x + 100;
+    }
+
+
+    handleMovementSounds() {
+        this.handleWalkingSound();
+        this.handleJumpSound();
+        this.handleCollectingSound();
+    }
+
 
     animateCharacterStates() {
         setInterval(() => {
@@ -158,6 +196,7 @@ class Character extends MoveableObject {
         }, 50);
     }
 
+
     animateIdle() {
         setInterval(() => {
             if (this.isStopped) return;
@@ -166,6 +205,7 @@ class Character extends MoveableObject {
             }
         }, 200);
     }
+
 
     animateLongIdle() {
         setInterval(() => {
@@ -176,6 +216,7 @@ class Character extends MoveableObject {
         }, 200);
     }
 
+
     trackIdleTime() {
         setInterval(() => {
             if (this.isIdle()) {
@@ -185,6 +226,7 @@ class Character extends MoveableObject {
             }
         }, 100);
     }
+
 
     isIdle() {
         return !this.world.keyboard.RIGHT &&
