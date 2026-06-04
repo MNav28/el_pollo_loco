@@ -252,9 +252,11 @@ class Character extends MoveableObject {
             !this.isDead();
     }
 
+
     isLongIdle() {
         return this.idleTime >= 5000;
     }
+
 
     isWalking() {
         return (
@@ -263,25 +265,53 @@ class Character extends MoveableObject {
         );
     }
 
+
     handleWalkingSound() {
         if (!soundEnabled) {
-            this.walking_sound.pause();
-            this.walking_sound.currentTime = 0;
+            this.stopWalkingSound();
             return;
         }
 
-        if (this.isWalking() && !this.isAboveGround()) {
-            if (this.walking_sound.paused) {
-                this.walking_sound.play().catch((e) => {
-                    console.warn('Laufsound konnte nicht abgespielt werden:', e);
-                });
-            }
+        if (this.shouldPlayWalkingSound()) {
+            this.playWalkingSound();
         } else {
-            this.walking_sound.pause();
-            this.walking_sound.currentTime = 0;
+            this.stopWalkingSound();
         }
     }
 
+
+    shouldPlayWalkingSound() {
+
+        let isWalking = this.isWalking();
+        let isOnGround = !this.isAboveGround();
+
+        return isWalking && isOnGround;
+    }
+
+
+    playWalkingSound() {
+
+        if (!this.walking_sound.paused) {
+            return;
+        }
+
+        this.walking_sound.play().catch((e) => {
+
+            console.warn(
+                'Laufsound konnte nicht abgespielt werden:',
+                e
+            );
+        });
+    }
+
+
+    stopWalkingSound() {
+
+        this.walking_sound.pause();
+        this.walking_sound.currentTime = 0;
+    }
+
+    
     handleJumpSound() {
         if (!soundEnabled) {
             this.jump_sound.pause();
