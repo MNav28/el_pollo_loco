@@ -268,50 +268,23 @@ class Character extends MoveableObject {
 
     handleWalkingSound() {
         if (!soundEnabled) {
-            this.stopWalkingSound();
+            this.walking_sound.pause();
+            this.walking_sound.currentTime = 0;
             return;
         }
-
-        if (this.shouldPlayWalkingSound()) {
-            this.playWalkingSound();
+        if (this.isWalking() && !this.isAboveGround()) {
+            if (this.walking_sound.paused) {
+                this.walking_sound.play().catch((e) => {
+                    console.warn('Laufsound konnte nicht abgespielt werden:', e);
+                });
+            }
         } else {
-            this.stopWalkingSound();
+            this.walking_sound.pause();
+            this.walking_sound.currentTime = 0;
         }
     }
 
 
-    shouldPlayWalkingSound() {
-
-        let isWalking = this.isWalking();
-        let isOnGround = !this.isAboveGround();
-
-        return isWalking && isOnGround;
-    }
-
-
-    playWalkingSound() {
-
-        if (!this.walking_sound.paused) {
-            return;
-        }
-
-        this.walking_sound.play().catch((e) => {
-
-            console.warn(
-                'Laufsound konnte nicht abgespielt werden:',
-                e
-            );
-        });
-    }
-
-
-    stopWalkingSound() {
-
-        this.walking_sound.pause();
-        this.walking_sound.currentTime = 0;
-    }
-
-    
     handleJumpSound() {
         if (!soundEnabled) {
             this.jump_sound.pause();
@@ -330,6 +303,7 @@ class Character extends MoveableObject {
         }
     }
 
+
     handleCollectingSound() {
         if (!soundEnabled || this.isStopped) return;
         let coinsAmountChanged = this.world.collectedCoins > this.lastCollectedCoins;
@@ -345,12 +319,12 @@ class Character extends MoveableObject {
         this.lastCollectedBottles = this.world.collectedBottles;
     }
 
+
     handleSnoringSound() {
         if (!soundEnabled || this.isStopped) {
             this.stopSnoringSound();
             return;
         }
-
         if (this.isLongIdle() && !this.isSnoringSoundPlaying) {
             this.snoring_sound.currentTime = 0;
             this.snoring_sound.play().catch((e) => {
@@ -358,11 +332,11 @@ class Character extends MoveableObject {
             });
             this.isSnoringSoundPlaying = true;
         }
-
         if (!this.isLongIdle() && this.isSnoringSoundPlaying) {
             this.stopSnoringSound();
         }
     }
+
 
     stopSnoringSound() {
         this.snoring_sound.pause();
