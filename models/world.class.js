@@ -47,27 +47,47 @@ class World {
         }, 33);
     }
 
+
     checkThrowObjects() {
         if (this.character.isStopped) return;
-        if (this.keyboard.D && this.canThrow && this.collectedBottles > 0) {
-            this.character.idleTime = 0;
 
-            let spawnPosition = this.getBottleSpawnPosition();
-            let spawnX = spawnPosition.spawnX;
-            let spawnY = spawnPosition.spawnY;
-
-            let bottle = new ThrowableObject(spawnX, spawnY);
-            bottle.otherDirection = this.character.otherDirection;
-            bottle.throwAnimate();
-            this.throwableObjects.push(bottle);
-            this.collectedBottles--;
-            this.updateStatusbarBottle();
-            this.canThrow = false;
-            setTimeout(() => {
-                this.canThrow = true;
-            }, 800);
+        if (!this.canThrowBottle()) {
+            return;
         }
+
+        this.throwBottle();
+        this.startThrowCooldown();
     }
+
+
+    canThrowBottle() {
+        let throwKeyPressed = this.keyboard.D;
+        let throwAvailable = this.canThrow;
+        let hasBottles = this.collectedBottles > 0;
+        return throwKeyPressed && throwAvailable && hasBottles;
+    }
+
+
+    throwBottle() {
+        this.character.idleTime = 0;
+        let { spawnX, spawnY } = this.getBottleSpawnPosition();
+        let bottle = new ThrowableObject(spawnX, spawnY);
+        bottle.otherDirection = this.character.otherDirection;
+        bottle.throwAnimate();
+        this.throwableObjects.push(bottle);
+        this.collectedBottles--;
+        this.updateStatusbarBottle();
+    }
+
+
+    startThrowCooldown() {
+        this.canThrow = false;
+
+        setTimeout(() => {
+            this.canThrow = true;
+        }, 800);
+    }
+
 
     getBottleSpawnPosition() {
         let spawnX;
