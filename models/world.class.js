@@ -146,36 +146,71 @@ class World {
         this.statusBarCoin.setPercentage(percentage);
     }
 
+
     checkEnemyCollisions() {
         this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy) && !enemy.isDead()) {
 
-                if (this.isJumpingOnEnemy(enemy) && !(enemy instanceof Endboss)) {
-                    this.killChicken(enemy);
-                    this.character.speedY = 25;
-                    this.character.y = 150;
-                    this.character.lastBounce = new Date().getTime();
-                    return;
-                }
+            this.handleCharacterEnemyCollision(enemy);
 
-                if (!this.character.wasJustBouncing() && !this.character.isHurt()) {
-                    if (enemy instanceof Endboss) {
-                        this.character.hit(25);
-                    } else {
-                        this.character.hit();
-                    }
-                    this.character.playHurtSound();
-                    if (this.character.isStopped) return;
-                    this.statusBarHealth.setPercentage(this.character.energy);
-                }
-            }
-            if (enemy instanceof Endboss) {
-                if (this.character.x > enemy.x + 40) {
-                    this.character.x = enemy.x + 40;
-                }
-            }
+            this.limitCharacterMovementAtEndboss(enemy);
+
         });
     }
+
+
+    handleCharacterEnemyCollision(enemy) {
+        if (!this.character.isColliding(enemy) || enemy.isDead()) {
+            return;
+        }
+        if (this.isJumpingOnEnemy(enemy) && !(enemy instanceof Endboss)) {
+
+            this.killChicken(enemy);
+            this.bounceCharacter();
+
+            return;
+        }
+        this.handleEnemyDamage(enemy);
+    }
+
+
+    bounceCharacter() {
+        this.character.speedY = 25;
+        this.character.y = 150;
+        this.character.lastBounce = new Date().getTime();
+    }
+
+
+    handleEnemyDamage(enemy) {
+        if (this.character.wasJustBouncing()) {
+            return;
+        }
+        if (this.character.isHurt()) {
+            return;
+        }
+        if (enemy instanceof Endboss) {
+            this.character.hit(25);
+
+        } else {
+            this.character.hit();
+        }
+        this.character.playHurtSound();
+        if (this.character.isStopped) {
+            return;
+        }
+        this.statusBarHealth.setPercentage(this.character.energy);
+    }
+
+
+    limitCharacterMovementAtEndboss(enemy) {
+        if (!(enemy instanceof Endboss)) {
+            return;
+        }
+        if (this.character.x > enemy.x + 40) {
+
+            this.character.x = enemy.x + 40;
+        }
+    }
+
 
     isJumpingOnEnemy(enemy) {
         return this.character.isAboveGround() &&
