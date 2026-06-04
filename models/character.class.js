@@ -388,29 +388,42 @@ class Character extends MoveableObject {
         return new Date().getTime() - this.lastBounce < 300;
     }
 
-    playJumpAnimation() {
-        let jumpIndex = 8;
 
-        if (this.speedY > 26) {
-            jumpIndex = 0;
-        } else if (this.speedY > 22) {
-            jumpIndex = 1;
-        } else if (this.speedY > 18) {
-            jumpIndex = 2;
-        } else if (this.speedY > 14) {
-            jumpIndex = 3;
-        } else if (this.speedY > 9) {
-            jumpIndex = 4;
-        } else if (this.speedY > 4) {
-            jumpIndex = 5;
-        } else if (this.speedY > -4) {
-            jumpIndex = 6;
-        } else if (this.speedY > -10) {
-            jumpIndex = 7;
-        }
+    playJumpAnimation() {
+        let jumpIndex = this.getJumpAnimationIndex();
 
         this.img = this.imageCache[this.IMAGES_JUMPING[jumpIndex]];
     }
+
+
+    getJumpAnimationIndex() {
+        if (this.speedY > 26) {
+            return 0;
+        }
+        if (this.speedY > 22) {
+            return 1;
+        }
+        if (this.speedY > 18) {
+            return 2;
+        }
+        if (this.speedY > 14) {
+            return 3;
+        }
+        if (this.speedY > 9) {
+            return 4;
+        }
+        if (this.speedY > 4) {
+            return 5;
+        }
+        if (this.speedY > -4) {
+            return 6;
+        }
+        if (this.speedY > -10) {
+            return 7;
+        }
+        return 8;
+    }
+
 
 }
 
