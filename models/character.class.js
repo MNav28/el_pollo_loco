@@ -174,19 +174,10 @@ class Character extends MoveableObject {
     animateCharacterStates() {
         setInterval(() => {
             if (this.isStopped) return;
-            if (this.isDead()) {
-                this.playAnimation(this.IMAGES_DEAD);
-                if (!this.isDeadAlreadyHandled) {
-                    this.isDeadAlreadyHandled = true;
 
-                    this.stopCharacter();
-                    this.world.stopBackgroundMusic();
+            if (this.handleDeadState()) return;
 
-                    setTimeout(() => {
-                        this.showGameoverScreen();
-                    }, 1200);
-                }
-            } else if (this.isHurt()) {
+            if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
             } else if (this.isAboveGround()) {
                 this.playJumpAnimation();
@@ -194,6 +185,30 @@ class Character extends MoveableObject {
                 this.playAnimation(this.IMAGES_WALKING);
             }
         }, 50);
+    }
+
+
+    handleDeadState() {
+        if (!this.isDead()) {
+            return false;
+        }
+
+        this.playAnimation(this.IMAGES_DEAD);
+        this.handleCharacterDeath();
+        return true;
+    }
+
+
+    handleCharacterDeath() {
+        if (this.isDeadAlreadyHandled) {
+            return;
+        }
+        this.isDeadAlreadyHandled = true;
+        this.stopCharacter();
+        this.world.stopBackgroundMusic();
+        setTimeout(() => {
+            this.showGameoverScreen();
+        }, 1200);
     }
 
 
