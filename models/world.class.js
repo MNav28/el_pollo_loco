@@ -236,30 +236,48 @@ class World {
     checkCollisionBottlesWithEnemies() {
         this.throwableObjects.forEach((bottle, bottleIndex) => {
             this.level.enemies.forEach((enemy) => {
-                if (bottle.isColliding(enemy)) {
-                    if (enemy instanceof Endboss) {
-                        if (!enemy.isHurt()) {
-                            enemy.playCrySound();
-                            enemy.hit();
-                            this.statusBarEndboss.setPercentage(enemy.energy);
-                        }
-                        bottle.deactivateBottleMovement();
-                        bottle.bottleSplashAnimate();
-                        setTimeout(() => {
-                            this.throwableObjects.splice(bottleIndex, 1);
-                        }, 300);
-                    } else {
-                        this.killChicken(enemy);
-                        bottle.deactivateBottleMovement();
-                        bottle.bottleSplashAnimate();
-                        setTimeout(() => {
-                            this.throwableObjects.splice(bottleIndex, 1);
-                        }, 300);
-                    }
+
+                if (!bottle.isColliding(enemy)) {
+                    return;
+                }
+
+                if (enemy instanceof Endboss) {
+                    this.handleEndbossHit(enemy, bottle, bottleIndex);
+                } else {
+                    this.handleChickenHit(enemy, bottle, bottleIndex);
                 }
             });
         });
     }
+
+
+    handleEndbossHit(enemy, bottle, bottleIndex) {
+        if (!enemy.isHurt()) {
+            enemy.playCrySound();
+            enemy.hit();
+            this.statusBarEndboss.setPercentage(enemy.energy);
+        }
+
+        this.removeBottleAfterImpact(bottle, bottleIndex);
+    }
+
+
+    handleChickenHit(enemy, bottle, bottleIndex) {
+        this.killChicken(enemy);
+
+        this.removeBottleAfterImpact(bottle, bottleIndex);
+    }
+
+
+    removeBottleAfterImpact(bottle, bottleIndex) {
+        bottle.deactivateBottleMovement();
+        bottle.bottleSplashAnimate();
+
+        setTimeout(() => {
+            this.throwableObjects.splice(bottleIndex, 1);
+        }, 300);
+    }
+
 
     drawWorld() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
