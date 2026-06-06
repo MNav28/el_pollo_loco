@@ -263,8 +263,11 @@ class World {
 
 
     handleChickenHit(enemy, bottle, bottleIndex) {
+        if (bottle.hasHitEnemy) {
+            return;
+        }
+        bottle.hasHitEnemy = true;
         this.killChicken(enemy);
-
         this.removeBottleAfterImpact(bottle, bottleIndex);
     }
 

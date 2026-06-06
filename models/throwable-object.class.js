@@ -27,8 +27,8 @@ class ThrowableObject extends MoveableObject {
         this.loadImage('./assets/img/6_salsa_bottle/salsa_bottle.png');
         this.loadImages(this.SALSA_BOTTLE_ROTATION_IMAGES);
         this.loadImages(this.SALSA_BOTTLE_SPLASH);
-        //this.throw();
         this.throwInterval = null;
+        this.hasHitEnemy = false;
         this.offsetX = 15;
         this.offsetY = 10;
         this.offsetWidth = 31;

@@ -8,8 +8,6 @@ class DrawableObject {
     width = 100;
 
 
-
-
     loadImage(path) {
         this.img = new Image()
         this.img.src = path;

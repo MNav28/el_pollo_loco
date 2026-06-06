@@ -6,7 +6,6 @@ let isGameActive = false;
 const DEBUG_FRAME = false;
 
 function init() {
-
     canvas = document.getElementById('canvas')
     loadSoundState();
     checkDeviceOrientation();
