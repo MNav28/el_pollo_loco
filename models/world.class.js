@@ -347,24 +347,44 @@ class World {
         this.background_music.currentTime = 0;
     }
 
+
     showEndScreen(type) {
         const screen = document.getElementById('end-screen');
         const soundIcon = document.getElementById('sound-icon-wrapper');
         const mobilePanel = document.getElementById('control-mobile-panel');
+
+        this.displayEndScreen(screen, type);
+        this.hideGameControls(soundIcon, mobilePanel);
+        this.stopGameObjects();
+
+        isGameActive = false;
+        this.stopBackgroundMusic();
+    }
+
+
+    displayEndScreen(screen, type) {
         screen.classList.remove('win', 'lose');
         screen.classList.add(type);
         screen.classList.remove('d-none');
+    }
+
+
+    hideGameControls(soundIcon, mobilePanel) {
         mobilePanel.classList.add('d-none');
         soundIcon.classList.add('d-none');
+
         this.character.stopAllSounds();
+    }
+
+
+    stopGameObjects() {
         [...this.level.enemies, ...this.level.clouds].forEach(object => {
             object.isStopped = true;
+
             if (object instanceof Endboss) {
                 object.stopAllAnimations();
             }
         });
-        isGameActive = false;
-        this.stopBackgroundMusic();
     }
 
 }
