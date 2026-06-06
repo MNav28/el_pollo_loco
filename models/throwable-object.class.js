@@ -3,7 +3,7 @@ class ThrowableObject extends MoveableObject {
     height = 60;
     width = 50;
 
-    salsa_bottle_rotation_images = [
+    SALSA_BOTTLE_ROTATION_IMAGES = [
         './assets/img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
         './assets/img/6_salsa_bottle/bottle_rotation/2_bottle_rotation.png',
         './assets/img/6_salsa_bottle/bottle_rotation/3_bottle_rotation.png',
@@ -25,7 +25,7 @@ class ThrowableObject extends MoveableObject {
         this.x = x;
         this.y = y;
         this.loadImage('./assets/img/6_salsa_bottle/salsa_bottle.png');
-        this.loadImages(this.salsa_bottle_rotation_images);
+        this.loadImages(this.SALSA_BOTTLE_ROTATION_IMAGES);
         this.loadImages(this.salsa_bottle_splash);
         //this.throw();
         this.throwInterval = null;
@@ -46,7 +46,7 @@ class ThrowableObject extends MoveableObject {
             } else {
                 this.x += 10;
             }
-            this.playAnimation(this.salsa_bottle_rotation_images);
+            this.playAnimation(this.SALSA_BOTTLE_ROTATION_IMAGES);
         }, 25);
     }
 
