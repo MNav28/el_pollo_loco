@@ -24,7 +24,7 @@ class World {
         this.background_music.volume = 0.3;
         this.drawWorld();
         this.setWorld();
-        this.run();
+        this.startGameLoop();
     }
 
     setWorld() {
@@ -37,7 +37,7 @@ class World {
         });
     }
 
-    run() {
+    startGameLoop() {
         setInterval(() => {
             this.checkEnemyCollisions();
             this.checkThrowObjects();
