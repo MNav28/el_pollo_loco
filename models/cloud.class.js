@@ -2,15 +2,15 @@ class Cloud extends MoveableObject {
     width = 500;
     height = 250;
 
-    clouds_floating = [
+    CLOUDS_FLOATING = [
         './assets/img/5_background/layers/4_clouds/1.png',
         './assets/img/5_background/layers/4_clouds/2.png',
     ]
 
     constructor(x, y, imageIndex = 0) {
         super();
-        this.loadImage(this.clouds_floating[imageIndex % this.clouds_floating.length]);
-        this.loadImages(this.clouds_floating);
+        this.loadImage(this.CLOUDS_FLOATING[imageIndex % this.CLOUDS_FLOATING.length]);
+        this.loadImages(this.CLOUDS_FLOATING);
         this.isStopped = false;
         this.x = x;
         this.y = y;
