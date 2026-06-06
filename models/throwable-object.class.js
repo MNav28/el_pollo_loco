@@ -10,7 +10,7 @@ class ThrowableObject extends MoveableObject {
         './assets/img/6_salsa_bottle/bottle_rotation/4_bottle_rotation.png',
     ]
 
-    salsa_bottle_splash = [
+    SALSA_BOTTLE_SPLASH = [
         './assets/img/6_salsa_bottle/bottle_rotation/bottle_splash/1_bottle_splash.png',
         './assets/img/6_salsa_bottle/bottle_rotation/bottle_splash/2_bottle_splash.png',
         './assets/img/6_salsa_bottle/bottle_rotation/bottle_splash/3_bottle_splash.png',
@@ -26,7 +26,7 @@ class ThrowableObject extends MoveableObject {
         this.y = y;
         this.loadImage('./assets/img/6_salsa_bottle/salsa_bottle.png');
         this.loadImages(this.SALSA_BOTTLE_ROTATION_IMAGES);
-        this.loadImages(this.salsa_bottle_splash);
+        this.loadImages(this.SALSA_BOTTLE_SPLASH);
         //this.throw();
         this.throwInterval = null;
         this.offsetX = 15;
@@ -51,7 +51,7 @@ class ThrowableObject extends MoveableObject {
     }
 
     bottleSplashAnimate() {
-        this.playAnimation(this.salsa_bottle_splash);
+        this.playAnimation(this.SALSA_BOTTLE_SPLASH);
     }
 
     deactivateBottleMovement() {
