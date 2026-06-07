@@ -1,3 +1,7 @@
+/**
+ * Represents a normal chicken enemy that walks through the level
+ * and can be defeated by the character.
+ */
 class Chicken extends MoveableObject {
     y = 360;
     height = 60;
@@ -13,6 +17,11 @@ class Chicken extends MoveableObject {
 
     IMAGE_DEAD_CHICKEN =  './assets/img/3_enemies_chicken/chicken_normal/2_dead/dead.png'
 
+    /**
+     * Creates a new chicken enemy at the given x position.
+     *
+     * @param {number} x - Horizontal position of the enemy.
+     */    
     constructor(x) {
         super().loadImage('./assets/img/3_enemies_chicken/chicken_normal/1_walk/1_w.png');
         this.loadImages(this.IMAGES_WALKING);
@@ -26,7 +35,9 @@ class Chicken extends MoveableObject {
         this.offsetHeight = 20;
     }
 
-
+    /**
+     * Starts the movement and walking animation of the enemy.
+     */
     animate() {
         this.moveInterval = setInterval(() => {
             if (this.isStopped) return;
@@ -39,6 +50,9 @@ class Chicken extends MoveableObject {
         }, 200);
     }
 
+    /**
+     * Sets the enemy to its dead state and stops all animations.
+     */    
     setDeadState() {
         this.loadImage(this.IMAGE_DEAD_CHICKEN);
         this.energy = 0;
