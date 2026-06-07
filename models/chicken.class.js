@@ -61,4 +61,6 @@ class Chicken extends MoveableObject {
         clearInterval(this.animationInterval);
         this.speed = 0;
     }
+
+    
 }

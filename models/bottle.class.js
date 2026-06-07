@@ -28,4 +28,6 @@ class Bottle extends MoveableObject {
         this.offsetHeight = 20;
 
     }
+
+    
 }
