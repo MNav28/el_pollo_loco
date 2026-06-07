@@ -1,3 +1,7 @@
+/**
+ * Represents a throwable salsa bottle.
+ * Handles bottle movement, rotation animation and splash effects.
+ */
 class ThrowableObject extends MoveableObject {
 
     height = 60;
@@ -19,7 +23,12 @@ class ThrowableObject extends MoveableObject {
         './assets/img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png',
     ]
 
-
+    /**
+     * Creates a new throwable bottle.
+     *
+     * @param {number} x - Initial x position.
+     * @param {number} y - Initial y position.
+     */
     constructor(x, y) {
         super();
         this.x = x;
@@ -35,7 +44,9 @@ class ThrowableObject extends MoveableObject {
         this.offsetHeight = 20;
     }
 
-
+    /**
+     * Starts the bottle throw animation and movement.
+     */
     throwAnimate() {
         this.speedY = 25;
         this.applyGravity();
@@ -50,10 +61,16 @@ class ThrowableObject extends MoveableObject {
         }, 25);
     }
 
+    /**
+     * Plays the bottle splash animation.
+     */
     bottleSplashAnimate() {
         this.playAnimation(this.SALSA_BOTTLE_SPLASH);
     }
 
+    /**
+     * Stops the bottle movement after impact.
+     */
     deactivateBottleMovement() {
         clearInterval(this.throwInterval);
         this.throwInterval = null;
@@ -61,4 +78,5 @@ class ThrowableObject extends MoveableObject {
         this.speedY = 0
     }
 
+    
 }
