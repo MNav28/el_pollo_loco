@@ -1,3 +1,6 @@
+/**
+ * Manages keyboard and mobile input states for the game controls.
+ */
 class Keyboard {
     LEFT = false;
     RIGHT = false;
@@ -7,7 +10,9 @@ class Keyboard {
     D = false;
 
 
-
+    /**
+     * Registers touch events for the left movement button.
+     */
     mobileBtnLeft() {
         const btn = document.getElementById('btnLeft');
         btn.addEventListener('touchstart', (e) => {
@@ -21,7 +26,9 @@ class Keyboard {
         });
     }
 
-    
+    /**
+     * Registers touch events for the right movement button.
+     */    
     mobileBtnRight() {
         const btn = document.getElementById('btnRight');
         btn.addEventListener('touchstart', (e) => {
@@ -35,7 +42,9 @@ class Keyboard {
         });
     }
 
-
+    /**
+     * Registers touch events for the jump button.
+     */
     mobileBtnJump() {
         const btn = document.getElementById('btnJump');
         btn.addEventListener('touchstart', (e) => {
@@ -50,7 +59,9 @@ class Keyboard {
 
     }
 
-
+    /**
+     * Registers touch events for the throw button.
+     */
     mobileBtnThrow() {
         const btn = document.getElementById('btnThrow');
         btn.addEventListener('touchstart', (e) => {
@@ -64,7 +75,9 @@ class Keyboard {
         });
     }
 
-
+    /**
+     * Initializes all mobile control buttons.
+     */
     initMobileButtons() {
         this.mobileBtnLeft();
         this.mobileBtnRight();
@@ -72,5 +85,6 @@ class Keyboard {
         this.mobileBtnThrow();
     };
 
+    
 }
 
