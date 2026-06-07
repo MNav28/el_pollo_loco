@@ -1,3 +1,7 @@
+/**
+ * Represents a collectible coin in the game world.
+ * Coins are placed at random positions and animated continuously.
+ */
 class Coin extends MoveableObject {
 
 
@@ -6,6 +10,10 @@ class Coin extends MoveableObject {
         './assets/img/8_coin/coin_2.png', 
     ];
 
+    /**
+     * Creates a new coin with a random position
+     * and starts its animation.
+     */    
     constructor() {
         super();
         this.loadImage('./assets/img/8_coin/coin_1.png');
@@ -21,6 +29,10 @@ class Coin extends MoveableObject {
         this.animate();
     }
 
+    /**
+     * Starts the coin animation by alternating
+     * between the available coin images.
+     */    
     animate() {
 
         setInterval(() => {
