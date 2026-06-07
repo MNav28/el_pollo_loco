@@ -1,5 +1,10 @@
 let level1;
 
+/**
+ * Creates and initializes the first game level
+ * with all enemies, clouds, background objects,
+ * bottles and coins.
+ */
 function initLevel() {
 
     level1 = new Level(
@@ -91,4 +96,5 @@ function initLevel() {
             new Coin(),
         ]
     );
+    
 }
