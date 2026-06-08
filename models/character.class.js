@@ -1,3 +1,7 @@
+/**
+ * Represents the playable character Pepe.
+ * Handles movement, animations, sounds, collisions and character states.
+ */
 class Character extends MoveableObject {
     height = 280;
     width = 120;
@@ -70,6 +74,10 @@ class Character extends MoveableObject {
 
     world;
 
+    /**
+     * Creates the player character and initializes
+     * images, sounds, physics and animations.
+     */    
     constructor() {
         super();
         this.walking_sound = new Audio('./assets/audio/walking1.mp3');
@@ -100,7 +108,9 @@ class Character extends MoveableObject {
         this.idleTime = 0;
     }
 
-
+    /**
+     * Starts all character animation and update loops.
+     */
     animate() {
         this.animateMovement();
         this.animateCharacterStates();
@@ -113,7 +123,9 @@ class Character extends MoveableObject {
         }, 200);
     }
 
-
+    /**
+     * Handles character movement and movement-related sounds.
+     */
     animateMovement() {
         setInterval(() => {
             if (this.isStopped) return;
@@ -124,14 +136,18 @@ class Character extends MoveableObject {
         }, 1000 / 60);
     }
 
-
+    /**
+     * Processes player movement input.
+     */
     handleMovementInput() {
         this.handleMoveRight();
         this.handleMoveLeft();
         this.handleJumpInput();
     }
 
-
+    /**
+     * Moves the character to the right.
+     */
     handleMoveRight() {
         if (this.world.keyboard.RIGHT &&
             this.x < this.world.level.level_end_x) {
@@ -140,7 +156,9 @@ class Character extends MoveableObject {
         }
     }
 
-
+    /**
+     * Moves the character to the left.
+     */
     handleMoveLeft() {
         if (this.world.keyboard.LEFT &&
             this.x > 0) {
@@ -149,7 +167,9 @@ class Character extends MoveableObject {
         }
     }
 
-
+    /**
+     * Triggers a jump when the jump key is pressed.
+     */
     handleJumpInput() {
         if (this.world.keyboard.SPACE &&
             !this.isAboveGround()) {
@@ -158,19 +178,25 @@ class Character extends MoveableObject {
         }
     }
 
-
+    /**
+     * Updates the camera position based on the character position.
+     */
     updateCameraPosition() {
         this.world.camera_x = -this.x + 100;
     }
 
-
+    /**
+     * Updates all movement-related sound effects.
+     */
     handleMovementSounds() {
         this.handleWalkingSound();
         this.handleJumpSound();
         this.handleCollectingSound();
     }
 
-
+    /**
+     * Plays animations depending on the current character state.
+     */
     animateCharacterStates() {
         setInterval(() => {
             if (this.isStopped) return;
@@ -187,7 +213,11 @@ class Character extends MoveableObject {
         }, 50);
     }
 
-
+    /**
+     * Handles the death animation and death logic.
+     *
+     * @returns {boolean} True if the character is dead.
+     */
     handleDeadState() {
         if (!this.isDead()) {
             return false;
@@ -198,7 +228,9 @@ class Character extends MoveableObject {
         return true;
     }
 
-
+    /**
+     * Executes character death actions once.
+     */
     handleCharacterDeath() {
         if (this.isDeadAlreadyHandled) {
             return;
@@ -211,7 +243,9 @@ class Character extends MoveableObject {
         }, 1200);
     }
 
-
+    /**
+     * Plays the normal idle animation.
+     */
     animateIdle() {
         setInterval(() => {
             if (this.isStopped) return;
@@ -221,7 +255,9 @@ class Character extends MoveableObject {
         }, 200);
     }
 
-
+    /**
+     * Plays the long idle animation.
+     */
     animateLongIdle() {
         setInterval(() => {
             if (this.isStopped) return;
@@ -231,7 +267,9 @@ class Character extends MoveableObject {
         }, 200);
     }
 
-
+    /**
+     * Tracks how long the character has been idle.
+     */
     trackIdleTime() {
         setInterval(() => {
             if (this.isIdle()) {
@@ -242,7 +280,11 @@ class Character extends MoveableObject {
         }, 100);
     }
 
-
+    /**
+     * Checks whether the character is currently idle.
+     *
+     * @returns {boolean} True if the character is idle.
+     */
     isIdle() {
         return !this.world.keyboard.RIGHT &&
             !this.world.keyboard.LEFT &&
@@ -252,12 +294,20 @@ class Character extends MoveableObject {
             !this.isDead();
     }
 
-
+    /**
+     * Checks whether the long idle state is active.
+     *
+     * @returns {boolean} True if the character has been idle long enough.
+     */
     isLongIdle() {
         return this.idleTime >= 5000;
     }
 
-
+    /**
+     * Checks whether the character is currently walking.
+     *
+     * @returns {boolean} True if the character is moving.
+     */
     isWalking() {
         return (
             (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) ||
@@ -265,7 +315,9 @@ class Character extends MoveableObject {
         );
     }
 
-
+    /**
+     * Plays or stops the walking sound.
+     */
     handleWalkingSound() {
         if (!soundEnabled) {
             this.walking_sound.pause();
@@ -284,7 +336,9 @@ class Character extends MoveableObject {
         }
     }
 
-
+    /**
+     * Plays the jump sound once per jump.
+     */
     handleJumpSound() {
         if (!soundEnabled) {
             this.jump_sound.pause();
@@ -303,7 +357,9 @@ class Character extends MoveableObject {
         }
     }
 
-
+    /**
+     * Plays the collecting sound when coins or bottles are collected.
+     */
     handleCollectingSound() {
         if (!soundEnabled || this.isStopped) return;
         let coinsAmountChanged = this.world.collectedCoins > this.lastCollectedCoins;
@@ -319,7 +375,9 @@ class Character extends MoveableObject {
         this.lastCollectedBottles = this.world.collectedBottles;
     }
 
-
+    /**
+     * Plays or stops the snoring sound during long idle periods.
+     */
     handleSnoringSound() {
         if (!soundEnabled || this.isStopped) {
             this.stopSnoringSound();
@@ -337,13 +395,18 @@ class Character extends MoveableObject {
         }
     }
 
-
+    /**
+     * Stops the snoring sound and resets its state.
+     */
     stopSnoringSound() {
         this.snoring_sound.pause();
         this.snoring_sound.currentTime = 0;
         this.isSnoringSoundPlaying = false;
     }
 
+    /**
+     * Plays the hurt sound effect.
+     */    
     playHurtSound() {
         if (!soundEnabled || this.isStopped) return;
         this.hurt_sound.currentTime = 0;
@@ -352,10 +415,16 @@ class Character extends MoveableObject {
         });
     }
 
+    /**
+     * Stops all character actions.
+     */    
     stopCharacter() {
         this.isStopped = true;
     }
 
+    /**
+     * Stops and resets all character sound effects.
+     */    
     stopAllSounds() {
         this.walking_sound.pause();
         this.jump_sound.pause();
@@ -372,6 +441,9 @@ class Character extends MoveableObject {
         this.gameover_sound.currentTime = 0;
     }
 
+    /**
+     * Displays the game over screen.
+     */    
     showGameoverScreen() {
         this.stopAllSounds();
         this.stopCharacter();
@@ -379,6 +451,9 @@ class Character extends MoveableObject {
         this.playGameoverSound();
     }
 
+    /**
+     * Plays the game over sound effect.
+     */    
     playGameoverSound() {
         this.gameover_sound.pause();
         this.gameover_sound.currentTime = 0;
@@ -388,18 +463,30 @@ class Character extends MoveableObject {
         });
     }
 
+    /**
+     * Checks whether the character recently bounced on an enemy.
+     *
+     * @returns {boolean} True if the bounce cooldown is active.
+     */    
     wasJustBouncing() {
         return new Date().getTime() - this.lastBounce < 300;
     }
 
-
+    /**
+     * Displays the correct jump animation frame.
+     */
     playJumpAnimation() {
         let jumpIndex = this.getJumpAnimationIndex();
 
         this.img = this.imageCache[this.IMAGES_JUMPING[jumpIndex]];
     }
 
-
+    /**
+     * Returns the jump animation frame index
+     * based on the current vertical speed.
+     *
+     * @returns {number} The jump animation frame index.
+     */
     getJumpAnimationIndex() {
         if (this.speedY > 26) {
             return 0;
