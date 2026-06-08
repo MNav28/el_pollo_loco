@@ -1,3 +1,8 @@
+/**
+ * Represents the final boss enemy of the game.
+ * The Endboss can patrol, detect the character, chase the player,
+ * take damage, play animations and trigger the winning screen when defeated.
+ */
 class Endboss extends MoveableObject {
     y = -20;
     height = 480;
@@ -42,6 +47,10 @@ class Endboss extends MoveableObject {
         './assets/img/4_enemie_boss_chicken/5_dead/G26.png',
     ]
 
+    /**
+     * Creates a new Endboss instance and initializes
+     * images, sounds, movement settings and animation states.
+     */    
     constructor() {
         super().loadImage(this.IMAGES_ALERT[0]);
         this.loadImages(this.IMAGES_WALKING);
@@ -73,7 +82,10 @@ class Endboss extends MoveableObject {
         this.alertAnimationInterval = null;
     }
 
-
+    /**
+     * Starts the main endboss behavior loop.
+     * Handles patrolling, alert mode and chasing logic.
+     */
     animate() {
         this.moveInterval = setInterval(() => {
             const character = this.world.character;
@@ -89,7 +101,12 @@ class Endboss extends MoveableObject {
         }, 1000 / 60);
     }
 
-
+    /**
+     * Handles the chasing state of the endboss.
+     *
+     * @param {Character} character The player character.
+     * @returns {boolean} Returns true if the endboss is currently chasing.
+     */
     handleChasing(character) {
         if (this.isChasing && !this.isCurrentlyHurt) {
             this.chaseCharacter(character);
@@ -99,7 +116,11 @@ class Endboss extends MoveableObject {
         return false;
     }
 
-
+    /**
+     * Activates the alert state when the character is nearby.
+     *
+     * @param {Character} character The player character.
+     */
     handleAlertState(character) {
         if (!this.isAlerting) {
             this.stopWalkingAnimation();
@@ -109,7 +130,9 @@ class Endboss extends MoveableObject {
         }
     }
 
-
+    /**
+     * Handles the default patrol behavior.
+     */
     handlePatrolState() {
         if (this.isCurrentlyHurt || this.isChasing) {
             return;
@@ -122,7 +145,9 @@ class Endboss extends MoveableObject {
         this.startWalking();
     }
 
-
+    /**
+     * Starts the walking movement and patrol direction logic.
+     */
     startWalking() {
         this.stopAlertAnimation();
         if (this.direction === 1) {
@@ -142,7 +167,9 @@ class Endboss extends MoveableObject {
         this.startWalkingAnimation();
     }
 
-
+    /**
+     * Starts the walking animation loop.
+     */
     startWalkingAnimation() {
         if (this.walkingAnimationInterval) return;
 
@@ -151,7 +178,11 @@ class Endboss extends MoveableObject {
         }, this.frameInterval);
     }
 
-
+    /**
+     * Rotates the endboss towards the character.
+     *
+     * @param {Character} character The player character.
+     */
     faceCharacter(character) {
         let distance = character.x - this.x;
         if (Math.abs(distance) < 40) {
@@ -167,7 +198,11 @@ class Endboss extends MoveableObject {
         }
     }
 
-
+    /**
+     * Moves the endboss towards the character.
+     *
+     * @param {Character} character The player character.
+     */
     chaseCharacter(character) {
         this.faceCharacter(character);
 
@@ -182,7 +217,12 @@ class Endboss extends MoveableObject {
         this.ensureWalkingAnimation();
     }
 
-
+    /**
+     * Checks whether the endboss has reached the character.
+     *
+     * @param {number} distance Current distance to the character.
+     * @returns {boolean} Returns true when the target distance is reached.
+     */
     hasReachedCharacter(distance) {
         if (distance < 40) {
             this.stopWalkingAnimation();
@@ -195,7 +235,9 @@ class Endboss extends MoveableObject {
         return false;
     }
 
-
+    /**
+     * Exits the alert state and resumes normal behavior.
+     */
     leaveAlertState() {
         if (this.isAlerting) {
             this.isAlerting = false;
@@ -203,7 +245,11 @@ class Endboss extends MoveableObject {
         }
     }
 
-
+    /**
+     * Moves the endboss closer to the character.
+     *
+     * @param {Character} character The player character.
+     */
     moveTowardsCharacter(character) {
         if (character.x < this.x) {
 
@@ -215,7 +261,9 @@ class Endboss extends MoveableObject {
         }
     }
 
-
+    /**
+     * Ensures that the walking animation is running.
+     */
     ensureWalkingAnimation() {
         if (!this.walkingAnimationInterval) {
 
@@ -223,7 +271,9 @@ class Endboss extends MoveableObject {
         }
     }
 
-
+    /**
+     * Stops all running endboss animations and movement intervals.
+     */
     stopAllAnimations() {
         this.stopWalkingAnimation();
         this.stopAlertAnimation();
@@ -231,7 +281,9 @@ class Endboss extends MoveableObject {
         clearInterval(this.moveInterval);
     }
 
-
+    /**
+     * Starts the alert animation loop.
+     */
     startAlertAnimation() {
         if (this.alertAnimationInterval) return;
         this.stopWalkingAnimation();
@@ -240,13 +292,17 @@ class Endboss extends MoveableObject {
         }, 150);
     }
 
-
+    /**
+     * Stops the alert animation loop.
+     */
     stopAlertAnimation() {
         clearInterval(this.alertAnimationInterval);
         this.alertAnimationInterval = null;
     }
 
-
+    /**
+     * Stops the walking animation loop.
+     */
     stopWalkingAnimation() {
         if (this.walkingAnimationInterval) {
             clearInterval(this.walkingAnimationInterval);
@@ -254,7 +310,9 @@ class Endboss extends MoveableObject {
         }
     }
 
-
+    /**
+     * Plays the hurt animation sequence.
+     */
     hurtAnimation() {
         if (this.isDead() || this.isCurrentlyHurt) {
             return;
@@ -264,14 +322,18 @@ class Endboss extends MoveableObject {
         this.startHurtAnimation();
     }
 
-
+    /**
+     * Prepares the endboss for the hurt state.
+     */
     prepareHurtState() {
         this.isCurrentlyHurt = true;
         this.stopWalkingAnimation();
         this.stopAlertAnimation();
     }
 
-
+    /**
+     * Starts the hurt animation cycle.
+     */
     startHurtAnimation() {
         let currentFrame = 0;
         let totalFrames = this.IMAGES_HURT.length * this.totalCycles;
@@ -285,7 +347,11 @@ class Endboss extends MoveableObject {
         }, this.frameInterval);
     }
 
-
+    /**
+     * Displays a single hurt animation frame.
+     *
+     * @param {number} currentFrame Current animation frame index.
+     */
     playHurtFrame(currentFrame) {
         let imageIndex = currentFrame % this.IMAGES_HURT.length;
 
@@ -294,7 +360,9 @@ class Endboss extends MoveableObject {
         ];
     }
 
-
+    /**
+     * Ends the hurt animation and restores normal behavior.
+     */
     finishHurtAnimation() {
         clearInterval(this.hurtInterval);
         this.hurtInterval = null;
@@ -302,7 +370,10 @@ class Endboss extends MoveableObject {
         this.startWalkingAnimation();
     }
 
-
+    /**
+     * Applies damage to the endboss and triggers
+     * chase mode, hurt animation or death handling.
+     */
     hit() {
         this.reduceEnergy();
         this.activateChaseMode();
@@ -315,7 +386,9 @@ class Endboss extends MoveableObject {
         this.hurtAnimation();
     }
 
-
+    /**
+     * Reduces the endboss health points.
+     */
     reduceEnergy() {
         this.energy -= 10;
 
@@ -326,7 +399,9 @@ class Endboss extends MoveableObject {
         this.lastHit = new Date().getTime();
     }
 
-
+    /**
+     * Activates chase mode and increases chase speed.
+     */
     activateChaseMode() {
         this.isChasing = true;
 
@@ -335,7 +410,9 @@ class Endboss extends MoveableObject {
         }
     }
 
-
+    /**
+     * Handles the death state of the endboss.
+     */
     handleDeath() {
         if (this.isAlreadyDead) {
             return;
@@ -349,14 +426,18 @@ class Endboss extends MoveableObject {
         this.showWinningScreenWithDelay();
     }
 
-
+    /**
+     * Displays the winning screen after a short delay.
+     */
     showWinningScreenWithDelay() {
         setTimeout(() => {
             this.showWinningScreen();
         }, 1200);
     }
     
-
+    /**
+     * Plays the death animation.
+     */
     playDeathAnimation() {
         if (this.deathAnimationInterval) return;
         let i = 0;
@@ -370,7 +451,9 @@ class Endboss extends MoveableObject {
         }, this.frameInterval);
     }
 
-
+    /**
+     * Stops the hurt animation if active.
+     */
     stopHurtAnimation() {
         if (this.hurtInterval) {
             clearInterval(this.hurtInterval);
@@ -379,7 +462,9 @@ class Endboss extends MoveableObject {
         }
     }
 
-
+    /**
+     * Plays the endboss cry sound.
+     */
     playCrySound() {
         if (!soundEnabled) return;
         this.endboss_cry.currentTime = 0;
@@ -388,13 +473,17 @@ class Endboss extends MoveableObject {
         });
     }
 
-
+    /**
+     * Displays the winning screen after defeating the endboss.
+     */
     showWinningScreen() {
         this.world.showEndScreen('win');
         this.playWinningSound();
     }
 
-
+    /**
+     * Plays the winning sound effect.
+     */
     playWinningSound() {
         this.winning_sound.pause();
         this.winning_sound.currentTime = 0;
@@ -404,4 +493,5 @@ class Endboss extends MoveableObject {
         });
     }
 
+    
 }
