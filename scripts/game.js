@@ -15,9 +15,18 @@ function init() {
 }
 
 /**
- * Starts a new game and initializes the game world.
+ * Starts a new game.
  */
 function startGame() {
+    prepareGameUI();
+    initializeGameWorld();
+    startGameAudio();
+}
+
+/**
+ * Hides menu elements and shows game controls.
+ */
+function prepareGameUI() {
     const startScreen = document.getElementById('start-screen');
     const infoSettings = document.getElementById('info-settings-wrapper');
     const mobilePanel = document.getElementById('control-mobile-panel');
@@ -25,12 +34,24 @@ function startGame() {
     startScreen.classList.add('d-none');
     infoSettings.classList.add('d-none');
     mobilePanel.classList.remove('d-none');
+}
+
+/**
+ * Creates and initializes the game world.
+ */
+function initializeGameWorld() {
     initLevel();
 
     world = new World(canvas, keyboard);
     world.keyboard.initMobileButtons();
-    isGameActive = true;
 
+    isGameActive = true;
+}
+
+/**
+ * Starts background music if sound is enabled.
+ */
+function startGameAudio() {
     if (soundEnabled) {
         world.playBackgroundMusic();
     }
