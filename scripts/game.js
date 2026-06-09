@@ -5,13 +5,18 @@ let soundEnabled = true;
 let isGameActive = false;
 const DEBUG_FRAME = false;
 
+/**
+ * Initializes the game canvas and loads user settings.
+ */
 function init() {
     canvas = document.getElementById('canvas')
     loadSoundState();
     checkDeviceOrientation();
 }
 
-
+/**
+ * Starts a new game and initializes the game world.
+ */
 function startGame() {
     const startScreen = document.getElementById('start-screen');
     const infoSettings = document.getElementById('info-settings-wrapper');
@@ -87,7 +92,11 @@ window.addEventListener("keyup", (e) => {
     }
 })
 
-
+/**
+ * Opens the information overlay with custom content.
+ *
+ * @param {string} htmlContent The HTML content to display.
+ */
 function openInfoOverlay(htmlContent) {
     const overlay = document.getElementById('overlay-info');
     const content = document.getElementById('overlay-info-content');
@@ -96,13 +105,18 @@ function openInfoOverlay(htmlContent) {
     overlay.classList.remove('d-none');
 }
 
-
+/**
+ * Closes the information overlay.
+ */
 function closeInfoOverlay() {
     const overlay = document.getElementById('overlay-info');
     overlay.classList.add('d-none');
 }
 
-
+/**
+ * Checks the current device orientation and displays
+ * the orientation overlay if necessary.
+ */
 function checkDeviceOrientation() {
     const isMobile = window.innerWidth <= 900;
     const isPortrait = window.matchMedia("(orientation: portrait)").matches;
@@ -114,21 +128,27 @@ function checkDeviceOrientation() {
     }
 }
 
-
+/**
+ * Displays the orientation warning overlay.
+ */
 function showOrientationOverlay() {
     const overlay = document.getElementById('orientation-overlay');
     overlay.classList.remove('d-none');
     document.body.classList.add('no-scroll');
 }
 
-
+/**
+ * Hides the orientation warning overlay.
+ */
 function hideOrientationOverlay() {
     const overlay = document.getElementById('orientation-overlay');
     overlay.classList.add('d-none');
     document.body.classList.remove('no-scroll');
 }
 
-
+/**
+ * Restarts the game after a win or loss.
+ */
 function restartGame() {
     isGameActive = false;
     world.stopBackgroundMusic();
@@ -139,7 +159,9 @@ function restartGame() {
     startGame();
 }
 
-
+/**
+ * Returns the player to the start menu.
+ */
 function returnToStartMenu() {
     isGameActive = false;
     world.stopBackgroundMusic();
@@ -153,7 +175,9 @@ function returnToStartMenu() {
     soundIcon.classList.remove('d-none');
 }
 
-
+/**
+ * Toggles game sound on or off.
+ */
 function toggleSound() {
     soundEnabled = !soundEnabled;
     updateSoundIcon();
@@ -170,12 +194,16 @@ function toggleSound() {
     }
 }
 
-
+/**
+ * Saves the current sound setting to local storage.
+ */
 function saveSoundState() {
     localStorage.setItem('soundEnabled', soundEnabled);
 }
 
-
+/**
+ * Loads the saved sound setting from local storage.
+ */
 function loadSoundState() {
     const savedSoundState = localStorage.getItem('soundEnabled');
 
@@ -186,7 +214,9 @@ function loadSoundState() {
     updateSoundIcon();
 }
 
-
+/**
+ * Updates the sound icon according to the current sound state.
+ */
 function updateSoundIcon() {
     const soundIcon = document.getElementById('sound-icon');
 
