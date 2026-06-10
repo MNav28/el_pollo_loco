@@ -1,3 +1,11 @@
+/**
+ * Generates the HTML template for the legal notice (Impressum) overlay.
+ *
+ * The template contains contact information, legal details,
+ * and attribution links for external assets used in the project.
+ *
+ * @returns {string} The HTML markup for the Impressum overlay.
+ */
 function getImpressumTemplate() {
     return `
         <div class="overlay-info-header">
@@ -32,7 +40,14 @@ function getImpressumTemplate() {
     `;
 }
 
-
+/**
+ * Generates the HTML template for the game controls overlay.
+ *
+ * The template displays desktop and mobile control instructions,
+ * including movement, jumping, and bottle-throwing actions.
+ *
+ * @returns {string} The HTML markup for the controls overlay.
+ */
 function getControlTemplate() {
     return `
         <div class="overlay-info-header">
