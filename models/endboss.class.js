@@ -8,7 +8,7 @@ class Endboss extends MoveableObject {
     height = 480;
     width = 320;
     moveInterval;
-    
+
     IMAGES_WALKING = IMAGES_ENDBOSS_WALKING;
     IMAGES_ALERT = IMAGES_ENDBOSS_ALERT;
     IMAGES_HURT = IMAGES_ENDBOSS_HURT;
@@ -17,7 +17,7 @@ class Endboss extends MoveableObject {
     /**
      * Creates a new Endboss instance and initializes
      * images, sounds, movement settings and animation states.
-     */    
+     */
     constructor() {
         super().loadImage(this.IMAGES_ALERT[0]);
         this.loadImages(this.IMAGES_WALKING);
@@ -58,58 +58,13 @@ class Endboss extends MoveableObject {
             const character = this.world.character;
             const distance = Math.abs(this.x - character.x);
 
-            if (this.handleChasing(character)) return;
-
+            if (handleChasing(this, character)) return;
             if (distance <= 300 && !this.isCurrentlyHurt) {
-                this.handleAlertState(character);
+                handleAlertState(this, character);
             } else {
-                this.handlePatrolState();
+                handlePatrolState(this);
             }
         }, 1000 / 60);
-    }
-
-    /**
-     * Handles the chasing state of the endboss.
-     *
-     * @param {Character} character The player character.
-     * @returns {boolean} Returns true if the endboss is currently chasing.
-     */
-    handleChasing(character) {
-        if (this.isChasing && !this.isCurrentlyHurt) {
-            this.chaseCharacter(character);
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * Activates the alert state when the character is nearby.
-     *
-     * @param {Character} character The player character.
-     */
-    handleAlertState(character) {
-        if (!this.isAlerting) {
-            this.stopWalkingAnimation();
-            this.faceCharacter(character);
-            this.isAlerting = true;
-            this.startAlertAnimation();
-        }
-    }
-
-    /**
-     * Handles the default patrol behavior.
-     */
-    handlePatrolState() {
-        if (this.isCurrentlyHurt || this.isChasing) {
-            return;
-        }
-
-        if (this.isAlerting) {
-            this.isAlerting = false;
-            this.stopAlertAnimation();
-        }
-        this.startWalking();
     }
 
     /**
@@ -146,85 +101,12 @@ class Endboss extends MoveableObject {
     }
 
     /**
-     * Rotates the endboss towards the character.
-     *
-     * @param {Character} character The player character.
-     */
-    faceCharacter(character) {
-        let distance = character.x - this.x;
-        if (Math.abs(distance) < 40) {
-            return;
-        }
-
-        if (distance < 0) {
-            this.otherDirection = false;
-            this.direction = -1;
-        } else {
-            this.otherDirection = true;
-            this.direction = 1;
-        }
-    }
-
-    /**
-     * Moves the endboss towards the character.
-     *
-     * @param {Character} character The player character.
-     */
-    chaseCharacter(character) {
-        this.faceCharacter(character);
-
-        let distance = Math.abs(character.x - this.x);
-
-        if (this.hasReachedCharacter(distance)) {
-            return;
-        }
-
-        this.leaveAlertState();
-        this.moveTowardsCharacter(character);
-        this.ensureWalkingAnimation();
-    }
-
-    /**
-     * Checks whether the endboss has reached the character.
-     *
-     * @param {number} distance Current distance to the character.
-     * @returns {boolean} Returns true when the target distance is reached.
-     */
-    hasReachedCharacter(distance) {
-        if (distance < 40) {
-            this.stopWalkingAnimation();
-            if (!this.isAlerting) {
-                this.isAlerting = true;
-                this.startAlertAnimation();
-            }
-            return true;
-        }
-        return false;
-    }
-
-    /**
      * Exits the alert state and resumes normal behavior.
      */
     leaveAlertState() {
         if (this.isAlerting) {
             this.isAlerting = false;
             this.stopAlertAnimation();
-        }
-    }
-
-    /**
-     * Moves the endboss closer to the character.
-     *
-     * @param {Character} character The player character.
-     */
-    moveTowardsCharacter(character) {
-        if (character.x < this.x) {
-
-            this.x -= this.chaseSpeed;
-
-        } else {
-
-            this.x += this.chaseSpeed;
         }
     }
 
@@ -401,7 +283,7 @@ class Endboss extends MoveableObject {
             this.showWinningScreen();
         }, 1200);
     }
-    
+
     /**
      * Plays the death animation.
      */
@@ -460,5 +342,5 @@ class Endboss extends MoveableObject {
         });
     }
 
-    
+
 }
