@@ -17,7 +17,7 @@ const IMAGES_JUMPING = [
         './assets/img/2_character_pepe/3_jump/J-37.png',
         './assets/img/2_character_pepe/3_jump/J-38.png',
         './assets/img/2_character_pepe/3_jump/J-39.png'
-    ]
+    ];
 
 const IMAGES_DEAD = [
         './assets/img/2_character_pepe/5_dead/D-51.png',
@@ -46,7 +46,7 @@ const IMAGES_IDLE = [
         './assets/img/2_character_pepe/1_idle/idle/I-8.png',
         './assets/img/2_character_pepe/1_idle/idle/I-9.png',
         './assets/img/2_character_pepe/1_idle/idle/I-10.png',
-    ]
+    ];
 
 const IMAGES_LONG_IDLE = [
         './assets/img/2_character_pepe/1_idle/long_idle/I-11.png',
