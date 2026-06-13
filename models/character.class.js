@@ -133,9 +133,9 @@ class Character extends MoveableObject {
      * Updates all movement-related sound effects.
      */
     handleMovementSounds() {
-        this.handleWalkingSound();
-        this.handleJumpSound();
-        this.handleCollectingSound();
+        handleWalkingSound(this);
+        handleJumpSound(this);
+        handleCollectingSound(this);
     }
 
     /**
@@ -257,66 +257,6 @@ class Character extends MoveableObject {
             (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) ||
             (this.world.keyboard.LEFT && this.x > 0)
         );
-    }
-
-    /**
-     * Plays or stops the walking sound.
-     */
-    handleWalkingSound() {
-        if (!soundEnabled) {
-            this.walking_sound.pause();
-            this.walking_sound.currentTime = 0;
-            return;
-        }
-        if (this.isWalking() && !this.isAboveGround()) {
-            if (this.walking_sound.paused) {
-                this.walking_sound.play().catch((e) => {
-                    console.warn('Laufsound konnte nicht abgespielt werden:', e);
-                });
-            }
-        } else {
-            this.walking_sound.pause();
-            this.walking_sound.currentTime = 0;
-        }
-    }
-
-    /**
-     * Plays the jump sound once per jump.
-     */
-    handleJumpSound() {
-        if (!soundEnabled) {
-            this.jump_sound.pause();
-            this.jump_sound.currentTime = 0;
-            return;
-        }
-        if (this.isAboveGround() && !this.isJumpSoundPlayed) {
-            this.isJumpSoundPlayed = true;
-            this.jump_sound.currentTime = 0;
-            this.jump_sound.play().catch((e) => {
-                console.warn('Jump sound konnte nicht abgespielt werden:', e);
-            });
-        }
-        if (!this.isAboveGround() && this.isJumpSoundPlayed) {
-            this.isJumpSoundPlayed = false;
-        }
-    }
-
-    /**
-     * Plays the collecting sound when coins or bottles are collected.
-     */
-    handleCollectingSound() {
-        if (!soundEnabled || this.isStopped) return;
-        let coinsAmountChanged = this.world.collectedCoins > this.lastCollectedCoins;
-        let bottlesAmountChanged = this.world.collectedBottles > this.lastCollectedBottles;
-
-        if ((coinsAmountChanged || bottlesAmountChanged)) {
-            this.collecting_sound.currentTime = 0;
-            this.collecting_sound.play().catch((e) => {
-                console.warn('Collecting sound konnte nicht abgespielt werden:', e);
-            });
-        }
-        this.lastCollectedCoins = this.world.collectedCoins;
-        this.lastCollectedBottles = this.world.collectedBottles;
     }
 
     /**
