@@ -27,8 +27,8 @@ class Endboss extends MoveableObject {
         this.endboss_cry = new Audio('./assets/audio/endboss_cry.mp3');
         this.winning_sound = new Audio('./assets/audio/winning_sound.mp3');
         this.speed = 1.2;
-        this.chaseSpeed = 3;
-        this.maxChaseSpeed = 5;
+        this.chaseSpeed = 5;
+        this.maxChaseSpeed = 9;
         this.x = 2900;
         this.offsetX = 40;
         this.offsetY = 130;
@@ -46,6 +46,7 @@ class Endboss extends MoveableObject {
         this.deathAnimationInterval = null;
         this.walkingAnimationInterval = null;
         this.isAlerting = false;
+        this.alertFinished = false;
         this.alertAnimationInterval = null;
     }
 
@@ -136,8 +137,18 @@ class Endboss extends MoveableObject {
     startAlertAnimation() {
         if (this.alertAnimationInterval) return;
         this.stopWalkingAnimation();
+
+        let frame = 0;
+
         this.alertAnimationInterval = setInterval(() => {
-            this.playAnimation(this.IMAGES_ALERT);
+            this.img = this.imageCache[this.IMAGES_ALERT[frame]];
+            frame++;
+            if (frame >= this.IMAGES_ALERT.length) {
+                clearInterval(this.alertAnimationInterval);
+                this.alertAnimationInterval = null;
+                this.alertFinished = true;
+                this.isChasing = true;
+            }
         }, 150);
     }
 
@@ -255,7 +266,7 @@ class Endboss extends MoveableObject {
         this.isChasing = true;
 
         if (this.chaseSpeed < this.maxChaseSpeed) {
-            this.chaseSpeed += 0.2;
+            this.chaseSpeed += 0.8;
         }
     }
 

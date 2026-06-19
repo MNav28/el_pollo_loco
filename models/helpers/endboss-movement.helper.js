@@ -25,6 +25,7 @@ function handleAlertState(endboss, character) {
         endboss.stopWalkingAnimation();
         faceCharacter(endboss, character);
         endboss.isAlerting = true;
+        endboss.alertFinished = false;
         endboss.startAlertAnimation();
     }
 }
