@@ -27,8 +27,8 @@ class Endboss extends MoveableObject {
         this.endboss_cry = new Audio('./assets/audio/endboss_cry.mp3');
         this.winning_sound = new Audio('./assets/audio/winning_sound.mp3');
         this.speed = 1.2;
-        this.chaseSpeed = 5;
-        this.maxChaseSpeed = 9;
+        this.chaseSpeed = 9;
+        this.maxChaseSpeed = 11;
         this.x = 2900;
         this.offsetX = 40;
         this.offsetY = 130;
@@ -46,7 +46,6 @@ class Endboss extends MoveableObject {
         this.deathAnimationInterval = null;
         this.walkingAnimationInterval = null;
         this.isAlerting = false;
-        this.alertFinished = false;
         this.alertAnimationInterval = null;
     }
 
@@ -60,11 +59,12 @@ class Endboss extends MoveableObject {
             const distance = Math.abs(this.x - character.x);
 
             if (handleChasing(this, character)) return;
-            if (distance <= 300 && !this.isCurrentlyHurt) {
+            if (distance <= 500 && !this.isCurrentlyHurt) {
+
                 handleAlertState(this, character);
-            } else {
-                handlePatrolState(this);
+                return;
             }
+            handlePatrolState(this);
         }, 1000 / 60);
     }
 
@@ -146,7 +146,6 @@ class Endboss extends MoveableObject {
             if (frame >= this.IMAGES_ALERT.length) {
                 clearInterval(this.alertAnimationInterval);
                 this.alertAnimationInterval = null;
-                this.alertFinished = true;
                 this.isChasing = true;
             }
         }, 150);
@@ -266,7 +265,7 @@ class Endboss extends MoveableObject {
         this.isChasing = true;
 
         if (this.chaseSpeed < this.maxChaseSpeed) {
-            this.chaseSpeed += 0.8;
+            this.chaseSpeed += 0.9;
         }
     }
 
