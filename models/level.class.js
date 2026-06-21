@@ -7,7 +7,7 @@ class Level {
     backgroundObjects;
     bottles;
     coins;
-    level_end_x = 2900; 
+    level_end_x = 3200; 
 
     /**
      * Creates a new level with all game objects.
