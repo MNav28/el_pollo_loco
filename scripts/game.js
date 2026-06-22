@@ -60,58 +60,64 @@ function startGameAudio() {
 
 window.addEventListener("keydown", (e) => {
 
-    if (e.keyCode == 37) {
-        keyboard.LEFT = true;
-    }
+    switch (e.code) {
 
-    if (e.keyCode == 39) {
-        keyboard.RIGHT = true;
-    }
+        case "ArrowLeft":
+            keyboard.LEFT = true;
+            break;
 
-    if (e.keyCode == 38) {
-        keyboard.UP = true;
-    }
+        case "ArrowRight":
+            keyboard.RIGHT = true;
+            break;
 
-    if (e.keyCode == 40) {
-        keyboard.DOWN = true;
-    }
+        case "ArrowUp":
+            keyboard.UP = true;
+            break;
 
-    if (e.keyCode == 32) {
-        keyboard.SPACE = true;
-    }
+        case "ArrowDown":
+            keyboard.DOWN = true;
+            break;
 
-    if (e.keyCode == 68) {
-        keyboard.D = true;
+        case "Space":
+            keyboard.SPACE = true;
+            break;
+
+        case "KeyD":
+            keyboard.D = true;
+            break;
     }
-})
+});
 
 
 window.addEventListener("keyup", (e) => {
 
-    if (e.keyCode == 37) {
-        keyboard.LEFT = false;
-    }
+    switch (e.code) {
 
-    if (e.keyCode == 39) {
-        keyboard.RIGHT = false;
-    }
+        case "ArrowLeft":
+            keyboard.LEFT = false;
+            break;
 
-    if (e.keyCode == 38) {
-        keyboard.UP = false;
-    }
+        case "ArrowRight":
+            keyboard.RIGHT = false;
+            break;
 
-    if (e.keyCode == 40) {
-        keyboard.DOWN = false;
-    }
+        case "ArrowUp":
+            keyboard.UP = false;
+            break;
 
-    if (e.keyCode == 32) {
-        keyboard.SPACE = false;
-    }
+        case "ArrowDown":
+            keyboard.DOWN = false;
+            break;
 
-    if (e.keyCode == 68) {
-        keyboard.D = false;
+        case "Space":
+            keyboard.SPACE = false;
+            break;
+
+        case "KeyD":
+            keyboard.D = false;
+            break;
     }
-})
+});
 
 /**
  * Opens the information overlay with custom content.
