@@ -18,7 +18,7 @@ class Keyboard {
         btn.addEventListener('touchstart', (e) => {
             e.preventDefault();
             this.LEFT = true;
-        });
+        }, { passive: false });
 
         btn.addEventListener('touchend', (e) => {
             e.preventDefault();
@@ -34,7 +34,7 @@ class Keyboard {
         btn.addEventListener('touchstart', (e) => {
             e.preventDefault();
             this.RIGHT = true;
-        });
+        }, { passive: false });
 
         btn.addEventListener('touchend', (e) => {
             e.preventDefault();
@@ -50,7 +50,7 @@ class Keyboard {
         btn.addEventListener('touchstart', (e) => {
             e.preventDefault();
             this.SPACE = true;
-        });
+        }, { passive: false });
 
         btn.addEventListener('touchend', (e) => {
             e.preventDefault();
@@ -67,7 +67,7 @@ class Keyboard {
         btn.addEventListener('touchstart', (e) => {
             e.preventDefault();
             this.D = true;
-        });
+        }, { passive: false });
 
         btn.addEventListener('touchend', (e) => {
             e.preventDefault();
