@@ -18,37 +18,79 @@ function getImpressumTemplate() {
         </div>
 
         <div class="overlay-info-body">
-        <h1>Impressum</h1>
-        <h2>Angaben gemäß § 5 TMG</h2>
 
-        <p><b>Michael Navarro</b><br>
-        Ganghoferstr. 91<br>
-        81373 München</p>
+            <h2>Impressum</h2>
 
-        <h2>Kontakt</h2>
-        <p>
-            E-Mail: <a href="mailto:m.navarro@gmx.net">m.navarro@gmx.net</a>
-        </p>
+            <h3>Angaben gemäß § 5 TMG</h3>
 
-        <p>Quelle: e-recht24.de Impressum-Generator</p>
-        <p>Die Soundeffekte stammen von <a href="https://pixabay.com/sound-effects/" rel="nofollow" target="_blank">Pixabay</a> </p>
-        <p>Das Hintergrundbild stammt von <a href="https://www.freepik.com" rel="nofollow" target="_blank">Freepik</a> </p>
-        <p>Die Icons kommen von <a href="https://fontawesome.com/start" rel="nofollow" target="_blank">Fontawesome</a> und 
-            <a href="https://www.flaticon.com" rel="nofollow" target="_blank">Flaticon</a>
-        </p>
+            <p>
+                <b>Michael Navarro</b><br>
+                Ganghoferstr. 91<br>
+                81373 München
+            </p>
+
+            <h3>Kontakt</h3>
+
+            <p>
+                E-Mail: 
+                <a href="mailto:m.navarro@gmx.net">
+                    m.navarro@gmx.net
+                </a>
+            </p>
+
+            <p>
+                Quelle: e-recht24.de Impressum-Generator
+            </p>
+
+            <p>
+                Die Soundeffekte stammen von 
+                <a href="https://pixabay.com/sound-effects/" 
+                   rel="nofollow" 
+                   target="_blank">
+                   Pixabay
+                </a>
+            </p>
+
+            <p>
+                Das Hintergrundbild stammt von 
+                <a href="https://www.freepik.com" 
+                   rel="nofollow" 
+                   target="_blank">
+                   Freepik
+                </a>
+            </p>
+
+            <p>
+                Die Icons kommen von 
+                <a href="https://fontawesome.com/start" 
+                   rel="nofollow" 
+                   target="_blank">
+                   Fontawesome
+                </a>
+                und 
+                <a href="https://www.flaticon.com" 
+                   rel="nofollow" 
+                   target="_blank">
+                   Flaticon
+                </a>
+            </p>
+
         </div>
     `;
 }
 
+
 /**
  * Generates the HTML template for the game controls overlay.
  *
- * The template displays desktop and mobile control instructions,
- * including movement, jumping, and bottle-throwing actions.
+ * Displays only the controls matching the current input device.
  *
  * @returns {string} The HTML markup for the controls overlay.
  */
 function getControlTemplate() {
+
+    const isMobileDevice = window.matchMedia("(pointer: coarse)").matches;
+
     return `
         <div class="overlay-info-header">
             <img 
@@ -59,75 +101,104 @@ function getControlTemplate() {
             >
         </div>
 
-         <div class="overlay-info-body">
+        <div class="overlay-info-body">
 
-    <h1>Steuerung</h1>
+            <h2>Steuerung</h2>
 
-    <div class="controls-wrapper">
+            ${
+                isMobileDevice
+                ? getMobileControlsTemplate()
+                : getDesktopControlsTemplate()
+            }
 
-        <!-- DESKTOP -->
-        <div class="controls-column">
-            <h2>Desktop</h2>
+        </div>
+    `;
+}
 
-            <div class="control-grid">
 
-                <div class="control-row">
-                    <div class="key">←</div>
-                    <span>links laufen</span>
-                </div>
+/**
+ * Generates desktop control instructions.
+ *
+ * @returns {string} Desktop controls markup.
+ */
+function getDesktopControlsTemplate() {
+    return `
 
-                <div class="control-row">
-                    <div class="key">→</div>
-                    <span>rechts laufen</span>
-                </div>
+        <div class="controls-wrapper">
 
-                <div class="control-row">
-                    <div class="key space">⎵</div>
-                    <span>springen</span>
-                </div>
+            <div class="controls-column">
 
-                <div class="control-row">
-                    <div class="key">D</div>
-                    <span>Flasche werfen</span>
+                <div class="control-grid">
+
+                    <div class="control-row">
+                        <div class="key">←</div>
+                        <span>links laufen</span>
+                    </div>
+
+                    <div class="control-row">
+                        <div class="key">→</div>
+                        <span>rechts laufen</span>
+                    </div>
+
+                    <div class="control-row">
+                        <div class="key space">⎵</div>
+                        <span>springen</span>
+                    </div>
+
+                    <div class="control-row">
+                        <div class="key">D</div>
+                        <span>Flasche werfen</span>
+                    </div>
+
                 </div>
 
             </div>
+
         </div>
 
-        <!-- separator -->
-        <div class="controls-separator"></div>
+    `;
+}
 
-        <!-- MOBILE -->
-        <div class="controls-column">
-            <h2>Mobil</h2>
 
-            <div class="control-grid">
+/**
+ * Generates mobile control instructions.
+ *
+ * @returns {string} Mobile controls markup.
+ */
+function getMobileControlsTemplate() {
+    return `
 
-                <div class="control-row">
-                    <img src="./assets/img/left.svg" alt="Links">
-                    <span>links laufen</span>
-                </div>
+        <div class="controls-wrapper">
 
-                <div class="control-row">
-                    <img src="./assets/img/right.svg" alt="Rechts">
-                    <span>rechts laufen</span>
-                </div>
+            <div class="controls-column">
 
-                <div class="control-row">
-                    <img src="./assets/img/up.svg" alt="Springen">
-                    <span>springen</span>
-                </div>
+                <div class="control-grid">
 
-                <div class="control-row">
-                    <img src="./assets/img/throw.svg" alt="Werfen">
-                    <span>Flasche werfen</span>
+                    <div class="control-row">
+                        <img src="./assets/img/left.svg" alt="Links">
+                        <span>links laufen</span>
+                    </div>
+
+                    <div class="control-row">
+                        <img src="./assets/img/right.svg" alt="Rechts">
+                        <span>rechts laufen</span>
+                    </div>
+
+                    <div class="control-row">
+                        <img src="./assets/img/up.svg" alt="Springen">
+                        <span>springen</span>
+                    </div>
+
+                    <div class="control-row">
+                        <img src="./assets/img/throw.svg" alt="Werfen">
+                        <span>Flasche werfen</span>
+                    </div>
+
                 </div>
 
             </div>
+
         </div>
 
-    </div>
-
-</div>
     `;
 }

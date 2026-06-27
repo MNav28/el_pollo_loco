@@ -272,7 +272,7 @@ body.no-scroll {
     overflow: hidden;
 }
 
-.overlay-info-body h1 {
+.overlay-info-body h2 {
     font-size: 48px;
     margin-bottom: 40px;
 }
