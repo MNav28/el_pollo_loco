@@ -90,6 +90,12 @@ function getImpressumTemplate() {
 function getControlTemplate() {
 
     const isMobileDevice = window.matchMedia("(pointer: coarse)").matches;
+    let controls;
+    if (isMobileDevice) {
+        controls = getMobileControlsTemplate();
+    } else {
+        controls = getDesktopControlsTemplate();
+    }
 
     return `
         <div class="overlay-info-header">
@@ -105,11 +111,7 @@ function getControlTemplate() {
 
             <h2>Steuerung</h2>
 
-            ${
-                isMobileDevice
-                ? getMobileControlsTemplate()
-                : getDesktopControlsTemplate()
-            }
+            ${controls}
 
         </div>
     `;
