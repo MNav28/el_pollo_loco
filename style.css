@@ -166,7 +166,7 @@ h1 {
 
 .overlay-info-content {
     background: #FFB119;
-    width: 720px;
+    width: 520px;
     max-height: calc(100vh - 120px);
     overflow-y: auto;
     padding: 20px;
