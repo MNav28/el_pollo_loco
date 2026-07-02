@@ -12,6 +12,7 @@ function init() {
     canvas = document.getElementById('canvas')
     loadSoundState();
     checkDeviceOrientation();
+    initKeyboardEvents();
 }
 
 /**
@@ -57,67 +58,72 @@ function startGameAudio() {
     }
 }
 
+/**
+ * Initializes keyboard controls for desktop input.
+ */
+function initKeyboardEvents() {
 
-window.addEventListener("keydown", (e) => {
+    window.addEventListener("keydown", (e) => {
 
-    switch (e.code) {
+        switch (e.code) {
 
-        case "ArrowLeft":
-            keyboard.LEFT = true;
-            break;
+            case "ArrowLeft":
+                keyboard.LEFT = true;
+                break;
 
-        case "ArrowRight":
-            keyboard.RIGHT = true;
-            break;
+            case "ArrowRight":
+                keyboard.RIGHT = true;
+                break;
 
-        case "ArrowUp":
-            keyboard.UP = true;
-            break;
+            case "ArrowUp":
+                keyboard.UP = true;
+                break;
 
-        case "ArrowDown":
-            keyboard.DOWN = true;
-            break;
+            case "ArrowDown":
+                keyboard.DOWN = true;
+                break;
 
-        case "Space":
-            keyboard.SPACE = true;
-            break;
+            case "Space":
+                keyboard.SPACE = true;
+                break;
 
-        case "KeyD":
-            keyboard.D = true;
-            break;
-    }
-});
+            case "KeyD":
+                keyboard.D = true;
+                break;
+        }
+    });
 
 
-window.addEventListener("keyup", (e) => {
+    window.addEventListener("keyup", (e) => {
 
-    switch (e.code) {
+        switch (e.code) {
 
-        case "ArrowLeft":
-            keyboard.LEFT = false;
-            break;
+            case "ArrowLeft":
+                keyboard.LEFT = false;
+                break;
 
-        case "ArrowRight":
-            keyboard.RIGHT = false;
-            break;
+            case "ArrowRight":
+                keyboard.RIGHT = false;
+                break;
 
-        case "ArrowUp":
-            keyboard.UP = false;
-            break;
+            case "ArrowUp":
+                keyboard.UP = false;
+                break;
 
-        case "ArrowDown":
-            keyboard.DOWN = false;
-            break;
+            case "ArrowDown":
+                keyboard.DOWN = false;
+                break;
 
-        case "Space":
-            keyboard.SPACE = false;
-            break;
+            case "Space":
+                keyboard.SPACE = false;
+                break;
 
-        case "KeyD":
-            keyboard.D = false;
-            break;
-    }
-});
+            case "KeyD":
+                keyboard.D = false;
+                break;
+        }
+    });
+}
 
 /**
  * Opens the information overlay with custom content.
