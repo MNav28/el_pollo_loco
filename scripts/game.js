@@ -10,9 +10,10 @@ const DEBUG_FRAME = false;
  */
 function init() {
     canvas = document.getElementById('canvas')
+    initKeyboardEvents();
+    initOrientationEvents();
     loadSoundState();
     checkDeviceOrientation();
-    initKeyboardEvents();
 }
 
 /**
@@ -262,7 +263,12 @@ function updateSoundIcon() {
     }
 }
 
+/**
+ * Initializes orientation change events.
+ */
+function initOrientationEvents() {
 
+    window.addEventListener('resize', checkDeviceOrientation);
 
-window.addEventListener('resize', checkDeviceOrientation);
-window.addEventListener('orientationchange', checkDeviceOrientation);
+    window.addEventListener('orientationchange', checkDeviceOrientation);
+}
