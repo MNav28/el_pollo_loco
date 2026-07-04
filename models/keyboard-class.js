@@ -16,28 +16,36 @@ class Keyboard {
     mobileBtnLeft() {
         const btn = document.getElementById('btnLeft');
         btn.addEventListener('touchstart', (e) => {
-            e.preventDefault();
+            if (e.cancelable) {
+                e.preventDefault();
+            }
             this.LEFT = true;
         }, { passive: false });
 
         btn.addEventListener('touchend', (e) => {
-            e.preventDefault();
+            if (e.cancelable) {
+                e.preventDefault();
+            }
             this.LEFT = false;
         });
     }
 
     /**
      * Registers touch events for the right movement button.
-     */    
+     */
     mobileBtnRight() {
         const btn = document.getElementById('btnRight');
         btn.addEventListener('touchstart', (e) => {
-            e.preventDefault();
+            if (e.cancelable) {
+                e.preventDefault();
+            }
             this.RIGHT = true;
         }, { passive: false });
 
         btn.addEventListener('touchend', (e) => {
-            e.preventDefault();
+            if (e.cancelable) {
+                e.preventDefault();
+            }
             this.RIGHT = false;
         });
     }
@@ -48,12 +56,16 @@ class Keyboard {
     mobileBtnJump() {
         const btn = document.getElementById('btnJump');
         btn.addEventListener('touchstart', (e) => {
-            e.preventDefault();
+            if (e.cancelable) {
+                e.preventDefault();
+            }
             this.SPACE = true;
         }, { passive: false });
 
         btn.addEventListener('touchend', (e) => {
-            e.preventDefault();
+            if (e.cancelable) {
+                e.preventDefault();
+            }
             this.SPACE = false;
         });
 
@@ -65,12 +77,16 @@ class Keyboard {
     mobileBtnThrow() {
         const btn = document.getElementById('btnThrow');
         btn.addEventListener('touchstart', (e) => {
-            e.preventDefault();
+            if (e.cancelable) {
+                e.preventDefault();
+            }
             this.D = true;
         }, { passive: false });
 
         btn.addEventListener('touchend', (e) => {
-            e.preventDefault();
+            if (e.cancelable) {
+                e.preventDefault();
+            }
             this.D = false;
         });
     }
@@ -85,6 +101,6 @@ class Keyboard {
         this.mobileBtnThrow();
     };
 
-    
+
 }
 
